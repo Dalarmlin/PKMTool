@@ -16,7 +16,7 @@ PKMTool 是給《寶可夢冠軍》（Pokémon Champions）玩家用的 AI 戰�
   - 第 2~7 張：我方 6 隻寶可夢各自的招式表
 - 點擊選取、手機拍照、拖曳、`Ctrl + V` 貼上
 - 縮圖預覽、放大檢視、單張刪除、左右調整順序
-- AI 輸出：截圖辨識結果、對手體系與速度線、最佳選角、先發順序、T1 行動與分支決策、勝利條件
+- AI 輸出：截圖辨識結果、對手體系與速度線、最佳選角、先發順序、T1 行動與分支決策、勝利條件、預估勝率（太低時建議直接投降）
 - Gemini API Key 只存放在 Cloudflare Worker，前端與 GitHub 上都不會出現
 - 密碼保護：Worker 只接受帶有正確 `X-Access-Passcode` 的請求，只有知道密碼的人能使用
 
@@ -180,8 +180,10 @@ npm run dev
 回應：
 
 ```json
-{ "ok": true, "markdown": "## 📋 0. 截圖辨識結果 ...", "model": "gemini-3.5-flash-lite", "usage": { } }
+{ "ok": true, "markdown": "## 📋 0. 截圖辨識結果 ...", "winRate": 42, "model": "gemini-3.5-flash-lite", "usage": { } }
 ```
+
+`winRate` 為 AI 預估勝率（0~100 的整數），AI 未給出時為 `null`。前端依此顯示：≥ 55% 積極應戰、30%~54% 謹慎應戰、< 30% 建議投降。
 
 錯誤時回傳 `{ "ok": false, "error": "錯誤訊息" }`，HTTP 狀態碼為 400 / 401 / 405 / 500 / 502。
 
