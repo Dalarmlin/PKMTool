@@ -1,0 +1,11 @@
+{
+  "name": "pkmtool",
+  "private": true,
+  "scripts": {
+    "deploy": "npx wrangler deploy",
+    "dev": "npx wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.155.0"
+  }
+}

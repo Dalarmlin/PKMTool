@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PKMTool · 寶可夢冠軍 AI 戰略分析</title>
+  <meta name="description" content="上傳《寶可夢冠軍》對戰截圖，AI 分析最佳選角、先發順序與第一回合戰術。" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- marked.js：Markdown 轉 HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- DOMPurify：清洗 AI 回傳的 HTML，避免 XSS -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+
+  <style>
+    /* Markdown 結果區塊樣式 */
+    .md h1, .md h2 { font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 .75rem; color: #fbbf24; border-bottom: 1px solid #334155; padding-bottom: .35rem; }
+    .md h3 { font-size: 1.05rem; font-weight: 600; margin: 1.25rem 0 .5rem; color: #7dd3fc; }
+    .md p { margin: .5rem 0; line-height: 1.75; }
+    .md ul, .md ol { margin: .5rem 0 .5rem 1.4rem; line-height: 1.75; }
+    .md ul { list-style: disc; } .md ol { list-style: decimal; }
+    .md strong { color: #fde68a; }
+    .md code { background: #1e293b; padding: .1rem .35rem; border-radius: .25rem; font-size: .9em; }
+    .md pre { background: #0f172a; padding: .75rem; border-radius: .5rem; overflow-x: auto; }
+    .md blockquote { border-left: 3px solid #f59e0b; padding-left: .75rem; color: #cbd5e1; margin: .75rem 0; }
+    .md table { width: 100%; border-collapse: collapse; margin: .75rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+    .md th, .md td { border: 1px solid #334155; padding: .4rem .6rem; text-align: left; white-space: nowrap; }
+    .md th { background: #1e293b; color: #fbbf24; }
+    .md hr { border-color: #334155; margin: 1rem 0; }
+    .drop-active { border-color: #f59e0b !important; background: rgba(245, 158, 11, .08); }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 py-6 sm:py-10">
+
+    <!-- ===================== 標題 ===================== -->
+    <header class="mb-6 text-center">
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+        <span class="text-amber-400">PKM</span>Tool
+      </h1>
+      <p class="text-slate-400 mt-2 text-sm sm:text-base">《寶可夢冠軍》AI 戰略分析 · 選角 / 先發 / 第一回合博弈</p>
+    </header>
+
+    <!-- ===================== API 設定 ===================== -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
+      <label for="workerUrl" class="block text-sm font-semibold text-slate-300 mb-2">⚙️ Cloudflare Worker API 網址</label>
+      <div class="flex flex-col sm:flex-row gap-2">
+        <input id="workerUrl" type="url" placeholder="https://pkmtool-worker.你的帳號.workers.dev"
+          class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-400" />
+      </div>
+
+      <label for="passcode" class="block text-sm font-semibold text-slate-300 mt-4 mb-2">🔑 存取密碼</label>
+      <div class="flex flex-col sm:flex-row gap-2">
+        <input id="passcode" type="password" placeholder="輸入你的密碼" autocomplete="current-password"
+          class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-400" />
+        <button id="testBtn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-4 py-2 text-sm whitespace-nowrap">🔌 測試連線</button>
+      </div>
+      <p class="text-xs text-slate-500 mt-2">網址與密碼會儲存在瀏覽器本機。API Key 只存在 Worker 端，不會出現在本網頁。</p>
+    </section>
+
+    <!-- ===================== 賽制 + 補充 ===================== -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
+      <span class="block text-sm font-semibold text-slate-300 mb-2">🎮 對戰賽制</span>
+      <div id="formatGroup" class="grid grid-cols-2 gap-2 mb-4">
+        <button data-format="doubles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
+          <div class="font-bold">⚔️ 雙打（VGC）</div>
+          <div class="text-xs opacity-75">帶 6 選 4 · 先發 2 隻</div>
+        </button>
+        <button data-format="singles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
+          <div class="font-bold">🗡️ 單打</div>
+          <div class="text-xs opacity-75">帶 6 選 3 · 先發 1 隻</div>
+        </button>
+      </div>
+
+      <label for="note" class="block text-sm font-semibold text-slate-300 mb-2">📝 補充說明（選填）</label>
+      <textarea id="note" rows="2" maxlength="1000" placeholder="例如：對手上一局先發了熾焰咆哮虎 + 赤面龍；我想保留某隻寶可夢…"
+        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-400"></textarea>
+    </section>
+
+    <!-- ===================== 上傳區 ===================== -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-semibold text-slate-300">🖼️ 對戰截圖</h2>
+        <span id="counter" class="text-sm font-mono px-2 py-0.5 rounded bg-slate-800">0 / 7 張</span>
+      </div>
+
+      <div id="dropZone" tabindex="0"
+        class="border-2 border-dashed border-slate-700 rounded-xl p-6 sm:p-8 text-center cursor-pointer transition hover:border-slate-500 focus:outline-none focus:border-amber-400">
+        <div class="text-4xl mb-2">📥</div>
+        <p class="font-semibold">點擊選取、拖曳圖片到此處，或按 <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">V</kbd> 貼上</p>
+        <p class="text-xs text-slate-500 mt-2">第 1 張：Team Preview 總覽（雙方陣容 + 我方道具）· 第 2~7 張：我方 6 隻招式表</p>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mt-3">
+        <button id="pickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 選擇圖片</button>
+        <button id="cameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 拍照上傳</button>
+        <button id="clearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-2 text-sm ml-auto">🗑️ 全部清除</button>
+      </div>
+
+      <input id="fileInput" type="file" accept="image/*" multiple class="hidden" />
+      <input id="cameraInput" type="file" accept="image/*" capture="environment" class="hidden" />
+
+      <!-- 縮圖預覽 -->
+      <div id="previewGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mt-4"></div>
+    </section>
+
+    <!-- ===================== 分析按鈕 ===================== -->
+    <button id="analyzeBtn" disabled
+      class="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-950 font-bold text-lg rounded-2xl py-4 transition">
+      🚀 分析最佳選角與出戰順序
+    </button>
+
+    <!-- 狀態列 -->
+    <div id="status" class="hidden mt-4 rounded-xl px-4 py-3 text-sm"></div>
+
+    <!-- ===================== 結果區 ===================== -->
+    <section id="resultSection" class="hidden mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-lg font-bold">📊 AI 戰術報告</h2>
+        <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 複製 Markdown</button>
+      </div>
+      <div id="result" class="md text-slate-200"></div>
+    </section>
+
+    <footer class="text-center text-xs text-slate-600 mt-10">
+      PKMTool · 非官方粉絲工具 · Pokémon 為 Nintendo / Creatures / GAME FREAK 之商標
+    </footer>
+  </div>
+
+  <!-- 大圖預覽 Modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 cursor-zoom-out">
+    <img id="modalImg" alt="預覽" class="max-w-full max-h-full rounded-lg" />
+  </div>
+
+  <script>
+    /* =========================================================
+     * 設定常數
+     * ========================================================= */
+    const MAX_IMAGES = 7;
+    const MAX_DIMENSION = 2048;   // 上傳前縮圖的最長邊（保留招式文字清晰度，同時減少傳輸量）
+    const JPEG_QUALITY = 0.9;
+    const STORAGE_KEY_URL = "pkmtool.workerUrl";
+    const STORAGE_KEY_FORMAT = "pkmtool.format";
+    const STORAGE_KEY_PASSCODE = "pkmtool.passcode";
+
+    /* =========================================================
+     * 狀態
+     * ========================================================= */
+    // 每張圖：{ id, file, url }，順序即為送給 AI 的順序
+    let images = [];
+    let format = localStorage.getItem(STORAGE_KEY_FORMAT) || "doubles";
+    let lastMarkdown = "";
+
+    /* =========================================================
+     * DOM
+     * ========================================================= */
+    const $ = (id) => document.getElementById(id);
+    const workerUrlEl = $("workerUrl");
+    const dropZone = $("dropZone");
+    const fileInput = $("fileInput");
+    const cameraInput = $("cameraInput");
+    const previewGrid = $("previewGrid");
+    const counter = $("counter");
+    const analyzeBtn = $("analyzeBtn");
+    const statusEl = $("status");
+    const resultSection = $("resultSection");
+    const resultEl = $("result");
+
+    workerUrlEl.value = localStorage.getItem(STORAGE_KEY_URL) || "";
+    workerUrlEl.addEventListener("change", () => localStorage.setItem(STORAGE_KEY_URL, workerUrlEl.value.trim()));
+
+    const passcodeEl = $("passcode");
+    passcodeEl.value = localStorage.getItem(STORAGE_KEY_PASSCODE) || "";
+    passcodeEl.addEventListener("input", () => localStorage.setItem(STORAGE_KEY_PASSCODE, passcodeEl.value));
+
+    /* =========================================================
+     * 賽制切換
+     * ========================================================= */
+    function renderFormat() {
+      document.querySelectorAll(".format-btn").forEach((btn) => {
+        const active = btn.dataset.format === format;
+        btn.className = "format-btn rounded-lg border px-3 py-3 text-sm text-left transition " +
+          (active ? "border-amber-400 bg-amber-400/10 text-amber-200" : "border-slate-700 bg-slate-950 text-slate-300 hover:border-slate-500");
+      });
+    }
+    document.querySelectorAll(".format-btn").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        format = btn.dataset.format;
+        localStorage.setItem(STORAGE_KEY_FORMAT, format);
+        renderFormat();
+      })
+    );
+    renderFormat();
+
+    /* =========================================================
+     * 新增 / 刪除 / 排序圖片
+     * ========================================================= */
+    function addFiles(fileList) {
+      const files = Array.from(fileList).filter((f) => f.type.startsWith("image/"));
+      if (files.length === 0) return;
+
+      const room = MAX_IMAGES - images.length;
+      if (room <= 0) {
+        showStatus(`最多只能上傳 ${MAX_IMAGES} 張截圖`, "warn");
+        return;
+      }
+      if (files.length > room) {
+        showStatus(`已達上限，只加入前 ${room} 張`, "warn");
+      }
+      files.slice(0, room).forEach((file) => {
+        images.push({ id: crypto.randomUUID(), file, url: URL.createObjectURL(file) });
+      });
+      renderPreviews();
+    }
+
+    function removeImage(id) {
+      const img = images.find((i) => i.id === id);
+      if (img) URL.revokeObjectURL(img.url);
+      images = images.filter((i) => i.id !== id);
+      renderPreviews();
+    }
+
+    function moveImage(id, delta) {
+      const idx = images.findIndex((i) => i.id === id);
+      const target = idx + delta;
+      if (idx < 0 || target < 0 || target >= images.length) return;
+      [images[idx], images[target]] = [images[target], images[idx]];
+      renderPreviews();
+    }
+
+    function slotLabel(index) {
+      return index === 0 ? "總覽 / 道具" : `我方 #${index} 招式`;
+    }
+
+    function renderPreviews() {
+      previewGrid.innerHTML = "";
+      images.forEach((img, index) => {
+        const card = document.createElement("div");
+        card.className = "relative group bg-slate-950 border rounded-lg overflow-hidden " +
+          (index === 0 ? "border-amber-500" : "border-slate-700");
+        card.innerHTML = `
+          <img src="${img.url}" alt="截圖 ${index + 1}" class="w-full h-28 object-cover cursor-zoom-in" data-action="view" />
+          <div class="absolute top-1 left-1 text-[10px] font-bold px-1.5 py-0.5 rounded ${index === 0 ? "bg-amber-500 text-slate-950" : "bg-slate-800/90"}">
+            ${index + 1} · ${slotLabel(index)}
+          </div>
+          <button data-action="remove" title="刪除"
+            class="absolute top-1 right-1 w-6 h-6 rounded-full bg-red-600/90 hover:bg-red-500 text-xs leading-6">✕</button>
+          <div class="flex text-xs border-t border-slate-800">
+            <button data-action="left" class="flex-1 py-1 hover:bg-slate-800 disabled:opacity-30" ${index === 0 ? "disabled" : ""}>◀</button>
+            <button data-action="right" class="flex-1 py-1 hover:bg-slate-800 disabled:opacity-30" ${index === images.length - 1 ? "disabled" : ""}>▶</button>
+          </div>`;
+        card.addEventListener("click", (e) => {
+          const action = e.target.closest("[data-action]")?.dataset.action;
+          if (action === "remove") removeImage(img.id);
+          else if (action === "left") moveImage(img.id, -1);
+          else if (action === "right") moveImage(img.id, 1);
+          else if (action === "view") openModal(img.url);
+        });
+        previewGrid.appendChild(card);
+      });
+
+      counter.textContent = `${images.length} / ${MAX_IMAGES} 張`;
+      counter.className = "text-sm font-mono px-2 py-0.5 rounded " +
+        (images.length === MAX_IMAGES ? "bg-emerald-700" : "bg-slate-800");
+      analyzeBtn.disabled = images.length === 0;
+    }
+
+    /* =========================================================
+     * 上傳方式：點擊 / 拍照 / 拖曳 / 貼上
+     * ========================================================= */
+    dropZone.addEventListener("click", () => fileInput.click());
+    dropZone.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") fileInput.click(); });
+    $("pickBtn").addEventListener("click", () => fileInput.click());
+    $("cameraBtn").addEventListener("click", () => cameraInput.click());
+    $("clearBtn").addEventListener("click", () => {
+      images.forEach((i) => URL.revokeObjectURL(i.url));
+      images = [];
+      renderPreviews();
+    });
+
+    [fileInput, cameraInput].forEach((input) =>
+      input.addEventListener("change", (e) => {
+        addFiles(e.target.files);
+        e.target.value = ""; // 允許重複選同一張
+      })
+    );
+
+    ["dragenter", "dragover"].forEach((evt) =>
+      dropZone.addEventListener(evt, (e) => { e.preventDefault(); dropZone.classList.add("drop-active"); })
+    );
+    ["dragleave", "drop"].forEach((evt) =>
+      dropZone.addEventListener(evt, (e) => { e.preventDefault(); dropZone.classList.remove("drop-active"); })
+    );
+    dropZone.addEventListener("drop", (e) => addFiles(e.dataTransfer.files));
+    // 防止拖曳到上傳區外時瀏覽器直接開啟圖片
+    window.addEventListener("dragover", (e) => e.preventDefault());
+    window.addEventListener("drop", (e) => e.preventDefault());
+
+    // Ctrl + V 貼上截圖（在輸入框內貼文字時不攔截）
+    document.addEventListener("paste", (e) => {
+      const items = Array.from(e.clipboardData?.items || []);
+      const files = items.filter((i) => i.kind === "file" && i.type.startsWith("image/")).map((i) => i.getAsFile());
+      if (files.length === 0) return;
+      e.preventDefault();
+      addFiles(files);
+      showStatus(`已從剪貼簿貼上 ${files.length} 張圖片`, "ok");
+    });
+
+    /* =========================================================
+     * 圖片壓縮並轉 Base64
+     * ========================================================= */
+    async function fileToBase64Payload(file) {
+      const bitmap = await createImageBitmap(file);
+      const scale = Math.min(1, MAX_DIMENSION / Math.max(bitmap.width, bitmap.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(bitmap.width * scale);
+      canvas.height = Math.round(bitmap.height * scale);
+      canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      bitmap.close();
+
+      const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
+      return { mimeType: "image/jpeg", data: dataUrl.split(",")[1] };
+    }
+
+    /* =========================================================
+     * 呼叫 Worker
+     * ========================================================= */
+    function getWorkerUrl() {
+      const url = workerUrlEl.value.trim().replace(/\/+$/, "");
+      if (!/^https?:\/\//i.test(url)) {
+        showStatus("請先輸入正確的 Cloudflare Worker 網址（https://...）", "error");
+        workerUrlEl.focus();
+        return null;
+      }
+      localStorage.setItem(STORAGE_KEY_URL, url);
+      return url;
+    }
+
+    function getPasscode() {
+      const passcode = passcodeEl.value.trim();
+      if (!passcode) {
+        showStatus("請先輸入存取密碼", "error");
+        passcodeEl.focus();
+        return null;
+      }
+      return passcode;
+    }
+
+    $("testBtn").addEventListener("click", async () => {
+      const url = getWorkerUrl();
+      const passcode = url && getPasscode();
+      if (!passcode) return;
+      showStatus("連線測試中…", "info");
+      try {
+        const res = await fetch(url, { method: "GET", headers: { "X-Access-Passcode": passcode } });
+        if (res.status === 401) return showStatus("❌ 密碼錯誤，拒絕存取", "error");
+        const data = await res.json();
+        if (data.ok) showStatus(`✅ 連線成功，密碼正確（模型：${data.model}）`, "ok");
+        else showStatus(`⚠️ Worker 回應異常：${data.error || res.status}`, "warn");
+      } catch (err) {
+        showStatus(`❌ 無法連線：${err.message}`, "error");
+      }
+    });
+
+    analyzeBtn.addEventListener("click", async () => {
+      const url = getWorkerUrl();
+      const passcode = url && getPasscode();
+      if (!passcode || images.length === 0) return;
+
+      setLoading(true);
+      resultSection.classList.add("hidden");
+      const started = Date.now();
+
+      try {
+        showStatus("🖼️ 正在壓縮並編碼圖片…", "info");
+        const payloadImages = await Promise.all(images.map((i) => fileToBase64Payload(i.file)));
+
+        showStatus(`🤖 AI 正在解析 ${payloadImages.length} 張截圖並規劃戰術（約 10~60 秒）…`, "info");
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-Access-Passcode": passcode },
+          body: JSON.stringify({ images: payloadImages, format, note: $("note").value.trim() }),
+        });
+
+        if (res.status === 401) throw new Error("密碼錯誤，拒絕存取");
+
+        const data = await res.json().catch(() => ({ ok: false, error: `HTTP ${res.status}` }));
+        if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+        lastMarkdown = data.markdown;
+        resultEl.innerHTML = DOMPurify.sanitize(marked.parse(data.markdown));
+        resultSection.classList.remove("hidden");
+        resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        const secs = ((Date.now() - started) / 1000).toFixed(1);
+        showStatus(`✅ 分析完成（${secs} 秒 · ${data.model}）`, "ok");
+      } catch (err) {
+        showStatus(`❌ 分析失敗：${err.message}`, "error");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    $("copyBtn").addEventListener("click", async () => {
+      if (!lastMarkdown) return;
+      await navigator.clipboard.writeText(lastMarkdown);
+      showStatus("📋 已複製 Markdown 報告", "ok");
+    });
+
+    /* =========================================================
+     * UI 工具
+     * ========================================================= */
+    function setLoading(loading) {
+      analyzeBtn.disabled = loading || images.length === 0;
+      analyzeBtn.innerHTML = loading
+        ? '<span class="inline-block animate-spin mr-2">⏳</span>分析中，請稍候…'
+        : "🚀 分析最佳選角與出戰順序";
+    }
+
+    function showStatus(message, type = "info") {
+      const styles = {
+        info: "bg-sky-950 border border-sky-800 text-sky-200",
+        ok: "bg-emerald-950 border border-emerald-800 text-emerald-200",
+        warn: "bg-amber-950 border border-amber-800 text-amber-200",
+        error: "bg-red-950 border border-red-800 text-red-200",
+      };
+      statusEl.className = `mt-4 rounded-xl px-4 py-3 text-sm ${styles[type]}`;
+      statusEl.textContent = message;
+    }
+
+    function openModal(src) {
+      $("modalImg").src = src;
+      $("modal").classList.remove("hidden");
+    }
+    $("modal").addEventListener("click", () => $("modal").classList.add("hidden"));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") $("modal").classList.add("hidden"); });
+
+    renderPreviews();
+  </script>
+</body>
+</html>

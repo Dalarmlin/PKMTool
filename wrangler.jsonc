@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pkmtool-worker",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-08",
+  "observability": {
+    "enabled": true,
+    "traces": {
+      "enabled": true
+    }
+  },
+  "vars": {
+    // 預設模型，可在此或 Cloudflare Dashboard 修改
+    "GEMINI_MODEL": "gemini-3.5-flash-lite",
+    // 正式上線建議改成你的 GitHub Pages 網址，例如 "https://yourname.github.io"
+    "ALLOWED_ORIGIN": "*"
+  }
+  // GEMINI_API_KEY 與 CUSTOM_PASSCODE 請勿寫在這裡！請使用：
+  //   npx wrangler secret put GEMINI_API_KEY
+  //   npx wrangler secret put CUSTOM_PASSCODE
+}

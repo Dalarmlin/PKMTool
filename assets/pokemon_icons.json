@@ -1,0 +1,74 @@
+{
+  "version": "0.1.0",
+  "game": "Pokémon Champions",
+  "updated": "2026-11-08",
+  "sources": {
+    "showdown_pokemon": "https://play.pokemonshowdown.com/sprites/gen5/{showdownId}.png",
+    "showdown_pokemon_dex": "https://play.pokemonshowdown.com/sprites/dex/{showdownId}.png",
+    "showdown_item_sheet": "https://play.pokemonshowdown.com/sprites/itemicons-sheet.png",
+    "pokeapi_pokemon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{dex}.png",
+    "pokeapi_item": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/{pokeapiId}.png"
+  },
+  "pokemon": [
+    {
+      "showdownId": "incineroar",
+      "dex": 727,
+      "name_zh": "熾焰咆哮虎",
+      "name_en": "Incineroar",
+      "aliases": ["咆哮虎", "猛虎"],
+      "types": ["Fire", "Dark"],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/incineroar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/727.png"
+    },
+    {
+      "showdownId": "garchomp",
+      "dex": 445,
+      "name_zh": "烈咬陸鯊",
+      "name_en": "Garchomp",
+      "aliases": ["鯊"],
+      "types": ["Dragon", "Ground"],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/garchomp.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png"
+    },
+    {
+      "showdownId": "amoonguss",
+      "dex": 591,
+      "name_zh": "敗露球菇",
+      "name_en": "Amoonguss",
+      "aliases": ["球菇"],
+      "types": ["Grass", "Poison"],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/amoonguss.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/591.png"
+    }
+  ],
+  "items": [
+    {
+      "showdownId": "sitrusberry",
+      "pokeapiId": "sitrus-berry",
+      "name_zh": "文柚果",
+      "name_en": "Sitrus Berry",
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sitrus-berry.png"
+    },
+    {
+      "showdownId": "focussash",
+      "pokeapiId": "focus-sash",
+      "name_zh": "氣勢披帶",
+      "name_en": "Focus Sash",
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-sash.png"
+    },
+    {
+      "showdownId": "choicescarf",
+      "pokeapiId": "choice-scarf",
+      "name_zh": "講究圍巾",
+      "name_en": "Choice Scarf",
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-scarf.png"
+    },
+    {
+      "showdownId": "leftovers",
+      "pokeapiId": "leftovers",
+      "name_zh": "吃剩的東西",
+      "name_en": "Leftovers",
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leftovers.png"
+    }
+  ]
+}
