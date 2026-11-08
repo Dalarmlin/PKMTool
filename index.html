@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PKMTool · 寶可夢冠軍 AI 戰略分析</title>
-  <meta name="description" content="上傳《寶可夢冠軍》對戰截圖，AI 分析最佳選角、先發順序與第一回合戰術。" />
+  <meta name="description" content="《寶可夢冠軍》AI 戰略分析：賽前登錄隊伍配置，實戰只需 1 張 Team Preview 截圖即可分析選角、先發與勝率。" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -29,6 +29,9 @@
     .md th { background: #1e293b; color: #fbbf24; }
     .md hr { border-color: #334155; margin: 1rem 0; }
     .drop-active { border-color: #f59e0b !important; background: rgba(245, 158, 11, .08); }
+    .field { width: 100%; background: #020617; border: 1px solid #334155; border-radius: .5rem; padding: .5rem .75rem; font-size: .875rem; }
+    .field:focus { outline: none; border-color: #fbbf24; }
+    .sprite { image-rendering: pixelated; }
   </style>
 </head>
 
@@ -43,142 +46,250 @@
       <p class="text-slate-400 mt-2 text-sm sm:text-base">《寶可夢冠軍》AI 戰略分析 · 選角 / 先發 / 第一回合博弈</p>
     </header>
 
-    <!-- ===================== API 設定 ===================== -->
+    <!-- ===================== 密碼 ===================== -->
     <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
       <label for="passcode" class="block text-sm font-semibold text-slate-300 mb-2">🔑 存取密碼</label>
       <div class="flex flex-col sm:flex-row gap-2">
-        <input id="passcode" type="password" placeholder="輸入你的密碼" autocomplete="current-password"
-          class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-400" />
+        <input id="passcode" type="password" placeholder="輸入你的密碼" autocomplete="current-password" class="field flex-1" />
         <button id="testBtn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-4 py-2 text-sm whitespace-nowrap">🔌 測試連線</button>
       </div>
-      <p class="text-xs text-slate-500 mt-2">密碼會儲存在瀏覽器本機。API Key 只存在 Worker 端，不會出現在本網頁。</p>
+      <p class="text-xs text-slate-500 mt-2">密碼與隊伍配置會儲存在瀏覽器本機。API Key 只存在 Worker 端，不會出現在本網頁。</p>
     </section>
 
-    <!-- ===================== 賽制 + 補充 ===================== -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
-      <span class="block text-sm font-semibold text-slate-300 mb-2">🎮 對戰賽制</span>
-      <div id="formatGroup" class="grid grid-cols-2 gap-2 mb-4">
-        <button data-format="doubles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
-          <div class="font-bold">⚔️ 雙打（VGC）</div>
-          <div class="text-xs opacity-75">帶 6 選 4 · 先發 2 隻</div>
-        </button>
-        <button data-format="singles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
-          <div class="font-bold">🗡️ 單打</div>
-          <div class="text-xs opacity-75">帶 6 選 3 · 先發 1 隻</div>
-        </button>
-      </div>
+    <!-- ===================== 分頁 ===================== -->
+    <nav class="grid grid-cols-2 gap-2 mb-5 p-1 bg-slate-900 border border-slate-800 rounded-2xl">
+      <button data-tab="battle" class="tab-btn rounded-xl py-3 font-bold">⚔️ 實戰分析</button>
+      <button data-tab="preset" class="tab-btn rounded-xl py-3 font-bold">📋 賽前備戰 <span id="presetTabCount" class="text-xs font-mono opacity-75"></span></button>
+    </nav>
 
-      <label for="note" class="block text-sm font-semibold text-slate-300 mb-2">📝 補充說明（選填）</label>
-      <textarea id="note" rows="2" maxlength="1000" placeholder="例如：對手上一局先發了熾焰咆哮虎 + 赤面龍；我想保留某隻寶可夢…"
-        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-400"></textarea>
-    </section>
+    <!-- ================================================================= -->
+    <!-- 實戰分析                                                            -->
+    <!-- ================================================================= -->
+    <div id="panel-battle" class="tab-panel">
 
-    <!-- ===================== 上傳區 ===================== -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="text-sm font-semibold text-slate-300">🖼️ 對戰截圖</h2>
-        <span id="counter" class="text-sm font-mono px-2 py-0.5 rounded bg-slate-800">0 / 7 張</span>
-      </div>
+      <div id="presetNotice" class="mb-5 rounded-xl px-4 py-3 text-sm"></div>
 
-      <div id="dropZone" tabindex="0"
-        class="border-2 border-dashed border-slate-700 rounded-xl p-6 sm:p-8 text-center cursor-pointer transition hover:border-slate-500 focus:outline-none focus:border-amber-400">
-        <div class="text-4xl mb-2">📥</div>
-        <p class="font-semibold">點擊選取、拖曳圖片到此處，或按 <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">V</kbd> 貼上</p>
-        <p class="text-xs text-slate-500 mt-2">第 1 張：Team Preview 總覽（雙方陣容 + 我方道具）· 第 2~7 張：我方 6 隻招式表</p>
-      </div>
+      <!-- 賽制 + 補充 -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
+        <span class="block text-sm font-semibold text-slate-300 mb-2">🎮 對戰賽制</span>
+        <div class="grid grid-cols-2 gap-2 mb-4">
+          <button data-format="doubles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
+            <div class="font-bold">⚔️ 雙打（VGC）</div>
+            <div class="text-xs opacity-75">帶 6 選 4 · 先發 2 隻</div>
+          </button>
+          <button data-format="singles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
+            <div class="font-bold">🗡️ 單打</div>
+            <div class="text-xs opacity-75">帶 6 選 3 · 先發 1 隻</div>
+          </button>
+        </div>
 
-      <div class="flex flex-wrap gap-2 mt-3">
-        <button id="pickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 選擇圖片</button>
-        <button id="cameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 拍照上傳</button>
-        <button id="clearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-2 text-sm ml-auto">🗑️ 全部清除</button>
-      </div>
+        <label for="note" class="block text-sm font-semibold text-slate-300 mb-2">📝 補充說明（選填）</label>
+        <textarea id="note" rows="2" maxlength="1000" placeholder="例如：對手上一局先發了熾焰咆哮虎 + 赤面龍；我想保留某隻寶可夢…" class="field"></textarea>
+      </section>
 
-      <input id="fileInput" type="file" accept="image/*" multiple class="hidden" />
-      <input id="cameraInput" type="file" accept="image/*" capture="environment" class="hidden" />
+      <!-- Team Preview 上傳 -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-semibold text-slate-300">🖼️ Team Preview 總覽圖（1 張）</h2>
+          <label class="text-xs text-slate-400 flex items-center gap-1.5 cursor-pointer">
+            <input id="autoAnalyze" type="checkbox" class="accent-amber-500" checked /> 貼上後自動分析
+          </label>
+        </div>
 
-      <!-- 縮圖預覽 -->
-      <div id="previewGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mt-4"></div>
-    </section>
-
-    <!-- ===================== 分析按鈕 ===================== -->
-    <button id="analyzeBtn" disabled
-      class="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-950 font-bold text-lg rounded-2xl py-4 transition">
-      🚀 分析最佳選角與出戰順序
-    </button>
-
-    <!-- 狀態列 -->
-    <div id="status" class="hidden mt-4 rounded-xl px-4 py-3 text-sm"></div>
-
-    <!-- ===================== 結果區 ===================== -->
-    <section id="resultSection" class="hidden mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6">
-      <div class="flex items-center justify-between mb-2">
-        <h2 class="text-lg font-bold flex items-center gap-2">📊 AI 戰術報告 <span id="winBadge" class="hidden text-xs font-bold px-2 py-0.5 rounded-full"></span></h2>
-        <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 複製 Markdown</button>
-      </div>
-      <div id="result" class="md text-slate-200"></div>
-
-      <!-- 預估勝率 -->
-      <div id="winCard" class="hidden mt-6 rounded-2xl border p-5">
-        <div class="flex items-end justify-between gap-4">
-          <div>
-            <div class="text-sm opacity-80">📈 預估勝率</div>
-            <div id="winVerdict" class="text-xl font-bold mt-1"></div>
+        <div id="battleDrop" tabindex="0"
+          class="border-2 border-dashed border-slate-700 rounded-xl p-6 sm:p-8 text-center cursor-pointer transition hover:border-slate-500 focus:outline-none focus:border-amber-400">
+          <div id="battleEmpty">
+            <div class="text-4xl mb-2">📥</div>
+            <p class="font-semibold">點擊選取、拖曳，或按 <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">V</kbd> 貼上</p>
+            <p class="text-xs text-slate-500 mt-2">對戰選角畫面：對手 6 隻（含太晶屬性）+ 我方 6 隻與道具</p>
           </div>
-          <div id="winValue" class="text-5xl font-extrabold tabular-nums"></div>
+          <img id="battlePreview" alt="Team Preview" class="hidden mx-auto max-h-72 rounded-lg" />
         </div>
-        <div class="mt-4 h-3 rounded-full bg-slate-950/60 overflow-hidden">
-          <div id="winBar" class="h-full rounded-full transition-all duration-700" style="width: 0%"></div>
+
+        <div class="flex flex-wrap gap-2 mt-3">
+          <button id="battlePickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 選擇圖片</button>
+          <button id="battleCameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 拍照上傳</button>
+          <button id="battleClearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-2 text-sm ml-auto">🗑️ 移除</button>
         </div>
-        <p id="winHint" class="text-xs opacity-80 mt-3"></p>
-      </div>
-    </section>
+        <input id="battleFile" type="file" accept="image/*" class="hidden" />
+        <input id="battleCamera" type="file" accept="image/*" capture="environment" class="hidden" />
+      </section>
+
+      <button id="analyzeBtn" disabled
+        class="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-950 font-bold text-lg rounded-2xl py-4 transition">
+        🚀 分析最佳選角與出戰順序
+      </button>
+
+      <!-- 結果區 -->
+      <section id="resultSection" class="hidden mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-lg font-bold flex items-center gap-2">📊 AI 戰術報告 <span id="winBadge" class="hidden text-xs font-bold px-2 py-0.5 rounded-full"></span></h2>
+          <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 複製 Markdown</button>
+        </div>
+        <div id="result" class="md text-slate-200"></div>
+
+        <!-- 預估勝率 -->
+        <div id="winCard" class="hidden mt-6 rounded-2xl border p-5">
+          <div class="flex items-end justify-between gap-4">
+            <div>
+              <div class="text-sm opacity-80">📈 預估勝率</div>
+              <div id="winVerdict" class="text-xl font-bold mt-1"></div>
+            </div>
+            <div id="winValue" class="text-5xl font-extrabold tabular-nums"></div>
+          </div>
+          <div class="mt-4 h-3 rounded-full bg-slate-950/60 overflow-hidden">
+            <div id="winBar" class="h-full rounded-full transition-all duration-700" style="width: 0%"></div>
+          </div>
+          <p id="winHint" class="text-xs opacity-80 mt-3"></p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- 賽前備戰                                                            -->
+    <!-- ================================================================= -->
+    <div id="panel-preset" class="tab-panel hidden">
+
+      <!-- 截圖辨識 -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
+        <h2 class="text-sm font-semibold text-slate-300 mb-3">📷 截圖辨識新增</h2>
+        <div id="presetDrop" tabindex="0"
+          class="border-2 border-dashed border-slate-700 rounded-xl p-6 text-center cursor-pointer transition hover:border-slate-500 focus:outline-none focus:border-amber-400">
+          <div class="text-3xl mb-2">🧾</div>
+          <p class="font-semibold">上傳寶可夢詳細資訊頁截圖（每張 1 隻，一次最多 6 張）</p>
+          <p class="text-xs text-slate-500 mt-2">點擊選取、拖曳，或按 Ctrl + V 貼上 · AI 自動辨識名稱、道具、特性、性格、太晶屬性、招式</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <button id="presetPickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 選擇圖片</button>
+          <button id="presetCameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 拍照上傳</button>
+          <button id="presetAddBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">➕ 手動新增</button>
+        </div>
+        <input id="presetFile" type="file" accept="image/*" multiple class="hidden" />
+        <input id="presetCamera" type="file" accept="image/*" capture="environment" class="hidden" />
+      </section>
+
+      <!-- 配置清單 -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <h2 class="text-sm font-semibold text-slate-300 mr-auto">🗂️ 我的配置 <span id="presetCount" class="font-mono text-xs px-2 py-0.5 rounded bg-slate-800 ml-1"></span></h2>
+          <button id="exportBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">⬇️ 匯出</button>
+          <button id="importBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">⬆️ 匯入</button>
+          <button id="presetClearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-1.5 text-xs">🗑️ 全部刪除</button>
+          <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
+        </div>
+        <div id="presetList" class="grid sm:grid-cols-2 gap-3"></div>
+        <p id="presetEmpty" class="text-center text-sm text-slate-500 py-8">尚未登錄任何配置。上傳截圖或手動新增，最多 20 筆。</p>
+      </section>
+    </div>
 
     <footer class="text-center text-xs text-slate-600 mt-10">
       PKMTool · 非官方粉絲工具 · Pokémon 為 Nintendo / Creatures / GAME FREAK 之商標
     </footer>
   </div>
 
-  <!-- 大圖預覽 Modal -->
-  <div id="modal" class="hidden fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 cursor-zoom-out">
-    <img id="modalImg" alt="預覽" class="max-w-full max-h-full rounded-lg" />
+  <!-- 狀態提示（固定於底部） -->
+  <div id="status" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-xl rounded-xl px-4 py-3 text-sm shadow-xl"></div>
+
+  <!-- 大圖預覽 -->
+  <div id="imgModal" class="hidden fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 cursor-zoom-out">
+    <img id="imgModalSrc" alt="預覽" class="max-w-full max-h-full rounded-lg" />
   </div>
+
+  <!-- 配置編輯 -->
+  <div id="editModal" class="hidden fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4">
+    <form id="editForm" class="w-full max-w-lg max-h-full overflow-y-auto bg-slate-900 border border-slate-700 rounded-2xl p-5 space-y-3">
+      <h3 id="editTitle" class="text-lg font-bold">編輯配置</h3>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="col-span-2 text-xs text-slate-400">寶可夢 *
+          <input name="name" list="pokemonNames" required maxlength="40" class="field mt-1" />
+        </label>
+        <label class="text-xs text-slate-400">道具
+          <input name="item" list="itemNames" maxlength="40" class="field mt-1" />
+        </label>
+        <label class="text-xs text-slate-400">特性
+          <input name="ability" maxlength="40" class="field mt-1" />
+        </label>
+        <label class="text-xs text-slate-400">性格
+          <input name="nature" list="natureNames" maxlength="40" class="field mt-1" />
+        </label>
+        <label class="text-xs text-slate-400">太晶屬性
+          <input name="teraType" list="typeNames" maxlength="40" class="field mt-1" />
+        </label>
+        <label class="text-xs text-slate-400">招式 1 <input name="move0" maxlength="40" class="field mt-1" /></label>
+        <label class="text-xs text-slate-400">招式 2 <input name="move1" maxlength="40" class="field mt-1" /></label>
+        <label class="text-xs text-slate-400">招式 3 <input name="move2" maxlength="40" class="field mt-1" /></label>
+        <label class="text-xs text-slate-400">招式 4 <input name="move3" maxlength="40" class="field mt-1" /></label>
+      </div>
+      <p id="editError" class="hidden text-sm text-red-300"></p>
+      <div class="flex justify-end gap-2 pt-2">
+        <button type="button" id="editCancel" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-4 py-2 text-sm">取消</button>
+        <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg px-4 py-2 text-sm">儲存</button>
+      </div>
+    </form>
+  </div>
+
+  <datalist id="pokemonNames"></datalist>
+  <datalist id="itemNames"></datalist>
+  <datalist id="natureNames"></datalist>
+  <datalist id="typeNames"></datalist>
 
   <script>
     /* =========================================================
      * 設定常數
      * ========================================================= */
-    const MAX_IMAGES = 7;
-    const MAX_DIMENSION = 2048;   // 上傳前縮圖的最長邊（保留招式文字清晰度，同時減少傳輸量）
-    const JPEG_QUALITY = 0.9;
     const WORKER_URL = "https://pkmtool-worker.brianlin2021.workers.dev";
+    const MAX_PRESETS = 20;
+    const MAX_PARSE_BATCH = 6;
+    const MAX_DIMENSION = 2048;   // 上傳前縮圖的最長邊（保留文字清晰度，同時減少傳輸量）
+    const JPEG_QUALITY = 0.9;
     const STORAGE_KEY_FORMAT = "pkmtool.format";
     const STORAGE_KEY_PASSCODE = "pkmtool.passcode";
+    const STORAGE_KEY_PRESETS = "pkmtool.presets.v1";
+    const STORAGE_KEY_TAB = "pkmtool.tab";
+    const STORAGE_KEY_AUTO = "pkmtool.autoAnalyze";
+
+    const NATURES = ["勤奮", "怕寂寞", "勇敢", "固執", "頑皮", "大膽", "坦率", "悠閒", "淘氣", "樂天", "膽小", "急躁", "認真", "爽朗", "天真",
+      "內斂", "慢吞吞", "冷靜", "害羞", "馬虎", "溫和", "溫順", "自大", "慎重", "浮躁"];
+    const TYPES = ["一般", "火", "水", "草", "電", "冰", "格鬥", "毒", "地面", "飛行", "超能力", "蟲", "岩石", "幽靈", "龍", "惡", "鋼", "妖精", "星晶"];
 
     /* =========================================================
      * 狀態
      * ========================================================= */
-    // 每張圖：{ id, file, url }，順序即為送給 AI 的順序
-    let images = [];
     let format = localStorage.getItem(STORAGE_KEY_FORMAT) || "doubles";
+    let presets = loadPresets();
+    let battleImage = null;       // { file, url }
+    let editingId = null;         // null = 新增
     let lastMarkdown = "";
+    let busy = false;
+    let iconIndex = { pokemon: new Map(), items: new Map() };
 
-    /* =========================================================
-     * DOM
-     * ========================================================= */
     const $ = (id) => document.getElementById(id);
-    const dropZone = $("dropZone");
-    const fileInput = $("fileInput");
-    const cameraInput = $("cameraInput");
-    const previewGrid = $("previewGrid");
-    const counter = $("counter");
-    const analyzeBtn = $("analyzeBtn");
-    const statusEl = $("status");
-    const resultSection = $("resultSection");
-    const resultEl = $("result");
-
     const passcodeEl = $("passcode");
+    const statusEl = $("status");
+
     passcodeEl.value = localStorage.getItem(STORAGE_KEY_PASSCODE) || "";
     passcodeEl.addEventListener("input", () => localStorage.setItem(STORAGE_KEY_PASSCODE, passcodeEl.value));
+
+    /* =========================================================
+     * 分頁
+     * ========================================================= */
+    let activeTab = localStorage.getItem(STORAGE_KEY_TAB) || "battle";
+
+    function renderTabs() {
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        const active = btn.dataset.tab === activeTab;
+        btn.className = "tab-btn rounded-xl py-3 font-bold transition " +
+          (active ? "bg-amber-500 text-slate-950" : "text-slate-300 hover:bg-slate-800");
+      });
+      document.querySelectorAll(".tab-panel").forEach((p) => p.classList.toggle("hidden", p.id !== `panel-${activeTab}`));
+    }
+    document.querySelectorAll(".tab-btn").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        activeTab = btn.dataset.tab;
+        localStorage.setItem(STORAGE_KEY_TAB, activeTab);
+        renderTabs();
+      })
+    );
 
     /* =========================================================
      * 賽制切換
@@ -197,140 +308,387 @@
         renderFormat();
       })
     );
-    renderFormat();
 
     /* =========================================================
-     * 新增 / 刪除 / 排序圖片
+     * 縮圖對照資料庫（assets/pokemon_icons.json）
      * ========================================================= */
-    function addFiles(fileList) {
-      const files = Array.from(fileList).filter((f) => f.type.startsWith("image/"));
-      if (files.length === 0) return;
+    const norm = (s) => String(s || "").normalize("NFKC").toLowerCase().replace(/\s+/g, "");
 
-      const room = MAX_IMAGES - images.length;
-      if (room <= 0) {
-        showStatus(`最多只能上傳 ${MAX_IMAGES} 張截圖`, "warn");
-        return;
+    async function loadIconIndex() {
+      try {
+        const db = await (await fetch("assets/pokemon_icons.json")).json();
+        const build = (list) => {
+          const map = new Map();
+          list.forEach((e) => [e.name_zh, e.name_en, ...(e.aliases || [])].forEach((n) => n && !map.has(norm(n)) && map.set(norm(n), e)));
+          return map;
+        };
+        iconIndex = { pokemon: build(db.pokemon), items: build(db.items) };
+        fillDatalist("pokemonNames", db.pokemon.map((p) => p.name_zh));
+        fillDatalist("itemNames", db.items.map((i) => i.name_zh));
+        renderPresets();
+      } catch (err) {
+        console.warn("縮圖資料庫載入失敗", err);
       }
-      if (files.length > room) {
-        showStatus(`已達上限，只加入前 ${room} 張`, "warn");
+    }
+
+    function fillDatalist(id, values) {
+      $(id).innerHTML = [...new Set(values)].map((v) => `<option value="${esc(v)}"></option>`).join("");
+    }
+    fillDatalist("natureNames", NATURES);
+    fillDatalist("typeNames", TYPES);
+
+    /* =========================================================
+     * 賽前備戰：配置資料
+     * ========================================================= */
+    function loadPresets() {
+      try {
+        const list = JSON.parse(localStorage.getItem(STORAGE_KEY_PRESETS) || "[]");
+        return Array.isArray(list) ? list.map(normalizePreset).filter((p) => p.name).slice(0, MAX_PRESETS) : [];
+      } catch {
+        return [];
       }
-      files.slice(0, room).forEach((file) => {
-        images.push({ id: crypto.randomUUID(), file, url: URL.createObjectURL(file) });
-      });
-      renderPreviews();
     }
 
-    function removeImage(id) {
-      const img = images.find((i) => i.id === id);
-      if (img) URL.revokeObjectURL(img.url);
-      images = images.filter((i) => i.id !== id);
-      renderPreviews();
+    function savePresets() {
+      localStorage.setItem(STORAGE_KEY_PRESETS, JSON.stringify(presets));
+      renderPresets();
     }
 
-    function moveImage(id, delta) {
-      const idx = images.findIndex((i) => i.id === id);
-      const target = idx + delta;
-      if (idx < 0 || target < 0 || target >= images.length) return;
-      [images[idx], images[target]] = [images[target], images[idx]];
-      renderPreviews();
+    function normalizePreset(p) {
+      const str = (v) => (typeof v === "string" ? v.trim().slice(0, 40) : "");
+      return {
+        id: p?.id || crypto.randomUUID(),
+        name: str(p?.name),
+        item: str(p?.item),
+        ability: str(p?.ability),
+        nature: str(p?.nature),
+        teraType: str(p?.teraType),
+        moves: (Array.isArray(p?.moves) ? p.moves : []).map(str).filter(Boolean).slice(0, 4),
+      };
     }
 
-    function slotLabel(index) {
-      return index === 0 ? "總覽 / 道具" : `我方 #${index} 招式`;
+    // 名稱、招式、特性、性格、道具、太晶全部相同才視為同一筆配置
+    function presetKey(p) {
+      return JSON.stringify([norm(p.name), norm(p.item), norm(p.ability), norm(p.nature), norm(p.teraType), p.moves.map(norm).sort()]);
     }
 
-    function renderPreviews() {
-      previewGrid.innerHTML = "";
-      images.forEach((img, index) => {
-        const card = document.createElement("div");
-        card.className = "relative group bg-slate-950 border rounded-lg overflow-hidden " +
-          (index === 0 ? "border-amber-500" : "border-slate-700");
-        card.innerHTML = `
-          <img src="${img.url}" alt="截圖 ${index + 1}" class="w-full h-28 object-cover cursor-zoom-in" data-action="view" />
-          <div class="absolute top-1 left-1 text-[10px] font-bold px-1.5 py-0.5 rounded ${index === 0 ? "bg-amber-500 text-slate-950" : "bg-slate-800/90"}">
-            ${index + 1} · ${slotLabel(index)}
-          </div>
-          <button data-action="remove" title="刪除"
-            class="absolute top-1 right-1 w-6 h-6 rounded-full bg-red-600/90 hover:bg-red-500 text-xs leading-6">✕</button>
-          <div class="flex text-xs border-t border-slate-800">
-            <button data-action="left" class="flex-1 py-1 hover:bg-slate-800 disabled:opacity-30" ${index === 0 ? "disabled" : ""}>◀</button>
-            <button data-action="right" class="flex-1 py-1 hover:bg-slate-800 disabled:opacity-30" ${index === images.length - 1 ? "disabled" : ""}>▶</button>
+    function findDuplicate(p, ignoreId) {
+      const key = presetKey(p);
+      return presets.find((x) => x.id !== ignoreId && presetKey(x) === key);
+    }
+
+    /** 新增多筆配置，回傳 { added, duplicates, overflow } */
+    function addPresets(list) {
+      const result = { added: 0, duplicates: 0, overflow: 0 };
+      for (const raw of list) {
+        const p = normalizePreset({ ...raw, id: undefined });
+        if (!p.name) continue;
+        if (findDuplicate(p)) { result.duplicates++; continue; }
+        if (presets.length >= MAX_PRESETS) { result.overflow++; continue; }
+        presets.push(p);
+        result.added++;
+      }
+      savePresets();
+      return result;
+    }
+
+    function renderPresets() {
+      $("presetCount").textContent = `${presets.length} / ${MAX_PRESETS}`;
+      $("presetTabCount").textContent = `${presets.length}/${MAX_PRESETS}`;
+      $("presetEmpty").classList.toggle("hidden", presets.length > 0);
+
+      // 同名寶可夢編號，方便辨識不同配置
+      const seen = {};
+      const sameNameTotal = presets.reduce((m, p) => ((m[norm(p.name)] = (m[norm(p.name)] || 0) + 1), m), {});
+
+      $("presetList").innerHTML = presets.map((p) => {
+        const k = norm(p.name);
+        seen[k] = (seen[k] || 0) + 1;
+        const tag = sameNameTotal[k] > 1 ? `<span class="text-xs text-amber-300 ml-1">#${seen[k]}</span>` : "";
+        const mon = iconIndex.pokemon.get(norm(p.name));
+        const item = iconIndex.items.get(norm(p.item));
+        const meta = [p.ability && `特性：${esc(p.ability)}`, p.nature && `性格：${esc(p.nature)}`, p.teraType && `太晶：${esc(p.teraType)}`].filter(Boolean).join(" · ");
+        return `
+          <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex gap-3">
+            <div class="w-16 h-16 shrink-0 rounded-lg bg-slate-900 flex items-center justify-center overflow-hidden">
+              ${mon ? `<img src="${esc(mon.icon)}" alt="" class="sprite max-w-full max-h-full" loading="lazy" onerror="this.src='${esc(mon.icon_fallback)}'" />` : `<span class="text-2xl">❔</span>`}
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start gap-2">
+                <div class="font-bold truncate flex-1">${esc(p.name)}${tag}</div>
+                <button data-edit="${p.id}" class="text-xs bg-slate-800 hover:bg-slate-700 rounded px-2 py-1">✏️</button>
+                <button data-del="${p.id}" class="text-xs bg-slate-800 hover:bg-red-900/60 rounded px-2 py-1">✕</button>
+              </div>
+              <div class="text-xs text-slate-300 mt-0.5 flex items-center gap-1">
+                ${item?.icon ? `<img src="${esc(item.icon)}" alt="" class="w-5 h-5 sprite" loading="lazy" />` : "🎒"}
+                ${p.item ? esc(p.item) : '<span class="text-slate-500">無道具</span>'}
+              </div>
+              ${meta ? `<div class="text-xs text-slate-400 mt-0.5">${meta}</div>` : ""}
+              <div class="grid grid-cols-2 gap-1 mt-2">
+                ${p.moves.map((m) => `<span class="text-xs bg-slate-800 rounded px-2 py-0.5 truncate">${esc(m)}</span>`).join("") || '<span class="text-xs text-slate-500">尚無招式</span>'}
+              </div>
+            </div>
           </div>`;
-        card.addEventListener("click", (e) => {
-          const action = e.target.closest("[data-action]")?.dataset.action;
-          if (action === "remove") removeImage(img.id);
-          else if (action === "left") moveImage(img.id, -1);
-          else if (action === "right") moveImage(img.id, 1);
-          else if (action === "view") openModal(img.url);
-        });
-        previewGrid.appendChild(card);
-      });
+      }).join("");
 
-      counter.textContent = `${images.length} / ${MAX_IMAGES} 張`;
-      counter.className = "text-sm font-mono px-2 py-0.5 rounded " +
-        (images.length === MAX_IMAGES ? "bg-emerald-700" : "bg-slate-800");
-      analyzeBtn.disabled = images.length === 0;
+      renderPresetNotice();
     }
 
-    /* =========================================================
-     * 上傳方式：點擊 / 拍照 / 拖曳 / 貼上
-     * ========================================================= */
-    dropZone.addEventListener("click", () => fileInput.click());
-    dropZone.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") fileInput.click(); });
-    $("pickBtn").addEventListener("click", () => fileInput.click());
-    $("cameraBtn").addEventListener("click", () => cameraInput.click());
-    $("clearBtn").addEventListener("click", () => {
-      images.forEach((i) => URL.revokeObjectURL(i.url));
-      images = [];
-      renderPreviews();
+    $("presetList").addEventListener("click", (e) => {
+      const editId = e.target.closest("[data-edit]")?.dataset.edit;
+      const delId = e.target.closest("[data-del]")?.dataset.del;
+      if (editId) openEditor(editId);
+      if (delId) {
+        const p = presets.find((x) => x.id === delId);
+        if (p && confirm(`刪除「${p.name}」這筆配置？`)) {
+          presets = presets.filter((x) => x.id !== delId);
+          savePresets();
+        }
+      }
     });
 
-    [fileInput, cameraInput].forEach((input) =>
-      input.addEventListener("change", (e) => {
-        addFiles(e.target.files);
-        e.target.value = ""; // 允許重複選同一張
+    function renderPresetNotice() {
+      const el = $("presetNotice");
+      if (presets.length === 0) {
+        el.className = "mb-5 rounded-xl px-4 py-3 text-sm bg-amber-950 border border-amber-800 text-amber-200";
+        el.innerHTML = '⚠️ 尚未登錄隊伍配置，AI 只能用環境常見配置推測我方招式。建議先到 <button data-goto="preset" class="underline font-bold">📋 賽前備戰</button> 登錄。';
+      } else {
+        el.className = "mb-5 rounded-xl px-4 py-3 text-sm bg-slate-900 border border-slate-800 text-slate-300";
+        el.innerHTML = `✅ 已登錄 ${presets.length} 筆配置，分析時會自動與截圖中的我方 6 隻配對。 <button data-goto="preset" class="underline text-amber-300">管理</button>`;
+      }
+    }
+    $("presetNotice").addEventListener("click", (e) => {
+      if (e.target.closest("[data-goto]")) { activeTab = "preset"; localStorage.setItem(STORAGE_KEY_TAB, activeTab); renderTabs(); }
+    });
+
+    /* ---------- 編輯 / 手動新增 ---------- */
+    const editForm = $("editForm");
+    const field = (name) => editForm.elements.namedItem(name);
+
+    function openEditor(id = null) {
+      if (!id && presets.length >= MAX_PRESETS) return showStatus(`最多只能儲存 ${MAX_PRESETS} 筆配置`, "warn");
+      editingId = id;
+      const p = id ? presets.find((x) => x.id === id) : normalizePreset({});
+      $("editTitle").textContent = id ? "編輯配置" : "新增配置";
+      ["name", "item", "ability", "nature", "teraType"].forEach((k) => (field(k).value = p[k]));
+      for (let i = 0; i < 4; i++) field(`move${i}`).value = p.moves[i] || "";
+      $("editError").classList.add("hidden");
+      $("editModal").classList.remove("hidden");
+      field("name").focus();
+    }
+
+    function closeEditor() {
+      $("editModal").classList.add("hidden");
+      editingId = null;
+    }
+
+    editForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const p = normalizePreset({
+        id: editingId || undefined,
+        name: field("name").value,
+        item: field("item").value,
+        ability: field("ability").value,
+        nature: field("nature").value,
+        teraType: field("teraType").value,
+        moves: [0, 1, 2, 3].map((i) => field(`move${i}`).value),
+      });
+      if (findDuplicate(p, editingId)) {
+        $("editError").textContent = "已有完全相同的配置（名稱、道具、特性、性格、太晶、招式皆相同）。";
+        $("editError").classList.remove("hidden");
+        return;
+      }
+      if (editingId) presets = presets.map((x) => (x.id === editingId ? p : x));
+      else presets.push(p);
+      savePresets();
+      closeEditor();
+      showStatus(`已儲存「${p.name}」`, "ok");
+    });
+    $("editCancel").addEventListener("click", closeEditor);
+    $("editModal").addEventListener("click", (e) => { if (e.target.id === "editModal") closeEditor(); });
+    $("presetAddBtn").addEventListener("click", () => openEditor());
+
+    /* ---------- 截圖辨識 ---------- */
+    async function recognizePresets(fileList) {
+      const files = Array.from(fileList).filter((f) => f.type.startsWith("image/"));
+      if (!files.length || busy) return;
+      const room = MAX_PRESETS - presets.length;
+      if (room <= 0) return showStatus(`已達 ${MAX_PRESETS} 筆上限，請先刪除部分配置`, "warn");
+      const batch = files.slice(0, Math.min(room, MAX_PARSE_BATCH));
+      const passcode = getPasscode();
+      if (!passcode) return;
+
+      busy = true;
+      try {
+        showStatus(`🤖 正在辨識 ${batch.length} 張截圖…`, "info", true);
+        const images = await Promise.all(batch.map(fileToBase64Payload));
+        const data = await callWorker({ mode: "parse", images }, passcode);
+        const r = addPresets(data.pokemon || []);
+        const parts = [`新增 ${r.added} 筆`];
+        if (r.duplicates) parts.push(`${r.duplicates} 筆重複略過`);
+        if (r.overflow) parts.push(`${r.overflow} 筆超過上限`);
+        if (files.length > batch.length) parts.push(`另有 ${files.length - batch.length} 張未處理（每次最多 ${MAX_PARSE_BATCH} 張）`);
+        showStatus(`✅ 辨識完成：${parts.join("，")}。請檢查內容，有誤可按 ✏️ 修改。`, r.added ? "ok" : "warn");
+      } catch (err) {
+        showStatus(`❌ 辨識失敗：${err.message}`, "error");
+      } finally {
+        busy = false;
+      }
+    }
+
+    /* ---------- 匯出 / 匯入 / 清除 ---------- */
+    $("exportBtn").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify({ app: "PKMTool", version: 1, presets }, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `pkmtool-presets-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+    $("importBtn").addEventListener("click", () => $("importFile").click());
+    $("importFile").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      e.target.value = "";
+      if (!file) return;
+      try {
+        const data = JSON.parse(await file.text());
+        const list = Array.isArray(data) ? data : data.presets;
+        if (!Array.isArray(list)) throw new Error("檔案中找不到 presets");
+        const r = addPresets(list);
+        showStatus(`✅ 匯入 ${r.added} 筆${r.duplicates ? `，${r.duplicates} 筆重複略過` : ""}${r.overflow ? `，${r.overflow} 筆超過上限` : ""}`, "ok");
+      } catch (err) {
+        showStatus(`❌ 匯入失敗：${err.message}`, "error");
+      }
+    });
+    $("presetClearBtn").addEventListener("click", () => {
+      if (presets.length && confirm(`刪除全部 ${presets.length} 筆配置？建議先匯出備份。`)) {
+        presets = [];
+        savePresets();
+      }
+    });
+
+    /* =========================================================
+     * 實戰分析：單張 Team Preview
+     * ========================================================= */
+    function setBattleImage(file) {
+      if (battleImage) URL.revokeObjectURL(battleImage.url);
+      battleImage = file ? { file, url: URL.createObjectURL(file) } : null;
+      $("battlePreview").classList.toggle("hidden", !battleImage);
+      $("battleEmpty").classList.toggle("hidden", !!battleImage);
+      if (battleImage) $("battlePreview").src = battleImage.url;
+      $("analyzeBtn").disabled = !battleImage || busy;
+    }
+
+    $("battleDrop").addEventListener("click", () => (battleImage ? openImgModal(battleImage.url) : $("battleFile").click()));
+    $("battleDrop").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") $("battleFile").click(); });
+    $("battlePickBtn").addEventListener("click", () => $("battleFile").click());
+    $("battleCameraBtn").addEventListener("click", () => $("battleCamera").click());
+    $("battleClearBtn").addEventListener("click", () => setBattleImage(null));
+    ["battleFile", "battleCamera"].forEach((id) =>
+      $(id).addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        e.target.value = "";
+        if (file) setBattleImage(file);
       })
     );
 
-    ["dragenter", "dragover"].forEach((evt) =>
-      dropZone.addEventListener(evt, (e) => { e.preventDefault(); dropZone.classList.add("drop-active"); })
-    );
-    ["dragleave", "drop"].forEach((evt) =>
-      dropZone.addEventListener(evt, (e) => { e.preventDefault(); dropZone.classList.remove("drop-active"); })
-    );
-    dropZone.addEventListener("drop", (e) => addFiles(e.dataTransfer.files));
-    // 防止拖曳到上傳區外時瀏覽器直接開啟圖片
-    window.addEventListener("dragover", (e) => e.preventDefault());
-    window.addEventListener("drop", (e) => e.preventDefault());
+    const autoEl = $("autoAnalyze");
+    autoEl.checked = localStorage.getItem(STORAGE_KEY_AUTO) !== "0";
+    autoEl.addEventListener("change", () => localStorage.setItem(STORAGE_KEY_AUTO, autoEl.checked ? "1" : "0"));
 
-    // Ctrl + V 貼上截圖（在輸入框內貼文字時不攔截）
-    document.addEventListener("paste", (e) => {
-      const items = Array.from(e.clipboardData?.items || []);
-      const files = items.filter((i) => i.kind === "file" && i.type.startsWith("image/")).map((i) => i.getAsFile());
-      if (files.length === 0) return;
-      e.preventDefault();
-      addFiles(files);
-      showStatus(`已從剪貼簿貼上 ${files.length} 張圖片`, "ok");
+    $("analyzeBtn").addEventListener("click", analyzeBattle);
+
+    async function analyzeBattle() {
+      if (!battleImage || busy) return;
+      const passcode = getPasscode();
+      if (!passcode) return;
+
+      busy = true;
+      setAnalyzing(true);
+      $("resultSection").classList.add("hidden");
+      const started = Date.now();
+
+      try {
+        showStatus("🤖 AI 正在解析 Team Preview 並規劃戰術…", "info", true);
+        const image = await fileToBase64Payload(battleImage.file);
+        const data = await callWorker({
+          mode: "battle",
+          images: [image],
+          presets: presets.map(({ id, ...rest }) => rest),
+          format,
+          note: $("note").value.trim(),
+        }, passcode);
+
+        lastMarkdown = data.markdown;
+        $("result").innerHTML = DOMPurify.sanitize(marked.parse(data.markdown));
+        renderWinRate(data.winRate);
+        $("resultSection").classList.remove("hidden");
+        $("resultSection").scrollIntoView({ behavior: "smooth", block: "start" });
+        showStatus(`✅ 分析完成（${((Date.now() - started) / 1000).toFixed(1)} 秒）`, "ok");
+      } catch (err) {
+        showStatus(`❌ 分析失敗：${err.message}`, "error");
+      } finally {
+        busy = false;
+        setAnalyzing(false);
+      }
+    }
+
+    function setAnalyzing(loading) {
+      const btn = $("analyzeBtn");
+      btn.disabled = loading || !battleImage;
+      btn.innerHTML = loading ? '<span class="inline-block animate-spin mr-2">⏳</span>分析中，請稍候…' : "🚀 分析最佳選角與出戰順序";
+    }
+
+    $("copyBtn").addEventListener("click", async () => {
+      if (!lastMarkdown) return;
+      await navigator.clipboard.writeText(lastMarkdown);
+      showStatus("📋 已複製 Markdown 報告", "ok");
     });
 
     /* =========================================================
-     * 圖片壓縮並轉 Base64
+     * 拖曳 / 貼上（依目前分頁分派）
      * ========================================================= */
-    async function fileToBase64Payload(file) {
-      const bitmap = await createImageBitmap(file);
-      const scale = Math.min(1, MAX_DIMENSION / Math.max(bitmap.width, bitmap.height));
-      const canvas = document.createElement("canvas");
-      canvas.width = Math.round(bitmap.width * scale);
-      canvas.height = Math.round(bitmap.height * scale);
-      canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-      bitmap.close();
-
-      const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
-      return { mimeType: "image/jpeg", data: dataUrl.split(",")[1] };
+    function bindDrop(zone, onFiles) {
+      ["dragenter", "dragover"].forEach((evt) => zone.addEventListener(evt, (e) => { e.preventDefault(); zone.classList.add("drop-active"); }));
+      ["dragleave", "drop"].forEach((evt) => zone.addEventListener(evt, (e) => { e.preventDefault(); zone.classList.remove("drop-active"); }));
+      zone.addEventListener("drop", (e) => onFiles(e.dataTransfer.files));
     }
+    bindDrop($("battleDrop"), (files) => files[0] && setBattleImage(files[0]));
+    bindDrop($("presetDrop"), recognizePresets);
+    window.addEventListener("dragover", (e) => e.preventDefault());
+    window.addEventListener("drop", (e) => e.preventDefault());
+
+    $("presetDrop").addEventListener("click", () => $("presetFile").click());
+    $("presetDrop").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") $("presetFile").click(); });
+    $("presetPickBtn").addEventListener("click", () => $("presetFile").click());
+    $("presetCameraBtn").addEventListener("click", () => $("presetCamera").click());
+    ["presetFile", "presetCamera"].forEach((id) =>
+      $(id).addEventListener("change", (e) => {
+        const files = Array.from(e.target.files);
+        e.target.value = "";
+        recognizePresets(files);
+      })
+    );
+
+    // Ctrl + V：實戰分頁 → 設為 Team Preview（可自動分析）；備戰分頁 → 辨識新增
+    document.addEventListener("paste", (e) => {
+      if (!$("editModal").classList.contains("hidden")) return;
+      const files = Array.from(e.clipboardData?.items || [])
+        .filter((i) => i.kind === "file" && i.type.startsWith("image/"))
+        .map((i) => i.getAsFile());
+      if (!files.length) return;
+      e.preventDefault();
+      if (activeTab === "preset") {
+        recognizePresets(files);
+      } else {
+        setBattleImage(files[0]);
+        if (autoEl.checked) analyzeBattle();
+        else showStatus("已貼上 Team Preview 截圖", "ok");
+      }
+    });
 
     /* =========================================================
-     * 呼叫 Worker
+     * Worker 呼叫
      * ========================================================= */
     function getPasscode() {
       const passcode = passcodeEl.value.trim();
@@ -342,10 +700,22 @@
       return passcode;
     }
 
+    async function callWorker(payload, passcode) {
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Passcode": passcode },
+        body: JSON.stringify(payload),
+      });
+      if (res.status === 401) throw new Error("密碼錯誤，拒絕存取");
+      const data = await res.json().catch(() => ({ ok: false, error: `HTTP ${res.status}` }));
+      if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      return data;
+    }
+
     $("testBtn").addEventListener("click", async () => {
       const passcode = getPasscode();
       if (!passcode) return;
-      showStatus("連線測試中…", "info");
+      showStatus("連線測試中…", "info", true);
       try {
         const res = await fetch(WORKER_URL, { method: "GET", headers: { "X-Access-Passcode": passcode } });
         if (res.status === 401) return showStatus("❌ 密碼錯誤，拒絕存取", "error");
@@ -357,50 +727,18 @@
       }
     });
 
-    analyzeBtn.addEventListener("click", async () => {
-      const passcode = getPasscode();
-      if (!passcode || images.length === 0) return;
-
-      setLoading(true);
-      resultSection.classList.add("hidden");
-      const started = Date.now();
-
-      try {
-        showStatus("🖼️ 正在壓縮並編碼圖片…", "info");
-        const payloadImages = await Promise.all(images.map((i) => fileToBase64Payload(i.file)));
-
-        showStatus(`🤖 AI 正在解析 ${payloadImages.length} 張截圖並規劃戰術（約 10~60 秒）…`, "info");
-        const res = await fetch(WORKER_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "X-Access-Passcode": passcode },
-          body: JSON.stringify({ images: payloadImages, format, note: $("note").value.trim() }),
-        });
-
-        if (res.status === 401) throw new Error("密碼錯誤，拒絕存取");
-
-        const data = await res.json().catch(() => ({ ok: false, error: `HTTP ${res.status}` }));
-        if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
-
-        lastMarkdown = data.markdown;
-        resultEl.innerHTML = DOMPurify.sanitize(marked.parse(data.markdown));
-        renderWinRate(data.winRate);
-        resultSection.classList.remove("hidden");
-        resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
-
-        const secs = ((Date.now() - started) / 1000).toFixed(1);
-        showStatus(`✅ 分析完成（${secs} 秒 · ${data.model}）`, "ok");
-      } catch (err) {
-        showStatus(`❌ 分析失敗：${err.message}`, "error");
-      } finally {
-        setLoading(false);
-      }
-    });
-
-    $("copyBtn").addEventListener("click", async () => {
-      if (!lastMarkdown) return;
-      await navigator.clipboard.writeText(lastMarkdown);
-      showStatus("📋 已複製 Markdown 報告", "ok");
-    });
+    /* 圖片壓縮並轉 Base64 */
+    async function fileToBase64Payload(file) {
+      const bitmap = await createImageBitmap(file);
+      const scale = Math.min(1, MAX_DIMENSION / Math.max(bitmap.width, bitmap.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(bitmap.width * scale);
+      canvas.height = Math.round(bitmap.height * scale);
+      canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      bitmap.close();
+      const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
+      return { mimeType: "image/jpeg", data: dataUrl.split(",")[1] };
+    }
 
     /* =========================================================
      * 預估勝率（門檻與 Worker System Prompt 一致）
@@ -431,7 +769,6 @@
       bar.className = `h-full rounded-full transition-all duration-700 ${level.bar}`;
       bar.style.width = "0%";
       requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = `${winRate}%`; }));
-
       badge.className = `text-xs font-bold px-2 py-0.5 rounded-full ${level.badge}`;
       badge.textContent = `勝率 ${winRate}%`;
     }
@@ -439,32 +776,43 @@
     /* =========================================================
      * UI 工具
      * ========================================================= */
-    function setLoading(loading) {
-      analyzeBtn.disabled = loading || images.length === 0;
-      analyzeBtn.innerHTML = loading
-        ? '<span class="inline-block animate-spin mr-2">⏳</span>分析中，請稍候…'
-        : "🚀 分析最佳選角與出戰順序";
-    }
-
-    function showStatus(message, type = "info") {
+    let statusTimer;
+    function showStatus(message, type = "info", sticky = false) {
       const styles = {
         info: "bg-sky-950 border border-sky-800 text-sky-200",
         ok: "bg-emerald-950 border border-emerald-800 text-emerald-200",
         warn: "bg-amber-950 border border-amber-800 text-amber-200",
         error: "bg-red-950 border border-red-800 text-red-200",
       };
-      statusEl.className = `mt-4 rounded-xl px-4 py-3 text-sm ${styles[type]}`;
+      statusEl.className = `fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-xl rounded-xl px-4 py-3 text-sm shadow-xl ${styles[type]}`;
       statusEl.textContent = message;
+      clearTimeout(statusTimer);
+      if (!sticky) statusTimer = setTimeout(() => statusEl.classList.add("hidden"), type === "error" ? 8000 : 4000);
+    }
+    statusEl.addEventListener("click", () => statusEl.classList.add("hidden"));
+
+    function esc(s) {
+      return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     }
 
-    function openModal(src) {
-      $("modalImg").src = src;
-      $("modal").classList.remove("hidden");
+    function openImgModal(src) {
+      $("imgModalSrc").src = src;
+      $("imgModal").classList.remove("hidden");
     }
-    $("modal").addEventListener("click", () => $("modal").classList.add("hidden"));
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") $("modal").classList.add("hidden"); });
+    $("imgModal").addEventListener("click", () => $("imgModal").classList.add("hidden"));
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      $("imgModal").classList.add("hidden");
+      closeEditor();
+    });
 
-    renderPreviews();
+    /* =========================================================
+     * 初始化
+     * ========================================================= */
+    renderTabs();
+    renderFormat();
+    renderPresets();
+    loadIconIndex();
   </script>
 </body>
 </html>

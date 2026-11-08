@@ -1,6 +1,6 @@
 # PKMTool · 寶可夢冠軍 AI 戰略分析
 
-PKMTool 是給《寶可夢冠軍》（Pokémon Champions）玩家用的 AI 戰術分析網頁。上傳對戰開始時的截圖，AI 會判讀雙方陣容，給出最佳選角、先發順序與第一回合的行動建議。
+PKMTool 是給《寶可夢冠軍》（Pokémon Champions）玩家用的 AI 戰術分析網頁。賽前先登錄自己的寶可夢配置，對戰選角時只要貼上 1 張 Team Preview 截圖，AI 就會判讀雙方陣容，給出最佳選角、先發順序、第一回合行動建議與預估勝率。
 
 支援兩種賽制：
 
@@ -11,12 +11,15 @@ PKMTool 是給《寶可夢冠軍》（Pokémon Champions）玩家用的 AI 戰�
 
 ## 功能
 
-- 上傳最多 7 張截圖：
-  - 第 1 張：6v6 Team Preview 總覽（雙方陣容與我方道具）
-  - 第 2~7 張：我方 6 隻寶可夢各自的招式表
-- 點擊選取、手機拍照、拖曳、`Ctrl + V` 貼上
-- 縮圖預覽、放大檢視、單張刪除、左右調整順序
-- AI 輸出：截圖辨識結果、對手體系與速度線、最佳選角、先發順序、T1 行動與分支決策、勝利條件、預估勝率（太低時建議直接投降）
+- **📋 賽前備戰**：登錄最多 20 筆寶可夢配置（名稱、道具、特性、性格、太晶屬性、招式）
+  - 上傳寶可夢詳細資訊頁截圖，AI 自動辨識填入（一次最多 6 張），或手動新增 / 編輯
+  - 同名寶可夢只要招式、特性、性格、道具或太晶任一不同，就視為不同配置；完全相同會被擋下
+  - 資料存在瀏覽器 LocalStorage，可匯出 / 匯入 JSON 備份
+  - 從 `assets/pokemon_icons.json` 顯示寶可夢與道具縮圖，輸入名稱時有自動完成
+- **⚔️ 實戰分析**：只需 1 張 6v6 Team Preview 總覽圖（對手 6 隻與太晶屬性、我方 6 隻與道具）
+  - AI 依截圖中的我方寶可夢與道具，自動配對預存配置
+  - 支援點擊選取、手機拍照、拖曳、`Ctrl + V` 貼上；可設定「貼上後自動分析」
+- AI 輸出：辨識結果、對手體系與速度線、最佳選角、先發順序、T1 行動與分支決策、勝利條件、預估勝率（太低時建議直接投降）
 - Gemini API Key 只存放在 Cloudflare Worker，前端與 GitHub 上都不會出現
 - 密碼保護：Worker 只接受帶有正確 `X-Access-Passcode` 的請求，只有知道密碼的人能使用
 
@@ -24,10 +27,12 @@ PKMTool 是給《寶可夢冠軍》（Pokémon Champions）玩家用的 AI 戰�
 
 ```
 瀏覽器 (GitHub Pages: index.html)
-   │  POST { images: [Base64...], format, note }  + Header X-Access-Passcode
+   │  賽前：POST { mode: "parse",  images: [詳細資訊頁...] }
+   │  實戰：POST { mode: "battle", images: [Team Preview], presets, format, note }
+   │  + Header X-Access-Passcode
    ▼
 Cloudflare Worker (worker.js)   ← 比對 env.CUSTOM_PASSCODE，讀取 env.GEMINI_API_KEY
-   │  generateContent (inline_data × N)
+   │  generateContent (inline_data)
    ▼
 Google Gemini API (gemini-3.5-flash-lite)
 ```
@@ -145,15 +150,23 @@ npm run dev
 ## 四、使用方式
 
 1. 打開網站，輸入存取密碼，按「🔌 測試連線」確認（密碼會記在瀏覽器裡，下次免輸入）。
-2. 選擇賽制：雙打（6 選 4）或單打（6 選 3）。
-3. 依序上傳截圖：第 1 張放 Team Preview 總覽，第 2~7 張放我方 6 隻的招式表。順序錯了可以用縮圖下方的 ◀ ▶ 調整。
-4. （選填）在補充說明寫下額外資訊，例如對手上一局的先發。
-5. 按「🚀 分析最佳選角與出戰順序」，約 10~60 秒後會顯示報告。
+
+### 賽前（一次設定好）
+
+2. 切到「📋 賽前備戰」，上傳你的寶可夢詳細資訊頁截圖（每張 1 隻），AI 會自動新增配置。
+3. 檢查辨識結果，有誤按 ✏️ 修改；也可以按「➕ 手動新增」。
+4. 建議按「⬇️ 匯出」備份；清除瀏覽器資料或換裝置時用「⬆️ 匯入」還原。
+
+### 實戰（每場對戰）
+
+5. 切到「⚔️ 實戰分析」，選擇賽制：雙打（6 選 4）或單打（6 選 3）。
+6. 在選角畫面截圖，直接 `Ctrl + V` 貼上（勾選「貼上後自動分析」會立刻開始），或點擊上傳。
+7. 等待報告；最後的勝率卡會建議積極應戰、謹慎應戰或直接投降。
 
 ### 截圖建議
 
 - 截圖越清晰，辨識越準。前端會自動把長邊縮到 2048px 並轉成 JPEG 以加快上傳。
-- 少於 7 張也能分析，AI 會標示缺少的資訊並以環境常見配置推測。
+- 截圖中的我方寶可夢若沒有預存配置，AI 會以環境常見配置推測並標註。
 
 ---
 
@@ -161,26 +174,45 @@ npm run dev
 
 所有請求都必須帶 Header `X-Access-Passcode: <你的密碼>`，否則回傳 401。
 
-`POST {Worker 網址}`
+圖片格式皆為 `{ "mimeType": "image/jpeg", "data": "<Base64，不含 data: 前綴>" }`，支援 `image/png`、`image/jpeg`、`image/webp`、`image/heic`、`image/heif`，單張上限 8 MB。
+
+### 截圖辨識：`POST {Worker 網址}`
+
+```json
+{ "mode": "parse", "images": [ { "mimeType": "image/jpeg", "data": "..." } ] }
+```
+
+- `images`：1~6 張寶可夢詳細資訊頁，每張 1 隻
+
+回應：
+
+```json
+{ "ok": true, "pokemon": [ { "name": "熾焰咆哮虎", "item": "文柚果", "ability": "威嚇", "nature": "慎重", "teraType": "", "moves": ["擊掌奇襲", "閃焰衝鋒", "拋下狠話", "拍落"] } ] }
+```
+
+看不到的欄位為空字串。
+
+### 實戰分析：`POST {Worker 網址}`
 
 ```json
 {
-  "images": [
-    { "mimeType": "image/jpeg", "data": "<Base64，不含 data: 前綴>" }
-  ],
+  "mode": "battle",
+  "images": [ { "mimeType": "image/jpeg", "data": "..." } ],
+  "presets": [ { "name": "熾焰咆哮虎", "item": "文柚果", "ability": "威嚇", "nature": "慎重", "teraType": "", "moves": ["擊掌奇襲"] } ],
   "format": "doubles",
   "note": "選填補充說明"
 }
 ```
 
-- `images`：1~7 張，支援 `image/png`、`image/jpeg`、`image/webp`、`image/heic`、`image/heif`，單張上限 8 MB
+- `images`：剛好 1 張 Team Preview 總覽圖
+- `presets`：預存配置，最多 20 筆；可省略（AI 改以環境常見配置推測）
 - `format`：`doubles`（6 選 4，預設）或 `singles`（6 選 3）
 - `note`：最多 1000 字
 
 回應：
 
 ```json
-{ "ok": true, "markdown": "## 📋 0. 截圖辨識結果 ...", "winRate": 42, "model": "gemini-3.5-flash-lite", "usage": { } }
+{ "ok": true, "markdown": "## 📋 0. 辨識結果 ...", "winRate": 42, "model": "gemini-3.5-flash-lite", "usage": { } }
 ```
 
 `winRate` 為 AI 預估勝率（0~100 的整數），AI 未給出時為 `null`。前端依此顯示：≥ 55% 積極應戰、30%~54% 謹慎應戰、< 30% 建議投降。
@@ -199,7 +231,8 @@ npm run dev
 | `密碼錯誤，拒絕存取` | 輸入的密碼和 Worker 的 `CUSTOM_PASSCODE` 不一致 |
 | `伺服器尚未設定 GEMINI_API_KEY` / `CUSTOM_PASSCODE` | Worker 沒設定 Secret，見部署步驟 |
 | `Gemini API 回應錯誤` | 金鑰無效、額度用完或模型名稱錯誤；可在 Worker 的 Logs 查看詳情 |
-| AI 辨識錯名字 | 換更清晰的截圖，或在補充說明直接寫出正確名稱 |
+| AI 辨識錯名字 | 換更清晰的截圖；賽前配置可按 ✏️ 修改，實戰可在補充說明直接寫出正確名稱 |
+| 預存配置不見了 | LocalStorage 只存在目前瀏覽器，清除網站資料或換裝置就會消失，請定期「⬇️ 匯出」備份 |
 
 ## 授權與聲明
 
