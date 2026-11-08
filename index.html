@@ -156,7 +156,7 @@
         <div id="presetDrop" tabindex="0"
           class="border-2 border-dashed border-slate-700 rounded-xl p-6 text-center cursor-pointer transition hover:border-slate-500 focus:outline-none focus:border-amber-400">
           <div class="text-3xl mb-2">🧾</div>
-          <p class="font-semibold">上傳寶可夢詳細資訊頁截圖（每張 1 隻，一次最多 20 張）</p>
+          <p class="font-semibold">上傳寶可夢詳細資訊頁截圖（每張 1 隻，一次最多 6 張）</p>
           <p class="text-xs text-slate-500 mt-2">點擊選取、拖曳，或按 Ctrl + V 貼上 · AI 自動辨識名稱、道具、特性、性格、太晶屬性、招式</p>
         </div>
         <div class="flex flex-wrap gap-2 mt-3">
@@ -239,7 +239,7 @@
      * ========================================================= */
     const WORKER_URL = "https://pkmtool-worker.brianlin2021.workers.dev";
     const MAX_PRESETS = 20;
-    const PARSE_CHUNK_SIZE = 5;   // 每次請求 Worker 的張數（Worker 單次上限 6）
+    const MAX_PARSE_BATCH = 6;
     const MAX_DIMENSION = 2048;   // 上傳前縮圖的最長邊（保留文字清晰度，同時減少傳輸量）
     const JPEG_QUALITY = 0.9;
     const STORAGE_KEY_FORMAT = "pkmtool.format";
@@ -514,33 +514,21 @@
       if (!files.length || busy) return;
       const room = MAX_PRESETS - presets.length;
       if (room <= 0) return showStatus(`已達 ${MAX_PRESETS} 筆上限，請先刪除部分配置`, "warn");
-      const batch = files.slice(0, room);
+      const batch = files.slice(0, Math.min(room, MAX_PARSE_BATCH));
       const passcode = getPasscode();
       if (!passcode) return;
-
-      // 分組平行送出，避免單一請求超過 Gemini 的 inline 圖片大小上限
-      const chunks = [];
-      for (let i = 0; i < batch.length; i += PARSE_CHUNK_SIZE) chunks.push(batch.slice(i, i + PARSE_CHUNK_SIZE));
 
       busy = true;
       try {
         showStatus(`🤖 正在辨識 ${batch.length} 張截圖…`, "info", true);
-        const results = await Promise.allSettled(chunks.map(async (chunk) => {
-          const images = await Promise.all(chunk.map(fileToBase64Payload));
-          return (await callWorker({ mode: "parse", images }, passcode)).pokemon || [];
-        }));
-
-        const failed = results.filter((r) => r.status === "rejected");
-        const failedImages = results.reduce((n, r, i) => n + (r.status === "rejected" ? chunks[i].length : 0), 0);
-        const r = addPresets(results.flatMap((x) => (x.status === "fulfilled" ? x.value : [])));
-
+        const images = await Promise.all(batch.map(fileToBase64Payload));
+        const data = await callWorker({ mode: "parse", images }, passcode);
+        const r = addPresets(data.pokemon || []);
         const parts = [`新增 ${r.added} 筆`];
         if (r.duplicates) parts.push(`${r.duplicates} 筆重複略過`);
         if (r.overflow) parts.push(`${r.overflow} 筆超過上限`);
-        if (files.length > batch.length) parts.push(`另有 ${files.length - batch.length} 張超過 ${MAX_PRESETS} 筆上限未處理`);
-        if (failed.length) parts.push(`${failedImages} 張辨識失敗（${failed[0].reason.message}）`);
-        const type = failed.length ? (r.added ? "warn" : "error") : (r.added ? "ok" : "warn");
-        showStatus(`${failed.length ? "⚠️" : "✅"} 辨識完成：${parts.join("，")}。請檢查內容，有誤可按 ✏️ 修改。`, type);
+        if (files.length > batch.length) parts.push(`另有 ${files.length - batch.length} 張未處理（每次最多 ${MAX_PARSE_BATCH} 張）`);
+        showStatus(`✅ 辨識完成：${parts.join("，")}。請檢查內容，有誤可按 ✏️ 修改。`, r.added ? "ok" : "warn");
       } catch (err) {
         showStatus(`❌ 辨識失敗：${err.message}`, "error");
       } finally {
