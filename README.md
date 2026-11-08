@@ -74,7 +74,13 @@ npm install
 npm run deploy
 ```
 
-部署完成後會顯示網址，例如 `https://pkmtool-worker.你的帳號.workers.dev`。直接用瀏覽器打開會看到 401（因為沒帶密碼），這是正常的；請改用網頁上的「🔌 測試連線」確認。
+部署完成後會顯示 Worker 網址，請把它填進 `index.html` 的 `WORKER_URL` 常數：
+
+```js
+const WORKER_URL = "https://your-worker.example.workers.dev";
+```
+
+直接用瀏覽器打開會看到 401（因為沒帶密碼），這是正常的；請改用網頁上的「🔌 測試連線」確認。
 
 本機測試：
 
@@ -135,7 +141,7 @@ npm run dev
 
 ## 四、使用方式
 
-1. 打開網站，在最上方填入 Worker 網址與存取密碼，按「🔌 測試連線」確認（兩者都會記在瀏覽器裡，下次免輸入）。
+1. 打開網站，輸入存取密碼，按「🔌 測試連線」確認（密碼會記在瀏覽器裡，下次免輸入）。
 2. 選擇賽制：雙打（6 選 4）或單打（6 選 3）。
 3. 依序上傳截圖：第 1 張放 Team Preview 總覽，第 2~7 張放我方 6 隻的招式表。順序錯了可以用縮圖下方的 ◀ ▶ 調整。
 4. （選填）在補充說明寫下額外資訊，例如對手上一局的先發。
@@ -184,7 +190,7 @@ npm run dev
 
 | 狀況 | 原因與處理 |
 | --- | --- |
-| 測試連線失敗、`Failed to fetch` | Worker 網址錯誤，或 `ALLOWED_ORIGIN` 沒有包含目前網站 |
+| 測試連線失敗、`Failed to fetch` | `index.html` 的 `WORKER_URL` 錯誤、Worker 尚未部署，或 `ALLOWED_ORIGIN` 沒有包含目前網站 |
 | `密碼錯誤，拒絕存取` | 輸入的密碼和 Worker 的 `CUSTOM_PASSCODE` 不一致 |
 | `伺服器尚未設定 GEMINI_API_KEY` / `CUSTOM_PASSCODE` | Worker 沒設定 Secret，見部署步驟 |
 | `Gemini API 回應錯誤` | 金鑰無效、額度用完或模型名稱錯誤；可在 Worker 的 Logs 查看詳情 |

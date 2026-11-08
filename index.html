@@ -45,19 +45,13 @@
 
     <!-- ===================== API 設定 ===================== -->
     <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
-      <label for="workerUrl" class="block text-sm font-semibold text-slate-300 mb-2">⚙️ Cloudflare Worker API 網址</label>
-      <div class="flex flex-col sm:flex-row gap-2">
-        <input id="workerUrl" type="url" placeholder="https://pkmtool-worker.你的帳號.workers.dev"
-          class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-400" />
-      </div>
-
-      <label for="passcode" class="block text-sm font-semibold text-slate-300 mt-4 mb-2">🔑 存取密碼</label>
+      <label for="passcode" class="block text-sm font-semibold text-slate-300 mb-2">🔑 存取密碼</label>
       <div class="flex flex-col sm:flex-row gap-2">
         <input id="passcode" type="password" placeholder="輸入你的密碼" autocomplete="current-password"
           class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-400" />
         <button id="testBtn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-4 py-2 text-sm whitespace-nowrap">🔌 測試連線</button>
       </div>
-      <p class="text-xs text-slate-500 mt-2">網址與密碼會儲存在瀏覽器本機。API Key 只存在 Worker 端，不會出現在本網頁。</p>
+      <p class="text-xs text-slate-500 mt-2">密碼會儲存在瀏覽器本機。API Key 只存在 Worker 端，不會出現在本網頁。</p>
     </section>
 
     <!-- ===================== 賽制 + 補充 ===================== -->
@@ -141,7 +135,7 @@
     const MAX_IMAGES = 7;
     const MAX_DIMENSION = 2048;   // 上傳前縮圖的最長邊（保留招式文字清晰度，同時減少傳輸量）
     const JPEG_QUALITY = 0.9;
-    const STORAGE_KEY_URL = "pkmtool.workerUrl";
+    const WORKER_URL = "https://pkmtool-worker.brianlin2021.workers.dev";
     const STORAGE_KEY_FORMAT = "pkmtool.format";
     const STORAGE_KEY_PASSCODE = "pkmtool.passcode";
 
@@ -157,7 +151,6 @@
      * DOM
      * ========================================================= */
     const $ = (id) => document.getElementById(id);
-    const workerUrlEl = $("workerUrl");
     const dropZone = $("dropZone");
     const fileInput = $("fileInput");
     const cameraInput = $("cameraInput");
@@ -167,9 +160,6 @@
     const statusEl = $("status");
     const resultSection = $("resultSection");
     const resultEl = $("result");
-
-    workerUrlEl.value = localStorage.getItem(STORAGE_KEY_URL) || "";
-    workerUrlEl.addEventListener("change", () => localStorage.setItem(STORAGE_KEY_URL, workerUrlEl.value.trim()));
 
     const passcodeEl = $("passcode");
     passcodeEl.value = localStorage.getItem(STORAGE_KEY_PASSCODE) || "";
@@ -327,17 +317,6 @@
     /* =========================================================
      * 呼叫 Worker
      * ========================================================= */
-    function getWorkerUrl() {
-      const url = workerUrlEl.value.trim().replace(/\/+$/, "");
-      if (!/^https?:\/\//i.test(url)) {
-        showStatus("請先輸入正確的 Cloudflare Worker 網址（https://...）", "error");
-        workerUrlEl.focus();
-        return null;
-      }
-      localStorage.setItem(STORAGE_KEY_URL, url);
-      return url;
-    }
-
     function getPasscode() {
       const passcode = passcodeEl.value.trim();
       if (!passcode) {
@@ -349,12 +328,11 @@
     }
 
     $("testBtn").addEventListener("click", async () => {
-      const url = getWorkerUrl();
-      const passcode = url && getPasscode();
+      const passcode = getPasscode();
       if (!passcode) return;
       showStatus("連線測試中…", "info");
       try {
-        const res = await fetch(url, { method: "GET", headers: { "X-Access-Passcode": passcode } });
+        const res = await fetch(WORKER_URL, { method: "GET", headers: { "X-Access-Passcode": passcode } });
         if (res.status === 401) return showStatus("❌ 密碼錯誤，拒絕存取", "error");
         const data = await res.json();
         if (data.ok) showStatus(`✅ 連線成功，密碼正確（模型：${data.model}）`, "ok");
@@ -365,8 +343,7 @@
     });
 
     analyzeBtn.addEventListener("click", async () => {
-      const url = getWorkerUrl();
-      const passcode = url && getPasscode();
+      const passcode = getPasscode();
       if (!passcode || images.length === 0) return;
 
       setLoading(true);
@@ -378,7 +355,7 @@
         const payloadImages = await Promise.all(images.map((i) => fileToBase64Payload(i.file)));
 
         showStatus(`🤖 AI 正在解析 ${payloadImages.length} 張截圖並規劃戰術（約 10~60 秒）…`, "info");
-        const res = await fetch(url, {
+        const res = await fetch(WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json", "X-Access-Passcode": passcode },
           body: JSON.stringify({ images: payloadImages, format, note: $("note").value.trim() }),
