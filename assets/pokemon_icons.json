@@ -4624,7 +4624,9 @@
       "dex": 983,
       "name_zh": "仆刀將軍",
       "name_en": "Kingambit",
-      "aliases": [],
+      "aliases": [
+        "仆斬將軍"
+      ],
       "types": [
         "Dark",
         "Steel"
