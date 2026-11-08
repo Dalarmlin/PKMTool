@@ -7,7 +7,11 @@
  *      請求：{ mode: "parse", images: [ { mimeType, data }, ... ]（1~6 張，每張 1 隻） }
  *      回應：{ ok: true, pokemon: [ { name, item, ability, nature, teraType, moves: [] }, ... ] }
  *
- *   2. mode: "battle" — 實戰分析：1 張 Team Preview 總覽圖 + 預存配置 → 選角與戰術報告
+ *   2. mode: "review" — 賽前備戰：檢查配置的特性、性格、道具、太晶、招式是否最佳化
+ *      請求：{ mode: "review", presets: [ ... ]（1~20 筆）, format: "doubles" | "singles" }
+ *      回應：{ ok: true, markdown: "...", model, usage }
+ *
+ *   3. mode: "battle" — 實戰分析：1 張 Team Preview 總覽圖 + 預存配置 → 選角與戰術報告
  *      請求：{ mode: "battle", images: [ { mimeType, data } ]（1 張）,
  *              presets: [ { name, item, ability, nature, teraType, moves } ]（最多 20 筆）,
  *              format: "doubles" | "singles", note: "（選填）" }
@@ -73,6 +77,51 @@ const PARSE_SCHEMA = {
   },
   required: ["pokemon"],
 };
+
+/* ------------------------------------------------------------------ */
+/* Prompt：賽前備戰（配置健檢）                                         */
+/* ------------------------------------------------------------------ */
+const REVIEW_PROMPT = `
+你是一位世界頂尖的《寶可夢冠軍》（Pokémon Champions）對戰教練與配置專家，熟悉當前賽制環境、主流配置、傷害計算與速度線。
+使用者會提供自己登錄的寶可夢配置 JSON（名稱、道具、特性、性格、太晶屬性、招式），以及指定的【賽制】。
+請逐隻檢查配置是否已最佳化，並給出具體可執行的修改建議。
+
+【檢查原則】
+- 以指定賽制的當前環境為準（雙打重視範圍招式、守住、擊掌奇襲、輔助招式；單打重視強化、聯防、換人與先制）。
+- 特性：是否選了該寶可夢在此賽制最強或最符合定位的特性。
+- 性格：是否符合攻擊方向（物攻／特攻）與速度需求（最速、最慢搭配戲法空間等）。
+- 招式：逐招判斷保留或替換，指出缺少的關鍵招式（例如雙打沒帶守住）、打點重複、命中不穩或與性格衝突的招式。
+- 道具與太晶屬性：是否與配置定位一致；空白時給出推薦。
+- 欄位空白代表使用者未填寫，請直接給推薦，不要當成錯誤。
+- 已經是主流最佳配置時，明確說「已最佳化」，不要為了建議而硬改。
+- 所有名稱使用繁體中文官方譯名。
+
+【輸出格式】使用 Markdown，依序輸出：
+
+## 🧪 配置健檢總覽
+- 一句話總評，並列出最需要修改的 1~3 隻。
+
+接著每隻寶可夢一個章節（依輸入順序；同名多筆時以「名稱 #序號」區分）：
+
+## <寶可夢名稱> — 評分 <0~10>/10
+| 項目 | 目前 | 評價 | 建議 |
+| --- | --- | --- | --- |
+| 特性 | ... | ✅ 最佳 / ⚠️ 可改善 / ❌ 建議更換 | ... |
+| 性格 | ... | ... | ... |
+| 道具 | ... | ... | ... |
+| 太晶屬性 | ... | ... | ... |
+| 招式 1~4 | 逐招列出 | ... | ... |
+- **定位**：這套配置在隊伍中的角色。
+- **修改建議**：條列具體改法與理由（例如：把 X 換成 Y，因為…）。
+- **推薦最終配置**：特性 / 性格 / 道具 / 太晶 / 4 招式，一行列完。
+
+若輸入超過 1 隻，最後加上：
+
+## 🤝 隊伍搭配建議
+- 屬性弱點盲區、速度控制、招式打點覆蓋的檢查與補強建議。
+
+請保持專業、具體、可執行，避免空泛建議。
+`.trim();
 
 /* ------------------------------------------------------------------ */
 /* Prompt：實戰分析                                                     */
@@ -176,10 +225,9 @@ export default {
       }
 
       const model = env.GEMINI_MODEL || DEFAULT_MODEL;
-      const mode = body?.mode === "parse" ? "parse" : "battle";
-      const result = mode === "parse"
-        ? await handleParse(body, env, model)
-        : await handleBattle(body, env, model);
+      const handlers = { parse: handleParse, review: handleReview, battle: handleBattle };
+      const handler = handlers[body?.mode] || handleBattle;
+      const result = await handler(body, env, model);
 
       return json(result.body, result.status, cors);
     } catch (err) {
@@ -228,6 +276,26 @@ async function handleParse(body, env, model) {
 
   log("parse_done", { model, imageCount: images.list.length, found: pokemon.length, usage: gemini.usage });
   return { status: 200, body: { ok: true, pokemon, model, usage: gemini.usage } };
+}
+
+async function handleReview(body, env, model) {
+  if (!Array.isArray(body?.presets)) return { status: 400, body: { ok: false, error: "presets 必須是陣列" } };
+  const presets = body.presets.slice(0, MAX_PRESETS).map(sanitizePreset).filter((p) => p.name);
+  if (!presets.length) return { status: 400, body: { ok: false, error: "請至少提供 1 筆配置" } };
+  const format = FORMATS[body.format] ? body.format : "doubles";
+
+  const gemini = await callGemini(env, model, {
+    system_instruction: { parts: [{ text: REVIEW_PROMPT }] },
+    contents: [{
+      role: "user",
+      parts: [{ text: `【賽制】${FORMATS[format]}\n\n【待檢查配置】（共 ${presets.length} 筆）\n${JSON.stringify(presets)}` }],
+    }],
+    generationConfig: { temperature: 0.3, maxOutputTokens: 16384 },
+  });
+  if (gemini.error) return { status: 502, body: { ok: false, error: gemini.error } };
+
+  log("review_done", { model, format, presetCount: presets.length, usage: gemini.usage });
+  return { status: 200, body: { ok: true, markdown: gemini.text, model, usage: gemini.usage } };
 }
 
 async function handleBattle(body, env, model) {

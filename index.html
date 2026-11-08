@@ -180,6 +180,34 @@
         <div id="presetList" class="grid sm:grid-cols-2 gap-3"></div>
         <p id="presetEmpty" class="text-center text-sm text-slate-500 py-8">尚未登錄任何配置。上傳截圖或手動新增，最多 20 筆。</p>
       </section>
+
+      <!-- AI 配置健檢 -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mt-5">
+        <h2 class="text-sm font-semibold text-slate-300 mb-1">🧪 AI 配置健檢</h2>
+        <p class="text-xs text-slate-500 mb-3">檢查特性、性格、道具、太晶屬性與招式是否已最佳化，並給出修改建議。單隻健檢請按卡片上的 🧪。</p>
+        <div class="grid grid-cols-2 gap-2 mb-3">
+          <button data-format="doubles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
+            <div class="font-bold">⚔️ 雙打（VGC）</div>
+            <div class="text-xs opacity-75">依雙打環境評估</div>
+          </button>
+          <button data-format="singles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
+            <div class="font-bold">🗡️ 單打</div>
+            <div class="text-xs opacity-75">依單打環境評估</div>
+          </button>
+        </div>
+        <button id="reviewAllBtn"
+          class="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-950 font-bold rounded-xl py-3 transition">
+          🧪 健檢全部配置
+        </button>
+
+        <div id="reviewSection" class="hidden mt-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 id="reviewTitle" class="font-bold">📋 健檢報告</h3>
+            <button id="reviewCopyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 複製 Markdown</button>
+          </div>
+          <div id="reviewResult" class="md text-slate-200"></div>
+        </div>
+      </section>
     </div>
 
     <footer class="text-center text-xs text-slate-600 mt-10">
@@ -416,6 +444,7 @@
             <div class="min-w-0 flex-1">
               <div class="flex items-start gap-2">
                 <div class="font-bold truncate flex-1">${esc(p.name)}${tag}</div>
+                <button data-review="${p.id}" title="AI 健檢這筆配置" class="text-xs bg-slate-800 hover:bg-slate-700 rounded px-2 py-1">🧪</button>
                 <button data-edit="${p.id}" class="text-xs bg-slate-800 hover:bg-slate-700 rounded px-2 py-1">✏️</button>
                 <button data-del="${p.id}" class="text-xs bg-slate-800 hover:bg-red-900/60 rounded px-2 py-1">✕</button>
               </div>
@@ -432,11 +461,14 @@
       }).join("");
 
       renderPresetNotice();
+      renderReviewButton();
     }
 
     $("presetList").addEventListener("click", (e) => {
       const editId = e.target.closest("[data-edit]")?.dataset.edit;
       const delId = e.target.closest("[data-del]")?.dataset.del;
+      const reviewId = e.target.closest("[data-review]")?.dataset.review;
+      if (reviewId) reviewPresets(presets.filter((x) => x.id === reviewId));
       if (editId) openEditor(editId);
       if (delId) {
         const p = presets.find((x) => x.id === delId);
@@ -535,6 +567,49 @@
         busy = false;
       }
     }
+
+    /* ---------- AI 配置健檢 ---------- */
+    let lastReviewMarkdown = "";
+
+    async function reviewPresets(list) {
+      if (!list.length || busy) return;
+      const passcode = getPasscode();
+      if (!passcode) return;
+
+      busy = true;
+      const btn = $("reviewAllBtn");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span>健檢中，請稍候…';
+      const started = Date.now();
+      try {
+        const label = list.length === 1 ? `「${list[0].name}」` : `${list.length} 筆配置`;
+        showStatus(`🧪 AI 正在健檢${label}…`, "info", true);
+        const data = await callWorker({ mode: "review", presets: list.map(({ id, ...rest }) => rest), format }, passcode);
+        lastReviewMarkdown = data.markdown;
+        $("reviewTitle").textContent = `📋 健檢報告 · ${label} · ${format === "singles" ? "單打" : "雙打"}`;
+        $("reviewResult").innerHTML = DOMPurify.sanitize(marked.parse(data.markdown));
+        $("reviewSection").classList.remove("hidden");
+        $("reviewSection").scrollIntoView({ behavior: "smooth", block: "start" });
+        showStatus(`✅ 健檢完成（${((Date.now() - started) / 1000).toFixed(1)} 秒）。要套用建議請按卡片上的 ✏️ 修改。`, "ok");
+      } catch (err) {
+        showStatus(`❌ 健檢失敗：${err.message}`, "error");
+      } finally {
+        busy = false;
+        btn.innerHTML = "🧪 健檢全部配置";
+        renderReviewButton();
+      }
+    }
+
+    function renderReviewButton() {
+      if (!busy) $("reviewAllBtn").disabled = presets.length === 0;
+    }
+
+    $("reviewAllBtn").addEventListener("click", () => reviewPresets(presets));
+    $("reviewCopyBtn").addEventListener("click", async () => {
+      if (!lastReviewMarkdown) return;
+      await navigator.clipboard.writeText(lastReviewMarkdown);
+      showStatus("📋 已複製健檢報告", "ok");
+    });
 
     /* ---------- 匯出 / 匯入 / 清除 ---------- */
     $("exportBtn").addEventListener("click", () => {
