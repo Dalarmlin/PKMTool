@@ -112,10 +112,25 @@
     <!-- ===================== 結果區 ===================== -->
     <section id="resultSection" class="hidden mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6">
       <div class="flex items-center justify-between mb-2">
-        <h2 class="text-lg font-bold">📊 AI 戰術報告</h2>
+        <h2 class="text-lg font-bold flex items-center gap-2">📊 AI 戰術報告 <span id="winBadge" class="hidden text-xs font-bold px-2 py-0.5 rounded-full"></span></h2>
         <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 複製 Markdown</button>
       </div>
       <div id="result" class="md text-slate-200"></div>
+
+      <!-- 預估勝率 -->
+      <div id="winCard" class="hidden mt-6 rounded-2xl border p-5">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <div class="text-sm opacity-80">📈 預估勝率</div>
+            <div id="winVerdict" class="text-xl font-bold mt-1"></div>
+          </div>
+          <div id="winValue" class="text-5xl font-extrabold tabular-nums"></div>
+        </div>
+        <div class="mt-4 h-3 rounded-full bg-slate-950/60 overflow-hidden">
+          <div id="winBar" class="h-full rounded-full transition-all duration-700" style="width: 0%"></div>
+        </div>
+        <p id="winHint" class="text-xs opacity-80 mt-3"></p>
+      </div>
     </section>
 
     <footer class="text-center text-xs text-slate-600 mt-10">
@@ -368,6 +383,7 @@
 
         lastMarkdown = data.markdown;
         resultEl.innerHTML = DOMPurify.sanitize(marked.parse(data.markdown));
+        renderWinRate(data.winRate);
         resultSection.classList.remove("hidden");
         resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
 
@@ -385,6 +401,40 @@
       await navigator.clipboard.writeText(lastMarkdown);
       showStatus("📋 已複製 Markdown 報告", "ok");
     });
+
+    /* =========================================================
+     * 預估勝率（門檻與 Worker System Prompt 一致）
+     * ========================================================= */
+    const WIN_LEVELS = [
+      { min: 55, verdict: "✅ 積極應戰", hint: "陣容與戰術有優勢，照計畫執行即可。",
+        card: "bg-emerald-950 border-emerald-700 text-emerald-100", bar: "bg-emerald-400", badge: "bg-emerald-500 text-slate-950" },
+      { min: 30, verdict: "⚠️ 謹慎應戰", hint: "仍有勝利路線，注意報告中的關鍵回合與分支決策。",
+        card: "bg-amber-950 border-amber-700 text-amber-100", bar: "bg-amber-400", badge: "bg-amber-400 text-slate-950" },
+      { min: 0, verdict: "🏳️ 建議投降", hint: "陣容被嚴重克制，直接投降開下一場可以節省時間。",
+        card: "bg-red-950 border-red-700 text-red-100", bar: "bg-red-500", badge: "bg-red-500 text-white" },
+    ];
+
+    function renderWinRate(winRate) {
+      const card = $("winCard");
+      const badge = $("winBadge");
+      if (typeof winRate !== "number") {
+        card.classList.add("hidden");
+        badge.classList.add("hidden");
+        return;
+      }
+      const level = WIN_LEVELS.find((l) => winRate >= l.min);
+      card.className = `mt-6 rounded-2xl border p-5 ${level.card}`;
+      $("winValue").textContent = `${winRate}%`;
+      $("winVerdict").textContent = level.verdict;
+      $("winHint").textContent = level.hint;
+      const bar = $("winBar");
+      bar.className = `h-full rounded-full transition-all duration-700 ${level.bar}`;
+      bar.style.width = "0%";
+      requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = `${winRate}%`; }));
+
+      badge.className = `text-xs font-bold px-2 py-0.5 rounded-full ${level.badge}`;
+      badge.textContent = `勝率 ${winRate}%`;
+    }
 
     /* =========================================================
      * UI 工具

@@ -17,7 +17,7 @@
  *   }
  *
  * 回應格式（JSON）：
- *   成功：{ "ok": true,  "markdown": "...", "model": "...", "usage": {...} }
+ *   成功：{ "ok": true,  "markdown": "...", "winRate": 0~100 | null, "model": "...", "usage": {...} }
  *   失敗：{ "ok": false, "error": "錯誤訊息" }
  *
  * 環境變數 / Secrets：
@@ -81,7 +81,15 @@ const SYSTEM_PROMPT = `
 
 ## 📌 5. 總結與勝利條件
 - 用 3~5 點條列整場對戰的勝利條件（Win Condition）與必須避免的失誤。
-- 給出整體勝率評估（例如：有利 / 五五 / 不利）與一句話結論。
+
+## 📈 6. 預估勝率
+- 假設我方照上述選角與戰術執行、雙方操作水準相當，給出一個具體的勝率百分比（整數，0~100）。
+- 用 2~3 點說明影響勝率的關鍵因素（陣容相性、速度線、對手關鍵威脅）。
+- 給出明確建議，三選一：「✅ 積極應戰」（≥ 55%）、「⚠️ 謹慎應戰」（30%~54%）、「🏳️ 建議投降」（< 30%，陣容被嚴重克制、幾乎沒有勝利路線時才給）。
+- 勝率要誠實，不要為了鼓勵使用者而灌水，也不要一律給 50%。
+
+【最後一行】報告的最後一行必須單獨輸出以下格式（機器讀取用，不要加任何其他文字或符號）：
+WIN_RATE: <整數>
 
 請保持專業、具體、可執行，避免空泛建議。
 `.trim();
@@ -160,11 +168,12 @@ export default {
 
       // 7) 擷取文字結果（略過 thought 思考片段）
       const candidate = geminiData?.candidates?.[0];
-      const markdown = (candidate?.content?.parts || [])
+      const rawText = (candidate?.content?.parts || [])
         .filter((p) => typeof p.text === "string" && !p.thought)
         .map((p) => p.text)
         .join("")
         .trim();
+      const { markdown, winRate } = extractWinRate(rawText);
 
       if (!markdown) {
         const reason = candidate?.finishReason || geminiData?.promptFeedback?.blockReason || "未知原因";
@@ -176,10 +185,12 @@ export default {
         event: "analysis_done",
         model,
         imageCount: images.length,
+        format,
+        winRate,
         usage: geminiData.usageMetadata || null,
       }));
 
-      return json({ ok: true, markdown, model, usage: geminiData.usageMetadata || null }, 200, cors);
+      return json({ ok: true, markdown, winRate, model, usage: geminiData.usageMetadata || null }, 200, cors);
     } catch (err) {
       console.error(JSON.stringify({ level: "error", event: "unhandled", message: String(err?.message || err) }));
       return json({ ok: false, error: "Worker 內部錯誤，請稍後再試" }, 500, cors);
@@ -190,6 +201,14 @@ export default {
 /* ------------------------------------------------------------------ */
 /* 工具函式                                                            */
 /* ------------------------------------------------------------------ */
+
+/** 取出並移除報告最後的 `WIN_RATE: <整數>` 機器行；找不到時 winRate 為 null */
+function extractWinRate(text) {
+  const pattern = /^[\s*`_>-]*WIN_RATE\s*[:：]\s*(\d{1,3})\s*%?[\s*`_]*$/gim;
+  let winRate = null;
+  for (const m of text.matchAll(pattern)) winRate = Math.min(100, Number(m[1]));
+  return { markdown: text.replace(pattern, "").trim(), winRate };
+}
 
 /** 以固定時間比對密碼（先各自 SHA-256，長度一致才能用 timingSafeEqual） */
 async function passcodeMatches(input, expected) {
