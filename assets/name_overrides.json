@@ -1,0 +1,14 @@
+{
+  "pokemon": {
+    "taurospaldeacombat": "肯泰羅（帕底亞的樣子・鬥戰種）",
+    "taurospaldeablaze": "肯泰羅（帕底亞的樣子・火熾種）",
+    "taurospaldeaaqua": "肯泰羅（帕底亞的樣子・水瀾種）",
+    "floetteeternal": "花葉蒂（永恆之花）",
+    "palafinhero": "海豚俠（全能形態）",
+    "mausholdfour": "一家鼠（四隻家庭）",
+    "polteageistantique": "怖思壺（真品）"
+  },
+  "items": {
+    "roseliberry": "洛玫果"
+  }
+}

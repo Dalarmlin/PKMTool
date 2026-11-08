@@ -1,74 +1,6263 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "game": "Pokémon Champions",
   "updated": "2026-11-08",
+  "generatedBy": "scripts/build-icons.mjs",
   "sources": {
-    "showdown_pokemon": "https://play.pokemonshowdown.com/sprites/gen5/{showdownId}.png",
-    "showdown_pokemon_dex": "https://play.pokemonshowdown.com/sprites/dex/{showdownId}.png",
+    "legality": "pokemon-showdown (data/mods/champions)",
+    "names_zh": "https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/*_names.csv",
+    "showdown_pokemon": "https://play.pokemonshowdown.com/sprites/gen5/{spriteid}.png",
     "showdown_item_sheet": "https://play.pokemonshowdown.com/sprites/itemicons-sheet.png",
     "pokeapi_pokemon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{dex}.png",
     "pokeapi_item": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/{pokeapiId}.png"
   },
+  "counts": {
+    "pokemon": 347,
+    "items": 148
+  },
   "pokemon": [
     {
-      "showdownId": "incineroar",
-      "dex": 727,
-      "name_zh": "熾焰咆哮虎",
-      "name_en": "Incineroar",
-      "aliases": ["咆哮虎", "猛虎"],
-      "types": ["Fire", "Dark"],
-      "icon": "https://play.pokemonshowdown.com/sprites/gen5/incineroar.png",
-      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/727.png"
+      "showdownId": "venusaur",
+      "dex": 3,
+      "name_zh": "妙蛙花",
+      "name_en": "Venusaur",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/venusaur.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
+    },
+    {
+      "showdownId": "venusaurmega",
+      "dex": 3,
+      "name_zh": "超級妙蛙花",
+      "name_en": "Venusaur-Mega",
+      "baseSpecies": "Venusaur",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/venusaur-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
+    },
+    {
+      "showdownId": "charizard",
+      "dex": 6,
+      "name_zh": "噴火龍",
+      "name_en": "Charizard",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/charizard.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+    },
+    {
+      "showdownId": "charizardmegax",
+      "dex": 6,
+      "name_zh": "超級噴火龍X",
+      "name_en": "Charizard-Mega-X",
+      "baseSpecies": "Charizard",
+      "forme": "Mega-X",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/charizard-megax.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+    },
+    {
+      "showdownId": "charizardmegay",
+      "dex": 6,
+      "name_zh": "超級噴火龍Y",
+      "name_en": "Charizard-Mega-Y",
+      "baseSpecies": "Charizard",
+      "forme": "Mega-Y",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/charizard-megay.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+    },
+    {
+      "showdownId": "blastoise",
+      "dex": 9,
+      "name_zh": "水箭龜",
+      "name_en": "Blastoise",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/blastoise.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
+    },
+    {
+      "showdownId": "blastoisemega",
+      "dex": 9,
+      "name_zh": "超級水箭龜",
+      "name_en": "Blastoise-Mega",
+      "baseSpecies": "Blastoise",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/blastoise-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
+    },
+    {
+      "showdownId": "beedrill",
+      "dex": 15,
+      "name_zh": "大針蜂",
+      "name_en": "Beedrill",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/beedrill.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png"
+    },
+    {
+      "showdownId": "beedrillmega",
+      "dex": 15,
+      "name_zh": "超級大針蜂",
+      "name_en": "Beedrill-Mega",
+      "baseSpecies": "Beedrill",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/beedrill-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png"
+    },
+    {
+      "showdownId": "pidgeot",
+      "dex": 18,
+      "name_zh": "大比鳥",
+      "name_en": "Pidgeot",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pidgeot.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png"
+    },
+    {
+      "showdownId": "pidgeotmega",
+      "dex": 18,
+      "name_zh": "超級大比鳥",
+      "name_en": "Pidgeot-Mega",
+      "baseSpecies": "Pidgeot",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pidgeot-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png"
+    },
+    {
+      "showdownId": "arbok",
+      "dex": 24,
+      "name_zh": "阿柏怪",
+      "name_en": "Arbok",
+      "aliases": [],
+      "types": [
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/arbok.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png"
+    },
+    {
+      "showdownId": "pikachu",
+      "dex": 25,
+      "name_zh": "皮卡丘",
+      "name_en": "Pikachu",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pikachu.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+    },
+    {
+      "showdownId": "raichu",
+      "dex": 26,
+      "name_zh": "雷丘",
+      "name_en": "Raichu",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/raichu.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png"
+    },
+    {
+      "showdownId": "raichualola",
+      "dex": 26,
+      "name_zh": "雷丘（阿羅拉的樣子）",
+      "name_en": "Raichu-Alola",
+      "baseSpecies": "Raichu",
+      "forme": "Alola",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/raichu-alola.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png"
+    },
+    {
+      "showdownId": "raichumegax",
+      "dex": 26,
+      "name_zh": "超級雷丘X",
+      "name_en": "Raichu-Mega-X",
+      "baseSpecies": "Raichu",
+      "forme": "Mega-X",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/raichu-megax.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png"
+    },
+    {
+      "showdownId": "raichumegay",
+      "dex": 26,
+      "name_zh": "超級雷丘Y",
+      "name_en": "Raichu-Mega-Y",
+      "baseSpecies": "Raichu",
+      "forme": "Mega-Y",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/raichu-megay.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png"
+    },
+    {
+      "showdownId": "clefable",
+      "dex": 36,
+      "name_zh": "皮可西",
+      "name_en": "Clefable",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/clefable.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png"
+    },
+    {
+      "showdownId": "clefablemega",
+      "dex": 36,
+      "name_zh": "超級皮可西",
+      "name_en": "Clefable-Mega",
+      "baseSpecies": "Clefable",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fairy",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/clefable-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png"
+    },
+    {
+      "showdownId": "ninetales",
+      "dex": 38,
+      "name_zh": "九尾",
+      "name_en": "Ninetales",
+      "aliases": [],
+      "types": [
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/ninetales.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png"
+    },
+    {
+      "showdownId": "ninetalesalola",
+      "dex": 38,
+      "name_zh": "九尾（阿羅拉的樣子）",
+      "name_en": "Ninetales-Alola",
+      "baseSpecies": "Ninetales",
+      "forme": "Alola",
+      "aliases": [],
+      "types": [
+        "Ice",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/ninetales-alola.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png"
+    },
+    {
+      "showdownId": "vileplume",
+      "dex": 45,
+      "name_zh": "霸王花",
+      "name_en": "Vileplume",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vileplume.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png"
+    },
+    {
+      "showdownId": "arcanine",
+      "dex": 59,
+      "name_zh": "風速狗",
+      "name_en": "Arcanine",
+      "aliases": [],
+      "types": [
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/arcanine.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png"
+    },
+    {
+      "showdownId": "arcaninehisui",
+      "dex": 59,
+      "name_zh": "風速狗（洗翠的樣子）",
+      "name_en": "Arcanine-Hisui",
+      "baseSpecies": "Arcanine",
+      "forme": "Hisui",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/arcanine-hisui.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png"
+    },
+    {
+      "showdownId": "alakazam",
+      "dex": 65,
+      "name_zh": "胡地",
+      "name_en": "Alakazam",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alakazam.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png"
+    },
+    {
+      "showdownId": "alakazammega",
+      "dex": 65,
+      "name_zh": "超級胡地",
+      "name_en": "Alakazam-Mega",
+      "baseSpecies": "Alakazam",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alakazam-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png"
+    },
+    {
+      "showdownId": "machamp",
+      "dex": 68,
+      "name_zh": "怪力",
+      "name_en": "Machamp",
+      "aliases": [],
+      "types": [
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/machamp.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/68.png"
+    },
+    {
+      "showdownId": "victreebel",
+      "dex": 71,
+      "name_zh": "大食花",
+      "name_en": "Victreebel",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/victreebel.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/71.png"
+    },
+    {
+      "showdownId": "victreebelmega",
+      "dex": 71,
+      "name_zh": "超級大食花",
+      "name_en": "Victreebel-Mega",
+      "baseSpecies": "Victreebel",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/victreebel-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/71.png"
+    },
+    {
+      "showdownId": "slowbro",
+      "dex": 80,
+      "name_zh": "呆殼獸",
+      "name_en": "Slowbro",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/slowbro.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png"
+    },
+    {
+      "showdownId": "slowbrogalar",
+      "dex": 80,
+      "name_zh": "呆殼獸（伽勒爾的樣子）",
+      "name_en": "Slowbro-Galar",
+      "baseSpecies": "Slowbro",
+      "forme": "Galar",
+      "aliases": [],
+      "types": [
+        "Poison",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/slowbro-galar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png"
+    },
+    {
+      "showdownId": "slowbromega",
+      "dex": 80,
+      "name_zh": "超級呆殼獸",
+      "name_en": "Slowbro-Mega",
+      "baseSpecies": "Slowbro",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/slowbro-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png"
+    },
+    {
+      "showdownId": "gengar",
+      "dex": 94,
+      "name_zh": "耿鬼",
+      "name_en": "Gengar",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gengar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+    },
+    {
+      "showdownId": "gengarmega",
+      "dex": 94,
+      "name_zh": "超級耿鬼",
+      "name_en": "Gengar-Mega",
+      "baseSpecies": "Gengar",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gengar-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+    },
+    {
+      "showdownId": "kangaskhan",
+      "dex": 115,
+      "name_zh": "袋獸",
+      "name_en": "Kangaskhan",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/kangaskhan.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/115.png"
+    },
+    {
+      "showdownId": "kangaskhanmega",
+      "dex": 115,
+      "name_zh": "超級袋獸",
+      "name_en": "Kangaskhan-Mega",
+      "baseSpecies": "Kangaskhan",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/kangaskhan-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/115.png"
+    },
+    {
+      "showdownId": "starmie",
+      "dex": 121,
+      "name_zh": "寶石海星",
+      "name_en": "Starmie",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/starmie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/121.png"
+    },
+    {
+      "showdownId": "starmiemega",
+      "dex": 121,
+      "name_zh": "超級寶石海星",
+      "name_en": "Starmie-Mega",
+      "baseSpecies": "Starmie",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/starmie-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/121.png"
+    },
+    {
+      "showdownId": "pinsir",
+      "dex": 127,
+      "name_zh": "凱羅斯",
+      "name_en": "Pinsir",
+      "aliases": [],
+      "types": [
+        "Bug"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pinsir.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png"
+    },
+    {
+      "showdownId": "pinsirmega",
+      "dex": 127,
+      "name_zh": "超級凱羅斯",
+      "name_en": "Pinsir-Mega",
+      "baseSpecies": "Pinsir",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pinsir-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png"
+    },
+    {
+      "showdownId": "tauros",
+      "dex": 128,
+      "name_zh": "肯泰羅",
+      "name_en": "Tauros",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tauros.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png"
+    },
+    {
+      "showdownId": "taurospaldeaaqua",
+      "dex": 128,
+      "name_zh": "肯泰羅（帕底亞的樣子・水瀾種）",
+      "name_en": "Tauros-Paldea-Aqua",
+      "baseSpecies": "Tauros",
+      "forme": "Paldea-Aqua",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tauros-paldeaaqua.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png"
+    },
+    {
+      "showdownId": "taurospaldeablaze",
+      "dex": 128,
+      "name_zh": "肯泰羅（帕底亞的樣子・火熾種）",
+      "name_en": "Tauros-Paldea-Blaze",
+      "baseSpecies": "Tauros",
+      "forme": "Paldea-Blaze",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tauros-paldeablaze.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png"
+    },
+    {
+      "showdownId": "taurospaldeacombat",
+      "dex": 128,
+      "name_zh": "肯泰羅（帕底亞的樣子・鬥戰種）",
+      "name_en": "Tauros-Paldea-Combat",
+      "baseSpecies": "Tauros",
+      "forme": "Paldea-Combat",
+      "aliases": [],
+      "types": [
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tauros-paldeacombat.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png"
+    },
+    {
+      "showdownId": "gyarados",
+      "dex": 130,
+      "name_zh": "暴鯉龍",
+      "name_en": "Gyarados",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gyarados.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png"
+    },
+    {
+      "showdownId": "gyaradosmega",
+      "dex": 130,
+      "name_zh": "超級暴鯉龍",
+      "name_en": "Gyarados-Mega",
+      "baseSpecies": "Gyarados",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gyarados-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png"
+    },
+    {
+      "showdownId": "ditto",
+      "dex": 132,
+      "name_zh": "百變怪",
+      "name_en": "Ditto",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/ditto.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
+    },
+    {
+      "showdownId": "vaporeon",
+      "dex": 134,
+      "name_zh": "水伊布",
+      "name_en": "Vaporeon",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vaporeon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/134.png"
+    },
+    {
+      "showdownId": "jolteon",
+      "dex": 135,
+      "name_zh": "雷伊布",
+      "name_en": "Jolteon",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/jolteon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/135.png"
+    },
+    {
+      "showdownId": "flareon",
+      "dex": 136,
+      "name_zh": "火伊布",
+      "name_en": "Flareon",
+      "aliases": [],
+      "types": [
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/flareon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png"
+    },
+    {
+      "showdownId": "aerodactyl",
+      "dex": 142,
+      "name_zh": "化石翼龍",
+      "name_en": "Aerodactyl",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aerodactyl.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/142.png"
+    },
+    {
+      "showdownId": "aerodactylmega",
+      "dex": 142,
+      "name_zh": "超級化石翼龍",
+      "name_en": "Aerodactyl-Mega",
+      "baseSpecies": "Aerodactyl",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aerodactyl-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/142.png"
+    },
+    {
+      "showdownId": "snorlax",
+      "dex": 143,
+      "name_zh": "卡比獸",
+      "name_en": "Snorlax",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/snorlax.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png"
+    },
+    {
+      "showdownId": "dragonite",
+      "dex": 149,
+      "name_zh": "快龍",
+      "name_en": "Dragonite",
+      "aliases": [],
+      "types": [
+        "Dragon",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/dragonite.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"
+    },
+    {
+      "showdownId": "dragonitemega",
+      "dex": 149,
+      "name_zh": "超級快龍",
+      "name_en": "Dragonite-Mega",
+      "baseSpecies": "Dragonite",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dragon",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/dragonite-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"
+    },
+    {
+      "showdownId": "meganium",
+      "dex": 154,
+      "name_zh": "大竺葵",
+      "name_en": "Meganium",
+      "aliases": [],
+      "types": [
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/meganium.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/154.png"
+    },
+    {
+      "showdownId": "meganiummega",
+      "dex": 154,
+      "name_zh": "超級大竺葵",
+      "name_en": "Meganium-Mega",
+      "baseSpecies": "Meganium",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/meganium-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/154.png"
+    },
+    {
+      "showdownId": "typhlosion",
+      "dex": 157,
+      "name_zh": "火爆獸",
+      "name_en": "Typhlosion",
+      "aliases": [],
+      "types": [
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/typhlosion.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/157.png"
+    },
+    {
+      "showdownId": "typhlosionhisui",
+      "dex": 157,
+      "name_zh": "火爆獸（洗翠的樣子）",
+      "name_en": "Typhlosion-Hisui",
+      "baseSpecies": "Typhlosion",
+      "forme": "Hisui",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/typhlosion-hisui.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/157.png"
+    },
+    {
+      "showdownId": "feraligatr",
+      "dex": 160,
+      "name_zh": "大力鱷",
+      "name_en": "Feraligatr",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/feraligatr.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/160.png"
+    },
+    {
+      "showdownId": "feraligatrmega",
+      "dex": 160,
+      "name_zh": "超級大力鱷",
+      "name_en": "Feraligatr-Mega",
+      "baseSpecies": "Feraligatr",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/feraligatr-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/160.png"
+    },
+    {
+      "showdownId": "ariados",
+      "dex": 168,
+      "name_zh": "阿利多斯",
+      "name_en": "Ariados",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/ariados.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/168.png"
+    },
+    {
+      "showdownId": "ampharos",
+      "dex": 181,
+      "name_zh": "電龍",
+      "name_en": "Ampharos",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/ampharos.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/181.png"
+    },
+    {
+      "showdownId": "ampharosmega",
+      "dex": 181,
+      "name_zh": "超級電龍",
+      "name_en": "Ampharos-Mega",
+      "baseSpecies": "Ampharos",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/ampharos-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/181.png"
+    },
+    {
+      "showdownId": "azumarill",
+      "dex": 184,
+      "name_zh": "瑪力露麗",
+      "name_en": "Azumarill",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/azumarill.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/184.png"
+    },
+    {
+      "showdownId": "politoed",
+      "dex": 186,
+      "name_zh": "蚊香蛙皇",
+      "name_en": "Politoed",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/politoed.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/186.png"
+    },
+    {
+      "showdownId": "espeon",
+      "dex": 196,
+      "name_zh": "太陽伊布",
+      "name_en": "Espeon",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/espeon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/196.png"
+    },
+    {
+      "showdownId": "umbreon",
+      "dex": 197,
+      "name_zh": "月亮伊布",
+      "name_en": "Umbreon",
+      "aliases": [],
+      "types": [
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/umbreon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/197.png"
+    },
+    {
+      "showdownId": "slowking",
+      "dex": 199,
+      "name_zh": "呆呆王",
+      "name_en": "Slowking",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/slowking.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/199.png"
+    },
+    {
+      "showdownId": "slowkinggalar",
+      "dex": 199,
+      "name_zh": "呆呆王（伽勒爾的樣子）",
+      "name_en": "Slowking-Galar",
+      "baseSpecies": "Slowking",
+      "forme": "Galar",
+      "aliases": [],
+      "types": [
+        "Poison",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/slowking-galar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/199.png"
+    },
+    {
+      "showdownId": "forretress",
+      "dex": 205,
+      "name_zh": "佛烈托斯",
+      "name_en": "Forretress",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/forretress.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/205.png"
+    },
+    {
+      "showdownId": "steelix",
+      "dex": 208,
+      "name_zh": "大鋼蛇",
+      "name_en": "Steelix",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/steelix.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/208.png"
+    },
+    {
+      "showdownId": "steelixmega",
+      "dex": 208,
+      "name_zh": "超級大鋼蛇",
+      "name_en": "Steelix-Mega",
+      "baseSpecies": "Steelix",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/steelix-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/208.png"
+    },
+    {
+      "showdownId": "qwilfish",
+      "dex": 211,
+      "name_zh": "千針魚",
+      "name_en": "Qwilfish",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/qwilfish.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/211.png"
+    },
+    {
+      "showdownId": "scizor",
+      "dex": 212,
+      "name_zh": "巨鉗螳螂",
+      "name_en": "Scizor",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/scizor.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png"
+    },
+    {
+      "showdownId": "scizormega",
+      "dex": 212,
+      "name_zh": "超級巨鉗螳螂",
+      "name_en": "Scizor-Mega",
+      "baseSpecies": "Scizor",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/scizor-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png"
+    },
+    {
+      "showdownId": "heracross",
+      "dex": 214,
+      "name_zh": "赫拉克羅斯",
+      "name_en": "Heracross",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/heracross.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/214.png"
+    },
+    {
+      "showdownId": "heracrossmega",
+      "dex": 214,
+      "name_zh": "超級赫拉克羅斯",
+      "name_en": "Heracross-Mega",
+      "baseSpecies": "Heracross",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/heracross-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/214.png"
+    },
+    {
+      "showdownId": "skarmory",
+      "dex": 227,
+      "name_zh": "盔甲鳥",
+      "name_en": "Skarmory",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/skarmory.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/227.png"
+    },
+    {
+      "showdownId": "skarmorymega",
+      "dex": 227,
+      "name_zh": "超級盔甲鳥",
+      "name_en": "Skarmory-Mega",
+      "baseSpecies": "Skarmory",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/skarmory-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/227.png"
+    },
+    {
+      "showdownId": "houndoom",
+      "dex": 229,
+      "name_zh": "黑魯加",
+      "name_en": "Houndoom",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/houndoom.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/229.png"
+    },
+    {
+      "showdownId": "houndoommega",
+      "dex": 229,
+      "name_zh": "超級黑魯加",
+      "name_en": "Houndoom-Mega",
+      "baseSpecies": "Houndoom",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/houndoom-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/229.png"
+    },
+    {
+      "showdownId": "tyranitar",
+      "dex": 248,
+      "name_zh": "班基拉斯",
+      "name_en": "Tyranitar",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tyranitar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/248.png"
+    },
+    {
+      "showdownId": "tyranitarmega",
+      "dex": 248,
+      "name_zh": "超級班基拉斯",
+      "name_en": "Tyranitar-Mega",
+      "baseSpecies": "Tyranitar",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tyranitar-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/248.png"
+    },
+    {
+      "showdownId": "sceptile",
+      "dex": 254,
+      "name_zh": "蜥蜴王",
+      "name_en": "Sceptile",
+      "aliases": [],
+      "types": [
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sceptile.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png"
+    },
+    {
+      "showdownId": "sceptilemega",
+      "dex": 254,
+      "name_zh": "超級蜥蜴王",
+      "name_en": "Sceptile-Mega",
+      "baseSpecies": "Sceptile",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sceptile-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png"
+    },
+    {
+      "showdownId": "blaziken",
+      "dex": 257,
+      "name_zh": "火焰雞",
+      "name_en": "Blaziken",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/blaziken.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png"
+    },
+    {
+      "showdownId": "blazikenmega",
+      "dex": 257,
+      "name_zh": "超級火焰雞",
+      "name_en": "Blaziken-Mega",
+      "baseSpecies": "Blaziken",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/blaziken-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png"
+    },
+    {
+      "showdownId": "swampert",
+      "dex": 260,
+      "name_zh": "巨沼怪",
+      "name_en": "Swampert",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/swampert.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png"
+    },
+    {
+      "showdownId": "swampertmega",
+      "dex": 260,
+      "name_zh": "超級巨沼怪",
+      "name_en": "Swampert-Mega",
+      "baseSpecies": "Swampert",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/swampert-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png"
+    },
+    {
+      "showdownId": "pelipper",
+      "dex": 279,
+      "name_zh": "大嘴鷗",
+      "name_en": "Pelipper",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pelipper.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/279.png"
+    },
+    {
+      "showdownId": "gardevoir",
+      "dex": 282,
+      "name_zh": "沙奈朵",
+      "name_en": "Gardevoir",
+      "aliases": [],
+      "types": [
+        "Psychic",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gardevoir.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/282.png"
+    },
+    {
+      "showdownId": "gardevoirmega",
+      "dex": 282,
+      "name_zh": "超級沙奈朵",
+      "name_en": "Gardevoir-Mega",
+      "baseSpecies": "Gardevoir",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Psychic",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gardevoir-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/282.png"
+    },
+    {
+      "showdownId": "sableye",
+      "dex": 302,
+      "name_zh": "勾魂眼",
+      "name_en": "Sableye",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sableye.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/302.png"
+    },
+    {
+      "showdownId": "sableyemega",
+      "dex": 302,
+      "name_zh": "超級勾魂眼",
+      "name_en": "Sableye-Mega",
+      "baseSpecies": "Sableye",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sableye-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/302.png"
+    },
+    {
+      "showdownId": "mawile",
+      "dex": 303,
+      "name_zh": "大嘴娃",
+      "name_en": "Mawile",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/mawile.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/303.png"
+    },
+    {
+      "showdownId": "mawilemega",
+      "dex": 303,
+      "name_zh": "超級大嘴娃",
+      "name_en": "Mawile-Mega",
+      "baseSpecies": "Mawile",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/mawile-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/303.png"
+    },
+    {
+      "showdownId": "aggron",
+      "dex": 306,
+      "name_zh": "波士可多拉",
+      "name_en": "Aggron",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aggron.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/306.png"
+    },
+    {
+      "showdownId": "aggronmega",
+      "dex": 306,
+      "name_zh": "超級波士可多拉",
+      "name_en": "Aggron-Mega",
+      "baseSpecies": "Aggron",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aggron-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/306.png"
+    },
+    {
+      "showdownId": "medicham",
+      "dex": 308,
+      "name_zh": "恰雷姆",
+      "name_en": "Medicham",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/medicham.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/308.png"
+    },
+    {
+      "showdownId": "medichammega",
+      "dex": 308,
+      "name_zh": "超級恰雷姆",
+      "name_en": "Medicham-Mega",
+      "baseSpecies": "Medicham",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/medicham-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/308.png"
+    },
+    {
+      "showdownId": "manectric",
+      "dex": 310,
+      "name_zh": "雷電獸",
+      "name_en": "Manectric",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/manectric.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/310.png"
+    },
+    {
+      "showdownId": "manectricmega",
+      "dex": 310,
+      "name_zh": "超級雷電獸",
+      "name_en": "Manectric-Mega",
+      "baseSpecies": "Manectric",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/manectric-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/310.png"
+    },
+    {
+      "showdownId": "sharpedo",
+      "dex": 319,
+      "name_zh": "巨牙鯊",
+      "name_en": "Sharpedo",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sharpedo.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/319.png"
+    },
+    {
+      "showdownId": "sharpedomega",
+      "dex": 319,
+      "name_zh": "超級巨牙鯊",
+      "name_en": "Sharpedo-Mega",
+      "baseSpecies": "Sharpedo",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sharpedo-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/319.png"
+    },
+    {
+      "showdownId": "camerupt",
+      "dex": 323,
+      "name_zh": "噴火駝",
+      "name_en": "Camerupt",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/camerupt.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/323.png"
+    },
+    {
+      "showdownId": "cameruptmega",
+      "dex": 323,
+      "name_zh": "超級噴火駝",
+      "name_en": "Camerupt-Mega",
+      "baseSpecies": "Camerupt",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/camerupt-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/323.png"
+    },
+    {
+      "showdownId": "torkoal",
+      "dex": 324,
+      "name_zh": "煤炭龜",
+      "name_en": "Torkoal",
+      "aliases": [],
+      "types": [
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/torkoal.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/324.png"
+    },
+    {
+      "showdownId": "altaria",
+      "dex": 334,
+      "name_zh": "七夕青鳥",
+      "name_en": "Altaria",
+      "aliases": [],
+      "types": [
+        "Dragon",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/altaria.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/334.png"
+    },
+    {
+      "showdownId": "altariamega",
+      "dex": 334,
+      "name_zh": "超級七夕青鳥",
+      "name_en": "Altaria-Mega",
+      "baseSpecies": "Altaria",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dragon",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/altaria-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/334.png"
+    },
+    {
+      "showdownId": "milotic",
+      "dex": 350,
+      "name_zh": "美納斯",
+      "name_en": "Milotic",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/milotic.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/350.png"
+    },
+    {
+      "showdownId": "castform",
+      "dex": 351,
+      "name_zh": "飄浮泡泡",
+      "name_en": "Castform",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/castform.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/351.png"
+    },
+    {
+      "showdownId": "castformrainy",
+      "dex": 351,
+      "name_zh": "飄浮泡泡（雨水的樣子）",
+      "name_en": "Castform-Rainy",
+      "baseSpecies": "Castform",
+      "forme": "Rainy",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/castform-rainy.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/351.png"
+    },
+    {
+      "showdownId": "castformsnowy",
+      "dex": 351,
+      "name_zh": "飄浮泡泡（雪雲的樣子）",
+      "name_en": "Castform-Snowy",
+      "baseSpecies": "Castform",
+      "forme": "Snowy",
+      "aliases": [],
+      "types": [
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/castform-snowy.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/351.png"
+    },
+    {
+      "showdownId": "castformsunny",
+      "dex": 351,
+      "name_zh": "飄浮泡泡（太陽的樣子）",
+      "name_en": "Castform-Sunny",
+      "baseSpecies": "Castform",
+      "forme": "Sunny",
+      "aliases": [],
+      "types": [
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/castform-sunny.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/351.png"
+    },
+    {
+      "showdownId": "banette",
+      "dex": 354,
+      "name_zh": "詛咒娃娃",
+      "name_en": "Banette",
+      "aliases": [],
+      "types": [
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/banette.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/354.png"
+    },
+    {
+      "showdownId": "banettemega",
+      "dex": 354,
+      "name_zh": "超級詛咒娃娃",
+      "name_en": "Banette-Mega",
+      "baseSpecies": "Banette",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/banette-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/354.png"
+    },
+    {
+      "showdownId": "chimecho",
+      "dex": 358,
+      "name_zh": "風鈴鈴",
+      "name_en": "Chimecho",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/chimecho.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/358.png"
+    },
+    {
+      "showdownId": "chimechomega",
+      "dex": 358,
+      "name_zh": "超級風鈴鈴",
+      "name_en": "Chimecho-Mega",
+      "baseSpecies": "Chimecho",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Psychic",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/chimecho-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/358.png"
+    },
+    {
+      "showdownId": "absol",
+      "dex": 359,
+      "name_zh": "阿勃梭魯",
+      "name_en": "Absol",
+      "aliases": [],
+      "types": [
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/absol.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/359.png"
+    },
+    {
+      "showdownId": "absolmega",
+      "dex": 359,
+      "name_zh": "超級阿勃梭魯",
+      "name_en": "Absol-Mega",
+      "baseSpecies": "Absol",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/absol-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/359.png"
+    },
+    {
+      "showdownId": "glalie",
+      "dex": 362,
+      "name_zh": "冰鬼護",
+      "name_en": "Glalie",
+      "aliases": [],
+      "types": [
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/glalie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/362.png"
+    },
+    {
+      "showdownId": "glaliemega",
+      "dex": 362,
+      "name_zh": "超級冰鬼護",
+      "name_en": "Glalie-Mega",
+      "baseSpecies": "Glalie",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/glalie-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/362.png"
+    },
+    {
+      "showdownId": "metagross",
+      "dex": 376,
+      "name_zh": "巨金怪",
+      "name_en": "Metagross",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/metagross.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/376.png"
+    },
+    {
+      "showdownId": "metagrossmega",
+      "dex": 376,
+      "name_zh": "超級巨金怪",
+      "name_en": "Metagross-Mega",
+      "baseSpecies": "Metagross",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/metagross-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/376.png"
+    },
+    {
+      "showdownId": "torterra",
+      "dex": 389,
+      "name_zh": "土台龜",
+      "name_en": "Torterra",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/torterra.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png"
+    },
+    {
+      "showdownId": "infernape",
+      "dex": 392,
+      "name_zh": "烈焰猴",
+      "name_en": "Infernape",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/infernape.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/392.png"
+    },
+    {
+      "showdownId": "empoleon",
+      "dex": 395,
+      "name_zh": "帝王拿波",
+      "name_en": "Empoleon",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/empoleon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/395.png"
+    },
+    {
+      "showdownId": "staraptor",
+      "dex": 398,
+      "name_zh": "姆克鷹",
+      "name_en": "Staraptor",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/staraptor.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/398.png"
+    },
+    {
+      "showdownId": "staraptormega",
+      "dex": 398,
+      "name_zh": "超級姆克鷹",
+      "name_en": "Staraptor-Mega",
+      "baseSpecies": "Staraptor",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/staraptor-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/398.png"
+    },
+    {
+      "showdownId": "luxray",
+      "dex": 405,
+      "name_zh": "倫琴貓",
+      "name_en": "Luxray",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/luxray.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/405.png"
+    },
+    {
+      "showdownId": "roserade",
+      "dex": 407,
+      "name_zh": "羅絲雷朵",
+      "name_en": "Roserade",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/roserade.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/407.png"
+    },
+    {
+      "showdownId": "rampardos",
+      "dex": 409,
+      "name_zh": "戰槌龍",
+      "name_en": "Rampardos",
+      "aliases": [],
+      "types": [
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rampardos.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/409.png"
+    },
+    {
+      "showdownId": "bastiodon",
+      "dex": 411,
+      "name_zh": "護城龍",
+      "name_en": "Bastiodon",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/bastiodon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/411.png"
+    },
+    {
+      "showdownId": "lopunny",
+      "dex": 428,
+      "name_zh": "長耳兔",
+      "name_en": "Lopunny",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/lopunny.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/428.png"
+    },
+    {
+      "showdownId": "lopunnymega",
+      "dex": 428,
+      "name_zh": "超級長耳兔",
+      "name_en": "Lopunny-Mega",
+      "baseSpecies": "Lopunny",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/lopunny-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/428.png"
+    },
+    {
+      "showdownId": "spiritomb",
+      "dex": 442,
+      "name_zh": "花岩怪",
+      "name_en": "Spiritomb",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/spiritomb.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/442.png"
     },
     {
       "showdownId": "garchomp",
       "dex": 445,
       "name_zh": "烈咬陸鯊",
       "name_en": "Garchomp",
-      "aliases": ["鯊"],
-      "types": ["Dragon", "Ground"],
+      "aliases": [
+        "鯊"
+      ],
+      "types": [
+        "Dragon",
+        "Ground"
+      ],
       "icon": "https://play.pokemonshowdown.com/sprites/gen5/garchomp.png",
       "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png"
     },
     {
-      "showdownId": "amoonguss",
-      "dex": 591,
-      "name_zh": "敗露球菇",
-      "name_en": "Amoonguss",
-      "aliases": ["球菇"],
-      "types": ["Grass", "Poison"],
-      "icon": "https://play.pokemonshowdown.com/sprites/gen5/amoonguss.png",
-      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/591.png"
+      "showdownId": "garchompmega",
+      "dex": 445,
+      "name_zh": "超級烈咬陸鯊",
+      "name_en": "Garchomp-Mega",
+      "baseSpecies": "Garchomp",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dragon",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/garchomp-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png"
+    },
+    {
+      "showdownId": "lucario",
+      "dex": 448,
+      "name_zh": "路卡利歐",
+      "name_en": "Lucario",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/lucario.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png"
+    },
+    {
+      "showdownId": "lucariomega",
+      "dex": 448,
+      "name_zh": "超級路卡利歐",
+      "name_en": "Lucario-Mega",
+      "baseSpecies": "Lucario",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/lucario-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png"
+    },
+    {
+      "showdownId": "hippowdon",
+      "dex": 450,
+      "name_zh": "河馬獸",
+      "name_en": "Hippowdon",
+      "aliases": [],
+      "types": [
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/hippowdon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/450.png"
+    },
+    {
+      "showdownId": "toxicroak",
+      "dex": 454,
+      "name_zh": "毒骷蛙",
+      "name_en": "Toxicroak",
+      "aliases": [],
+      "types": [
+        "Poison",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/toxicroak.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/454.png"
+    },
+    {
+      "showdownId": "abomasnow",
+      "dex": 460,
+      "name_zh": "暴雪王",
+      "name_en": "Abomasnow",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/abomasnow.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/460.png"
+    },
+    {
+      "showdownId": "abomasnowmega",
+      "dex": 460,
+      "name_zh": "超級暴雪王",
+      "name_en": "Abomasnow-Mega",
+      "baseSpecies": "Abomasnow",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/abomasnow-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/460.png"
+    },
+    {
+      "showdownId": "weavile",
+      "dex": 461,
+      "name_zh": "瑪狃拉",
+      "name_en": "Weavile",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/weavile.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/461.png"
+    },
+    {
+      "showdownId": "rhyperior",
+      "dex": 464,
+      "name_zh": "超甲狂犀",
+      "name_en": "Rhyperior",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rhyperior.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/464.png"
+    },
+    {
+      "showdownId": "leafeon",
+      "dex": 470,
+      "name_zh": "葉伊布",
+      "name_en": "Leafeon",
+      "aliases": [],
+      "types": [
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/leafeon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/470.png"
+    },
+    {
+      "showdownId": "glaceon",
+      "dex": 471,
+      "name_zh": "冰伊布",
+      "name_en": "Glaceon",
+      "aliases": [],
+      "types": [
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/glaceon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/471.png"
+    },
+    {
+      "showdownId": "gliscor",
+      "dex": 472,
+      "name_zh": "天蠍王",
+      "name_en": "Gliscor",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gliscor.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/472.png"
+    },
+    {
+      "showdownId": "mamoswine",
+      "dex": 473,
+      "name_zh": "象牙豬",
+      "name_en": "Mamoswine",
+      "aliases": [],
+      "types": [
+        "Ice",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/mamoswine.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/473.png"
+    },
+    {
+      "showdownId": "gallade",
+      "dex": 475,
+      "name_zh": "艾路雷朵",
+      "name_en": "Gallade",
+      "aliases": [],
+      "types": [
+        "Psychic",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gallade.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/475.png"
+    },
+    {
+      "showdownId": "gallademega",
+      "dex": 475,
+      "name_zh": "超級艾路雷朵",
+      "name_en": "Gallade-Mega",
+      "baseSpecies": "Gallade",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Psychic",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gallade-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/475.png"
+    },
+    {
+      "showdownId": "froslass",
+      "dex": 478,
+      "name_zh": "雪妖女",
+      "name_en": "Froslass",
+      "aliases": [],
+      "types": [
+        "Ice",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/froslass.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/478.png"
+    },
+    {
+      "showdownId": "froslassmega",
+      "dex": 478,
+      "name_zh": "超級雪妖女",
+      "name_en": "Froslass-Mega",
+      "baseSpecies": "Froslass",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Ice",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/froslass-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/478.png"
+    },
+    {
+      "showdownId": "rotom",
+      "dex": 479,
+      "name_zh": "洛托姆",
+      "name_en": "Rotom",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rotom.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png"
+    },
+    {
+      "showdownId": "rotomfan",
+      "dex": 479,
+      "name_zh": "旋轉洛托姆",
+      "name_en": "Rotom-Fan",
+      "baseSpecies": "Rotom",
+      "forme": "Fan",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rotom-fan.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png"
+    },
+    {
+      "showdownId": "rotomfrost",
+      "dex": 479,
+      "name_zh": "結冰洛托姆",
+      "name_en": "Rotom-Frost",
+      "baseSpecies": "Rotom",
+      "forme": "Frost",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rotom-frost.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png"
+    },
+    {
+      "showdownId": "rotomheat",
+      "dex": 479,
+      "name_zh": "加熱洛托姆",
+      "name_en": "Rotom-Heat",
+      "baseSpecies": "Rotom",
+      "forme": "Heat",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rotom-heat.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png"
+    },
+    {
+      "showdownId": "rotommow",
+      "dex": 479,
+      "name_zh": "切割洛托姆",
+      "name_en": "Rotom-Mow",
+      "baseSpecies": "Rotom",
+      "forme": "Mow",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rotom-mow.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png"
+    },
+    {
+      "showdownId": "rotomwash",
+      "dex": 479,
+      "name_zh": "清洗洛托姆",
+      "name_en": "Rotom-Wash",
+      "baseSpecies": "Rotom",
+      "forme": "Wash",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/rotom-wash.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png"
+    },
+    {
+      "showdownId": "serperior",
+      "dex": 497,
+      "name_zh": "君主蛇",
+      "name_en": "Serperior",
+      "aliases": [],
+      "types": [
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/serperior.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/497.png"
+    },
+    {
+      "showdownId": "emboar",
+      "dex": 500,
+      "name_zh": "炎武王",
+      "name_en": "Emboar",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/emboar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/500.png"
+    },
+    {
+      "showdownId": "emboarmega",
+      "dex": 500,
+      "name_zh": "超級炎武王",
+      "name_en": "Emboar-Mega",
+      "baseSpecies": "Emboar",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/emboar-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/500.png"
+    },
+    {
+      "showdownId": "samurott",
+      "dex": 503,
+      "name_zh": "大劍鬼",
+      "name_en": "Samurott",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/samurott.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/503.png"
+    },
+    {
+      "showdownId": "samurotthisui",
+      "dex": 503,
+      "name_zh": "大劍鬼（洗翠的樣子）",
+      "name_en": "Samurott-Hisui",
+      "baseSpecies": "Samurott",
+      "forme": "Hisui",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/samurott-hisui.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/503.png"
+    },
+    {
+      "showdownId": "watchog",
+      "dex": 505,
+      "name_zh": "步哨鼠",
+      "name_en": "Watchog",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/watchog.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/505.png"
+    },
+    {
+      "showdownId": "liepard",
+      "dex": 510,
+      "name_zh": "酷豹",
+      "name_en": "Liepard",
+      "aliases": [],
+      "types": [
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/liepard.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/510.png"
+    },
+    {
+      "showdownId": "simisage",
+      "dex": 512,
+      "name_zh": "花椰猿",
+      "name_en": "Simisage",
+      "aliases": [],
+      "types": [
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/simisage.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/512.png"
+    },
+    {
+      "showdownId": "simisear",
+      "dex": 514,
+      "name_zh": "爆香猿",
+      "name_en": "Simisear",
+      "aliases": [],
+      "types": [
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/simisear.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/514.png"
+    },
+    {
+      "showdownId": "simipour",
+      "dex": 516,
+      "name_zh": "冷水猿",
+      "name_en": "Simipour",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/simipour.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/516.png"
+    },
+    {
+      "showdownId": "musharna",
+      "dex": 518,
+      "name_zh": "夢夢蝕",
+      "name_en": "Musharna",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/musharna.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/518.png"
+    },
+    {
+      "showdownId": "excadrill",
+      "dex": 530,
+      "name_zh": "龍頭地鼠",
+      "name_en": "Excadrill",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/excadrill.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/530.png"
+    },
+    {
+      "showdownId": "excadrillmega",
+      "dex": 530,
+      "name_zh": "超級龍頭地鼠",
+      "name_en": "Excadrill-Mega",
+      "baseSpecies": "Excadrill",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/excadrill-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/530.png"
+    },
+    {
+      "showdownId": "audino",
+      "dex": 531,
+      "name_zh": "差不多娃娃",
+      "name_en": "Audino",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/audino.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/531.png"
+    },
+    {
+      "showdownId": "audinomega",
+      "dex": 531,
+      "name_zh": "超級差不多娃娃",
+      "name_en": "Audino-Mega",
+      "baseSpecies": "Audino",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/audino-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/531.png"
+    },
+    {
+      "showdownId": "conkeldurr",
+      "dex": 534,
+      "name_zh": "修建老匠",
+      "name_en": "Conkeldurr",
+      "aliases": [],
+      "types": [
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/conkeldurr.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/534.png"
+    },
+    {
+      "showdownId": "scolipede",
+      "dex": 545,
+      "name_zh": "蜈蚣王",
+      "name_en": "Scolipede",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/scolipede.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/545.png"
+    },
+    {
+      "showdownId": "scolipedemega",
+      "dex": 545,
+      "name_zh": "超級蜈蚣王",
+      "name_en": "Scolipede-Mega",
+      "baseSpecies": "Scolipede",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/scolipede-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/545.png"
+    },
+    {
+      "showdownId": "whimsicott",
+      "dex": 547,
+      "name_zh": "風妖精",
+      "name_en": "Whimsicott",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/whimsicott.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/547.png"
+    },
+    {
+      "showdownId": "krookodile",
+      "dex": 553,
+      "name_zh": "流氓鱷",
+      "name_en": "Krookodile",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/krookodile.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/553.png"
+    },
+    {
+      "showdownId": "scrafty",
+      "dex": 560,
+      "name_zh": "頭巾混混",
+      "name_en": "Scrafty",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/scrafty.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/560.png"
+    },
+    {
+      "showdownId": "scraftymega",
+      "dex": 560,
+      "name_zh": "超級頭巾混混",
+      "name_en": "Scrafty-Mega",
+      "baseSpecies": "Scrafty",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/scrafty-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/560.png"
+    },
+    {
+      "showdownId": "cofagrigus",
+      "dex": 563,
+      "name_zh": "死神棺",
+      "name_en": "Cofagrigus",
+      "aliases": [],
+      "types": [
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/cofagrigus.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/563.png"
+    },
+    {
+      "showdownId": "garbodor",
+      "dex": 569,
+      "name_zh": "灰塵山",
+      "name_en": "Garbodor",
+      "aliases": [],
+      "types": [
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/garbodor.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/569.png"
+    },
+    {
+      "showdownId": "zoroark",
+      "dex": 571,
+      "name_zh": "索羅亞克",
+      "name_en": "Zoroark",
+      "aliases": [],
+      "types": [
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/zoroark.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/571.png"
+    },
+    {
+      "showdownId": "zoroarkhisui",
+      "dex": 571,
+      "name_zh": "索羅亞克（洗翠的樣子）",
+      "name_en": "Zoroark-Hisui",
+      "baseSpecies": "Zoroark",
+      "forme": "Hisui",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/zoroark-hisui.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/571.png"
+    },
+    {
+      "showdownId": "reuniclus",
+      "dex": 579,
+      "name_zh": "人造細胞卵",
+      "name_en": "Reuniclus",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/reuniclus.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/579.png"
+    },
+    {
+      "showdownId": "vanilluxe",
+      "dex": 584,
+      "name_zh": "雙倍多多冰",
+      "name_en": "Vanilluxe",
+      "aliases": [],
+      "types": [
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vanilluxe.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/584.png"
+    },
+    {
+      "showdownId": "emolga",
+      "dex": 587,
+      "name_zh": "電飛鼠",
+      "name_en": "Emolga",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/emolga.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/587.png"
+    },
+    {
+      "showdownId": "eelektross",
+      "dex": 604,
+      "name_zh": "麻麻鰻魚王",
+      "name_en": "Eelektross",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/eelektross.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/604.png"
+    },
+    {
+      "showdownId": "eelektrossmega",
+      "dex": 604,
+      "name_zh": "超級麻麻鰻魚王",
+      "name_en": "Eelektross-Mega",
+      "baseSpecies": "Eelektross",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/eelektross-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/604.png"
+    },
+    {
+      "showdownId": "chandelure",
+      "dex": 609,
+      "name_zh": "水晶燈火靈",
+      "name_en": "Chandelure",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/chandelure.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/609.png"
+    },
+    {
+      "showdownId": "chandeluremega",
+      "dex": 609,
+      "name_zh": "超級水晶燈火靈",
+      "name_en": "Chandelure-Mega",
+      "baseSpecies": "Chandelure",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/chandelure-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/609.png"
+    },
+    {
+      "showdownId": "beartic",
+      "dex": 614,
+      "name_zh": "凍原熊",
+      "name_en": "Beartic",
+      "aliases": [],
+      "types": [
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/beartic.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/614.png"
+    },
+    {
+      "showdownId": "stunfisk",
+      "dex": 618,
+      "name_zh": "泥巴魚",
+      "name_en": "Stunfisk",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/stunfisk.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/618.png"
+    },
+    {
+      "showdownId": "stunfiskgalar",
+      "dex": 618,
+      "name_zh": "泥巴魚（伽勒爾的樣子）",
+      "name_en": "Stunfisk-Galar",
+      "baseSpecies": "Stunfisk",
+      "forme": "Galar",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/stunfisk-galar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/618.png"
+    },
+    {
+      "showdownId": "golurk",
+      "dex": 623,
+      "name_zh": "泥偶巨人",
+      "name_en": "Golurk",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/golurk.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/623.png"
+    },
+    {
+      "showdownId": "golurkmega",
+      "dex": 623,
+      "name_zh": "超級泥偶巨人",
+      "name_en": "Golurk-Mega",
+      "baseSpecies": "Golurk",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/golurk-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/623.png"
+    },
+    {
+      "showdownId": "hydreigon",
+      "dex": 635,
+      "name_zh": "三首惡龍",
+      "name_en": "Hydreigon",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/hydreigon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/635.png"
+    },
+    {
+      "showdownId": "volcarona",
+      "dex": 637,
+      "name_zh": "火神蛾",
+      "name_en": "Volcarona",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/volcarona.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/637.png"
+    },
+    {
+      "showdownId": "chesnaught",
+      "dex": 652,
+      "name_zh": "布里卡隆",
+      "name_en": "Chesnaught",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/chesnaught.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/652.png"
+    },
+    {
+      "showdownId": "chesnaughtmega",
+      "dex": 652,
+      "name_zh": "超級布里卡隆",
+      "name_en": "Chesnaught-Mega",
+      "baseSpecies": "Chesnaught",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/chesnaught-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/652.png"
+    },
+    {
+      "showdownId": "delphox",
+      "dex": 655,
+      "name_zh": "妖火紅狐",
+      "name_en": "Delphox",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/delphox.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/655.png"
+    },
+    {
+      "showdownId": "delphoxmega",
+      "dex": 655,
+      "name_zh": "超級妖火紅狐",
+      "name_en": "Delphox-Mega",
+      "baseSpecies": "Delphox",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/delphox-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/655.png"
+    },
+    {
+      "showdownId": "greninja",
+      "dex": 658,
+      "name_zh": "甲賀忍蛙",
+      "name_en": "Greninja",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/greninja.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/658.png"
+    },
+    {
+      "showdownId": "greninjamega",
+      "dex": 658,
+      "name_zh": "超級甲賀忍蛙",
+      "name_en": "Greninja-Mega",
+      "baseSpecies": "Greninja",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/greninja-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/658.png"
+    },
+    {
+      "showdownId": "diggersby",
+      "dex": 660,
+      "name_zh": "掘地兔",
+      "name_en": "Diggersby",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/diggersby.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/660.png"
+    },
+    {
+      "showdownId": "talonflame",
+      "dex": 663,
+      "name_zh": "烈箭鷹",
+      "name_en": "Talonflame",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/talonflame.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/663.png"
+    },
+    {
+      "showdownId": "vivillon",
+      "dex": 666,
+      "name_zh": "彩粉蝶",
+      "name_en": "Vivillon",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonarchipelago",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Archipelago）",
+      "name_en": "Vivillon-Archipelago",
+      "baseSpecies": "Vivillon",
+      "forme": "Archipelago",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivilloncontinental",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Continental）",
+      "name_en": "Vivillon-Continental",
+      "baseSpecies": "Vivillon",
+      "forme": "Continental",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonelegant",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Elegant）",
+      "name_en": "Vivillon-Elegant",
+      "baseSpecies": "Vivillon",
+      "forme": "Elegant",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonfancy",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Fancy）",
+      "name_en": "Vivillon-Fancy",
+      "baseSpecies": "Vivillon",
+      "forme": "Fancy",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon-fancy.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillongarden",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Garden）",
+      "name_en": "Vivillon-Garden",
+      "baseSpecies": "Vivillon",
+      "forme": "Garden",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonhighplains",
+      "dex": 666,
+      "name_zh": "彩粉蝶（High Plains）",
+      "name_en": "Vivillon-High Plains",
+      "baseSpecies": "Vivillon",
+      "forme": "High Plains",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonicysnow",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Icy Snow）",
+      "name_en": "Vivillon-Icy Snow",
+      "baseSpecies": "Vivillon",
+      "forme": "Icy Snow",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonjungle",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Jungle）",
+      "name_en": "Vivillon-Jungle",
+      "baseSpecies": "Vivillon",
+      "forme": "Jungle",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonmarine",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Marine）",
+      "name_en": "Vivillon-Marine",
+      "baseSpecies": "Vivillon",
+      "forme": "Marine",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonmodern",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Modern）",
+      "name_en": "Vivillon-Modern",
+      "baseSpecies": "Vivillon",
+      "forme": "Modern",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonmonsoon",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Monsoon）",
+      "name_en": "Vivillon-Monsoon",
+      "baseSpecies": "Vivillon",
+      "forme": "Monsoon",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonocean",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Ocean）",
+      "name_en": "Vivillon-Ocean",
+      "baseSpecies": "Vivillon",
+      "forme": "Ocean",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonpokeball",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Pokeball）",
+      "name_en": "Vivillon-Pokeball",
+      "baseSpecies": "Vivillon",
+      "forme": "Pokeball",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon-pokeball.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonpolar",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Polar）",
+      "name_en": "Vivillon-Polar",
+      "baseSpecies": "Vivillon",
+      "forme": "Polar",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonriver",
+      "dex": 666,
+      "name_zh": "彩粉蝶（River）",
+      "name_en": "Vivillon-River",
+      "baseSpecies": "Vivillon",
+      "forme": "River",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonsandstorm",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Sandstorm）",
+      "name_en": "Vivillon-Sandstorm",
+      "baseSpecies": "Vivillon",
+      "forme": "Sandstorm",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonsavanna",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Savanna）",
+      "name_en": "Vivillon-Savanna",
+      "baseSpecies": "Vivillon",
+      "forme": "Savanna",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillonsun",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Sun）",
+      "name_en": "Vivillon-Sun",
+      "baseSpecies": "Vivillon",
+      "forme": "Sun",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "vivillontundra",
+      "dex": 666,
+      "name_zh": "彩粉蝶（Tundra）",
+      "name_en": "Vivillon-Tundra",
+      "baseSpecies": "Vivillon",
+      "forme": "Tundra",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/vivillon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png"
+    },
+    {
+      "showdownId": "pyroar",
+      "dex": 668,
+      "name_zh": "火炎獅",
+      "name_en": "Pyroar",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pyroar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/668.png"
+    },
+    {
+      "showdownId": "pyroarmega",
+      "dex": 668,
+      "name_zh": "超級火炎獅",
+      "name_en": "Pyroar-Mega",
+      "baseSpecies": "Pyroar",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/pyroar-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/668.png"
+    },
+    {
+      "showdownId": "floetteeternal",
+      "dex": 670,
+      "name_zh": "花葉蒂（永恆之花）",
+      "name_en": "Floette-Eternal",
+      "baseSpecies": "Floette",
+      "forme": "Eternal",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/floette-eternal.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/670.png"
+    },
+    {
+      "showdownId": "floettemega",
+      "dex": 670,
+      "name_zh": "超級花葉蒂",
+      "name_en": "Floette-Mega",
+      "baseSpecies": "Floette",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/floette-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/670.png"
+    },
+    {
+      "showdownId": "florges",
+      "dex": 671,
+      "name_zh": "花潔夫人",
+      "name_en": "Florges",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/florges.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/671.png"
+    },
+    {
+      "showdownId": "pangoro",
+      "dex": 675,
+      "name_zh": "流氓熊貓",
+      "name_en": "Pangoro",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/pangoro.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/675.png"
+    },
+    {
+      "showdownId": "furfrou",
+      "dex": 676,
+      "name_zh": "多麗米亞",
+      "name_en": "Furfrou",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/furfrou.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/676.png"
+    },
+    {
+      "showdownId": "meowstic",
+      "dex": 678,
+      "name_zh": "超能妙喵",
+      "name_en": "Meowstic",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/meowstic.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/678.png"
+    },
+    {
+      "showdownId": "meowsticf",
+      "dex": 678,
+      "name_zh": "超能妙喵♀",
+      "name_en": "Meowstic-F",
+      "baseSpecies": "Meowstic",
+      "forme": "F",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/meowstic-f.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/678.png"
+    },
+    {
+      "showdownId": "meowsticfmega",
+      "dex": 678,
+      "name_zh": "超級超能妙喵♀",
+      "name_en": "Meowstic-F-Mega",
+      "baseSpecies": "Meowstic",
+      "forme": "F-Mega",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/meowstic-fmega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/678.png"
+    },
+    {
+      "showdownId": "meowsticmmega",
+      "dex": 678,
+      "name_zh": "超級超能妙喵♂",
+      "name_en": "Meowstic-M-Mega",
+      "baseSpecies": "Meowstic",
+      "forme": "M-Mega",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/meowstic-mmega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/678.png"
+    },
+    {
+      "showdownId": "aegislash",
+      "dex": 681,
+      "name_zh": "堅盾劍怪",
+      "name_en": "Aegislash",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aegislash.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png"
+    },
+    {
+      "showdownId": "aegislashblade",
+      "dex": 681,
+      "name_zh": "堅盾劍怪（刀劍形態）",
+      "name_en": "Aegislash-Blade",
+      "baseSpecies": "Aegislash",
+      "forme": "Blade",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aegislash-blade.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png"
+    },
+    {
+      "showdownId": "aromatisse",
+      "dex": 683,
+      "name_zh": "芳香精",
+      "name_en": "Aromatisse",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aromatisse.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/683.png"
+    },
+    {
+      "showdownId": "slurpuff",
+      "dex": 685,
+      "name_zh": "胖甜妮",
+      "name_en": "Slurpuff",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/slurpuff.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/685.png"
+    },
+    {
+      "showdownId": "malamar",
+      "dex": 687,
+      "name_zh": "烏賊王",
+      "name_en": "Malamar",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/malamar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/687.png"
+    },
+    {
+      "showdownId": "malamarmega",
+      "dex": 687,
+      "name_zh": "超級烏賊王",
+      "name_en": "Malamar-Mega",
+      "baseSpecies": "Malamar",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/malamar-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/687.png"
+    },
+    {
+      "showdownId": "barbaracle",
+      "dex": 689,
+      "name_zh": "龜足巨鎧",
+      "name_en": "Barbaracle",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/barbaracle.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/689.png"
+    },
+    {
+      "showdownId": "barbaraclemega",
+      "dex": 689,
+      "name_zh": "超級龜足巨鎧",
+      "name_en": "Barbaracle-Mega",
+      "baseSpecies": "Barbaracle",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/barbaracle-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/689.png"
+    },
+    {
+      "showdownId": "dragalge",
+      "dex": 691,
+      "name_zh": "毒藻龍",
+      "name_en": "Dragalge",
+      "aliases": [],
+      "types": [
+        "Poison",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/dragalge.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/691.png"
+    },
+    {
+      "showdownId": "dragalgemega",
+      "dex": 691,
+      "name_zh": "超級毒藻龍",
+      "name_en": "Dragalge-Mega",
+      "baseSpecies": "Dragalge",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Poison",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/dragalge-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/691.png"
+    },
+    {
+      "showdownId": "clawitzer",
+      "dex": 693,
+      "name_zh": "鋼炮臂蝦",
+      "name_en": "Clawitzer",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/clawitzer.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/693.png"
+    },
+    {
+      "showdownId": "heliolisk",
+      "dex": 695,
+      "name_zh": "光電傘蜥",
+      "name_en": "Heliolisk",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/heliolisk.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/695.png"
+    },
+    {
+      "showdownId": "tyrantrum",
+      "dex": 697,
+      "name_zh": "怪顎龍",
+      "name_en": "Tyrantrum",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tyrantrum.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/697.png"
+    },
+    {
+      "showdownId": "aurorus",
+      "dex": 699,
+      "name_zh": "冰雪巨龍",
+      "name_en": "Aurorus",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/aurorus.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/699.png"
+    },
+    {
+      "showdownId": "sylveon",
+      "dex": 700,
+      "name_zh": "仙子伊布",
+      "name_en": "Sylveon",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sylveon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/700.png"
+    },
+    {
+      "showdownId": "hawlucha",
+      "dex": 701,
+      "name_zh": "摔角鷹人",
+      "name_en": "Hawlucha",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/hawlucha.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/701.png"
+    },
+    {
+      "showdownId": "hawluchamega",
+      "dex": 701,
+      "name_zh": "超級摔角鷹人",
+      "name_en": "Hawlucha-Mega",
+      "baseSpecies": "Hawlucha",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/hawlucha-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/701.png"
+    },
+    {
+      "showdownId": "dedenne",
+      "dex": 702,
+      "name_zh": "咚咚鼠",
+      "name_en": "Dedenne",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/dedenne.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/702.png"
+    },
+    {
+      "showdownId": "goodra",
+      "dex": 706,
+      "name_zh": "黏美龍",
+      "name_en": "Goodra",
+      "aliases": [],
+      "types": [
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/goodra.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/706.png"
+    },
+    {
+      "showdownId": "goodrahisui",
+      "dex": 706,
+      "name_zh": "黏美龍（洗翠的樣子）",
+      "name_en": "Goodra-Hisui",
+      "baseSpecies": "Goodra",
+      "forme": "Hisui",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/goodra-hisui.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/706.png"
+    },
+    {
+      "showdownId": "klefki",
+      "dex": 707,
+      "name_zh": "鑰圈兒",
+      "name_en": "Klefki",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/klefki.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/707.png"
+    },
+    {
+      "showdownId": "trevenant",
+      "dex": 709,
+      "name_zh": "朽木妖",
+      "name_en": "Trevenant",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/trevenant.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/709.png"
+    },
+    {
+      "showdownId": "gourgeist",
+      "dex": 711,
+      "name_zh": "南瓜怪人",
+      "name_en": "Gourgeist",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gourgeist.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/711.png"
+    },
+    {
+      "showdownId": "gourgeistlarge",
+      "dex": 711,
+      "name_zh": "南瓜怪人（大尺寸）",
+      "name_en": "Gourgeist-Large",
+      "baseSpecies": "Gourgeist",
+      "forme": "Large",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gourgeist-large.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/711.png"
+    },
+    {
+      "showdownId": "gourgeistsmall",
+      "dex": 711,
+      "name_zh": "南瓜怪人（小尺寸）",
+      "name_en": "Gourgeist-Small",
+      "baseSpecies": "Gourgeist",
+      "forme": "Small",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gourgeist-small.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/711.png"
+    },
+    {
+      "showdownId": "gourgeistsuper",
+      "dex": 711,
+      "name_zh": "南瓜怪人（特大尺寸）",
+      "name_en": "Gourgeist-Super",
+      "baseSpecies": "Gourgeist",
+      "forme": "Super",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gourgeist-super.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/711.png"
+    },
+    {
+      "showdownId": "avalugg",
+      "dex": 713,
+      "name_zh": "冰岩怪",
+      "name_en": "Avalugg",
+      "aliases": [],
+      "types": [
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/avalugg.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/713.png"
+    },
+    {
+      "showdownId": "avalugghisui",
+      "dex": 713,
+      "name_zh": "冰岩怪（洗翠的樣子）",
+      "name_en": "Avalugg-Hisui",
+      "baseSpecies": "Avalugg",
+      "forme": "Hisui",
+      "aliases": [],
+      "types": [
+        "Ice",
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/avalugg-hisui.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/713.png"
+    },
+    {
+      "showdownId": "noivern",
+      "dex": 715,
+      "name_zh": "音波龍",
+      "name_en": "Noivern",
+      "aliases": [],
+      "types": [
+        "Flying",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/noivern.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/715.png"
+    },
+    {
+      "showdownId": "decidueye",
+      "dex": 724,
+      "name_zh": "狙射樹梟",
+      "name_en": "Decidueye",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/decidueye.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/724.png"
+    },
+    {
+      "showdownId": "decidueyehisui",
+      "dex": 724,
+      "name_zh": "狙射樹梟（洗翠的樣子）",
+      "name_en": "Decidueye-Hisui",
+      "baseSpecies": "Decidueye",
+      "forme": "Hisui",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/decidueye-hisui.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/724.png"
+    },
+    {
+      "showdownId": "incineroar",
+      "dex": 727,
+      "name_zh": "熾焰咆哮虎",
+      "name_en": "Incineroar",
+      "aliases": [
+        "咆哮虎",
+        "猛虎"
+      ],
+      "types": [
+        "Fire",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/incineroar.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/727.png"
+    },
+    {
+      "showdownId": "primarina",
+      "dex": 730,
+      "name_zh": "西獅海壬",
+      "name_en": "Primarina",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/primarina.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/730.png"
+    },
+    {
+      "showdownId": "toucannon",
+      "dex": 733,
+      "name_zh": "銃嘴大鳥",
+      "name_en": "Toucannon",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Flying"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/toucannon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/733.png"
+    },
+    {
+      "showdownId": "crabominable",
+      "dex": 740,
+      "name_zh": "好勝毛蟹",
+      "name_en": "Crabominable",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/crabominable.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/740.png"
+    },
+    {
+      "showdownId": "crabominablemega",
+      "dex": 740,
+      "name_zh": "超級好勝毛蟹",
+      "name_en": "Crabominable-Mega",
+      "baseSpecies": "Crabominable",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Ice"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/crabominable-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/740.png"
+    },
+    {
+      "showdownId": "lycanroc",
+      "dex": 745,
+      "name_zh": "鬃岩狼人",
+      "name_en": "Lycanroc",
+      "aliases": [],
+      "types": [
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/lycanroc.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/745.png"
+    },
+    {
+      "showdownId": "lycanrocdusk",
+      "dex": 745,
+      "name_zh": "鬃岩狼人（黃昏的樣子）",
+      "name_en": "Lycanroc-Dusk",
+      "baseSpecies": "Lycanroc",
+      "forme": "Dusk",
+      "aliases": [],
+      "types": [
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/lycanroc-dusk.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/745.png"
+    },
+    {
+      "showdownId": "lycanrocmidnight",
+      "dex": 745,
+      "name_zh": "鬃岩狼人（黑夜的樣子）",
+      "name_en": "Lycanroc-Midnight",
+      "baseSpecies": "Lycanroc",
+      "forme": "Midnight",
+      "aliases": [],
+      "types": [
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/lycanroc-midnight.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/745.png"
+    },
+    {
+      "showdownId": "toxapex",
+      "dex": 748,
+      "name_zh": "超壞星",
+      "name_en": "Toxapex",
+      "aliases": [],
+      "types": [
+        "Poison",
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/toxapex.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/748.png"
+    },
+    {
+      "showdownId": "mudsdale",
+      "dex": 750,
+      "name_zh": "重泥挽馬",
+      "name_en": "Mudsdale",
+      "aliases": [],
+      "types": [
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/mudsdale.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/750.png"
+    },
+    {
+      "showdownId": "araquanid",
+      "dex": 752,
+      "name_zh": "滴蛛霸",
+      "name_en": "Araquanid",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Bug"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/araquanid.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/752.png"
+    },
+    {
+      "showdownId": "salazzle",
+      "dex": 758,
+      "name_zh": "焰后蜥",
+      "name_en": "Salazzle",
+      "aliases": [],
+      "types": [
+        "Poison",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/salazzle.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/758.png"
+    },
+    {
+      "showdownId": "tsareena",
+      "dex": 763,
+      "name_zh": "甜冷美后",
+      "name_en": "Tsareena",
+      "aliases": [],
+      "types": [
+        "Grass"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tsareena.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/763.png"
+    },
+    {
+      "showdownId": "oranguru",
+      "dex": 765,
+      "name_zh": "智揮猩",
+      "name_en": "Oranguru",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/oranguru.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/765.png"
+    },
+    {
+      "showdownId": "passimian",
+      "dex": 766,
+      "name_zh": "投擲猴",
+      "name_en": "Passimian",
+      "aliases": [],
+      "types": [
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/passimian.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/766.png"
+    },
+    {
+      "showdownId": "mimikyu",
+      "dex": 778,
+      "name_zh": "謎擬Ｑ",
+      "name_en": "Mimikyu",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/mimikyu.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/778.png"
+    },
+    {
+      "showdownId": "mimikyubusted",
+      "dex": 778,
+      "name_zh": "謎擬Ｑ（現形的樣子）",
+      "name_en": "Mimikyu-Busted",
+      "baseSpecies": "Mimikyu",
+      "forme": "Busted",
+      "aliases": [],
+      "types": [
+        "Ghost",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/mimikyu-busted.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/778.png"
+    },
+    {
+      "showdownId": "drampa",
+      "dex": 780,
+      "name_zh": "老翁龍",
+      "name_en": "Drampa",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/drampa.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/780.png"
+    },
+    {
+      "showdownId": "drampamega",
+      "dex": 780,
+      "name_zh": "超級老翁龍",
+      "name_en": "Drampa-Mega",
+      "baseSpecies": "Drampa",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/drampa-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/780.png"
+    },
+    {
+      "showdownId": "kommoo",
+      "dex": 784,
+      "name_zh": "杖尾鱗甲龍",
+      "name_en": "Kommo-o",
+      "aliases": [],
+      "types": [
+        "Dragon",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/kommoo.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/784.png"
+    },
+    {
+      "showdownId": "corviknight",
+      "dex": 823,
+      "name_zh": "鋼鎧鴉",
+      "name_en": "Corviknight",
+      "aliases": [],
+      "types": [
+        "Flying",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/corviknight.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/823.png"
+    },
+    {
+      "showdownId": "flapple",
+      "dex": 841,
+      "name_zh": "蘋裹龍",
+      "name_en": "Flapple",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/flapple.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/841.png"
+    },
+    {
+      "showdownId": "appletun",
+      "dex": 842,
+      "name_zh": "豐蜜龍",
+      "name_en": "Appletun",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/appletun.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/842.png"
+    },
+    {
+      "showdownId": "sandaconda",
+      "dex": 844,
+      "name_zh": "沙螺蟒",
+      "name_en": "Sandaconda",
+      "aliases": [],
+      "types": [
+        "Ground"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sandaconda.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/844.png"
+    },
+    {
+      "showdownId": "polteageist",
+      "dex": 855,
+      "name_zh": "怖思壺",
+      "name_en": "Polteageist",
+      "aliases": [],
+      "types": [
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/polteageist.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/855.png"
+    },
+    {
+      "showdownId": "polteageistantique",
+      "dex": 855,
+      "name_zh": "怖思壺（真品）",
+      "name_en": "Polteageist-Antique",
+      "baseSpecies": "Polteageist",
+      "forme": "Antique",
+      "aliases": [],
+      "types": [
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/polteageist-antique.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/855.png"
+    },
+    {
+      "showdownId": "hatterene",
+      "dex": 858,
+      "name_zh": "布莉姆溫",
+      "name_en": "Hatterene",
+      "aliases": [],
+      "types": [
+        "Psychic",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/hatterene.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/858.png"
+    },
+    {
+      "showdownId": "grimmsnarl",
+      "dex": 861,
+      "name_zh": "長毛巨魔",
+      "name_en": "Grimmsnarl",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/grimmsnarl.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/861.png"
+    },
+    {
+      "showdownId": "mrrime",
+      "dex": 866,
+      "name_zh": "踏冰人偶",
+      "name_en": "Mr. Rime",
+      "aliases": [],
+      "types": [
+        "Ice",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/mrrime.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/866.png"
+    },
+    {
+      "showdownId": "runerigus",
+      "dex": 867,
+      "name_zh": "死神板",
+      "name_en": "Runerigus",
+      "aliases": [],
+      "types": [
+        "Ground",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/runerigus.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/867.png"
+    },
+    {
+      "showdownId": "alcremie",
+      "dex": 869,
+      "name_zh": "霜奶仙",
+      "name_en": "Alcremie",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "alcremiecaramelswirl",
+      "dex": 869,
+      "name_zh": "霜奶仙（焦糖綜合）",
+      "name_en": "Alcremie-Caramel-Swirl",
+      "baseSpecies": "Alcremie",
+      "forme": "Caramel-Swirl",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "alcremielemoncream",
+      "dex": 869,
+      "name_zh": "霜奶仙（奶香檸檬）",
+      "name_en": "Alcremie-Lemon-Cream",
+      "baseSpecies": "Alcremie",
+      "forme": "Lemon-Cream",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "alcremiematchacream",
+      "dex": 869,
+      "name_zh": "霜奶仙（奶香抹茶）",
+      "name_en": "Alcremie-Matcha-Cream",
+      "baseSpecies": "Alcremie",
+      "forme": "Matcha-Cream",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "alcremiemintcream",
+      "dex": 869,
+      "name_zh": "霜奶仙（奶香薄荷）",
+      "name_en": "Alcremie-Mint-Cream",
+      "baseSpecies": "Alcremie",
+      "forme": "Mint-Cream",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "alcremierainbowswirl",
+      "dex": 869,
+      "name_zh": "霜奶仙（三色綜合）",
+      "name_en": "Alcremie-Rainbow-Swirl",
+      "baseSpecies": "Alcremie",
+      "forme": "Rainbow-Swirl",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "alcremierubycream",
+      "dex": 869,
+      "name_zh": "霜奶仙（奶香紅鑽）",
+      "name_en": "Alcremie-Ruby-Cream",
+      "baseSpecies": "Alcremie",
+      "forme": "Ruby-Cream",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "alcremierubyswirl",
+      "dex": 869,
+      "name_zh": "霜奶仙（紅鑽綜合）",
+      "name_en": "Alcremie-Ruby-Swirl",
+      "baseSpecies": "Alcremie",
+      "forme": "Ruby-Swirl",
+      "aliases": [],
+      "types": [
+        "Fairy"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/alcremie.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/869.png"
+    },
+    {
+      "showdownId": "falinks",
+      "dex": 870,
+      "name_zh": "列陣兵",
+      "name_en": "Falinks",
+      "aliases": [],
+      "types": [
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/falinks.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/870.png"
+    },
+    {
+      "showdownId": "falinksmega",
+      "dex": 870,
+      "name_zh": "超級列陣兵",
+      "name_en": "Falinks-Mega",
+      "baseSpecies": "Falinks",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/ani/falinks-mega.gif",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/870.png"
+    },
+    {
+      "showdownId": "morpeko",
+      "dex": 877,
+      "name_zh": "莫魯貝可",
+      "name_en": "Morpeko",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/morpeko.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/877.png"
+    },
+    {
+      "showdownId": "morpekohangry",
+      "dex": 877,
+      "name_zh": "莫魯貝可（空腹花紋）",
+      "name_en": "Morpeko-Hangry",
+      "baseSpecies": "Morpeko",
+      "forme": "Hangry",
+      "aliases": [],
+      "types": [
+        "Electric",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/morpeko-hangry.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/877.png"
+    },
+    {
+      "showdownId": "dragapult",
+      "dex": 887,
+      "name_zh": "多龍巴魯托",
+      "name_en": "Dragapult",
+      "aliases": [],
+      "types": [
+        "Dragon",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/dragapult.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/887.png"
+    },
+    {
+      "showdownId": "wyrdeer",
+      "dex": 899,
+      "name_zh": "詭角鹿",
+      "name_en": "Wyrdeer",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/wyrdeer.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/899.png"
+    },
+    {
+      "showdownId": "kleavor",
+      "dex": 900,
+      "name_zh": "劈斧螳螂",
+      "name_en": "Kleavor",
+      "aliases": [],
+      "types": [
+        "Bug",
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/kleavor.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/900.png"
+    },
+    {
+      "showdownId": "basculegion",
+      "dex": 902,
+      "name_zh": "幽尾玄魚",
+      "name_en": "Basculegion",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/basculegion.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/902.png"
+    },
+    {
+      "showdownId": "basculegionf",
+      "dex": 902,
+      "name_zh": "幽尾玄魚♀",
+      "name_en": "Basculegion-F",
+      "baseSpecies": "Basculegion",
+      "forme": "F",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/basculegion-f.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/902.png"
+    },
+    {
+      "showdownId": "sneasler",
+      "dex": 903,
+      "name_zh": "大狃拉",
+      "name_en": "Sneasler",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sneasler.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/903.png"
+    },
+    {
+      "showdownId": "overqwil",
+      "dex": 904,
+      "name_zh": "萬針魚",
+      "name_en": "Overqwil",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/overqwil.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/904.png"
+    },
+    {
+      "showdownId": "meowscarada",
+      "dex": 908,
+      "name_zh": "魔幻假面喵",
+      "name_en": "Meowscarada",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Dark"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/meowscarada.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/908.png"
+    },
+    {
+      "showdownId": "skeledirge",
+      "dex": 911,
+      "name_zh": "骨紋巨聲鱷",
+      "name_en": "Skeledirge",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/skeledirge.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/911.png"
+    },
+    {
+      "showdownId": "quaquaval",
+      "dex": 914,
+      "name_zh": "狂歡浪舞鴨",
+      "name_en": "Quaquaval",
+      "aliases": [],
+      "types": [
+        "Water",
+        "Fighting"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/quaquaval.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/914.png"
+    },
+    {
+      "showdownId": "maushold",
+      "dex": 925,
+      "name_zh": "一家鼠",
+      "name_en": "Maushold",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/maushold.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/925.png"
+    },
+    {
+      "showdownId": "mausholdfour",
+      "dex": 925,
+      "name_zh": "一家鼠（四隻家庭）",
+      "name_en": "Maushold-Four",
+      "baseSpecies": "Maushold",
+      "forme": "Four",
+      "aliases": [],
+      "types": [
+        "Normal"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/maushold-four.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/925.png"
+    },
+    {
+      "showdownId": "garganacl",
+      "dex": 934,
+      "name_zh": "鹽石巨靈",
+      "name_en": "Garganacl",
+      "aliases": [],
+      "types": [
+        "Rock"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/garganacl.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/934.png"
+    },
+    {
+      "showdownId": "armarouge",
+      "dex": 936,
+      "name_zh": "紅蓮鎧騎",
+      "name_en": "Armarouge",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/armarouge.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/936.png"
+    },
+    {
+      "showdownId": "ceruledge",
+      "dex": 937,
+      "name_zh": "蒼炎刃鬼",
+      "name_en": "Ceruledge",
+      "aliases": [],
+      "types": [
+        "Fire",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/ceruledge.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/937.png"
+    },
+    {
+      "showdownId": "bellibolt",
+      "dex": 939,
+      "name_zh": "電肚蛙",
+      "name_en": "Bellibolt",
+      "aliases": [],
+      "types": [
+        "Electric"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/bellibolt.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/939.png"
+    },
+    {
+      "showdownId": "scovillain",
+      "dex": 952,
+      "name_zh": "狠辣椒",
+      "name_en": "Scovillain",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/scovillain.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/952.png"
+    },
+    {
+      "showdownId": "scovillainmega",
+      "dex": 952,
+      "name_zh": "超級狠辣椒",
+      "name_en": "Scovillain-Mega",
+      "baseSpecies": "Scovillain",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Fire"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/scovillain-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/952.png"
+    },
+    {
+      "showdownId": "espathra",
+      "dex": 956,
+      "name_zh": "超能艷鴕",
+      "name_en": "Espathra",
+      "aliases": [],
+      "types": [
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/espathra.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/956.png"
+    },
+    {
+      "showdownId": "tinkaton",
+      "dex": 959,
+      "name_zh": "巨鍛匠",
+      "name_en": "Tinkaton",
+      "aliases": [],
+      "types": [
+        "Fairy",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/tinkaton.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/959.png"
+    },
+    {
+      "showdownId": "palafin",
+      "dex": 964,
+      "name_zh": "海豚俠",
+      "name_en": "Palafin",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/palafin.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/964.png"
+    },
+    {
+      "showdownId": "palafinhero",
+      "dex": 964,
+      "name_zh": "海豚俠（全能形態）",
+      "name_en": "Palafin-Hero",
+      "baseSpecies": "Palafin",
+      "forme": "Hero",
+      "aliases": [],
+      "types": [
+        "Water"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/palafin-hero.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/964.png"
+    },
+    {
+      "showdownId": "orthworm",
+      "dex": 968,
+      "name_zh": "拖拖蚓",
+      "name_en": "Orthworm",
+      "aliases": [],
+      "types": [
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/orthworm.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/968.png"
+    },
+    {
+      "showdownId": "glimmora",
+      "dex": 970,
+      "name_zh": "晶光花",
+      "name_en": "Glimmora",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/glimmora.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/970.png"
+    },
+    {
+      "showdownId": "glimmoramega",
+      "dex": 970,
+      "name_zh": "超級晶光花",
+      "name_en": "Glimmora-Mega",
+      "baseSpecies": "Glimmora",
+      "forme": "Mega",
+      "aliases": [],
+      "types": [
+        "Rock",
+        "Poison"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/glimmora-mega.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/970.png"
+    },
+    {
+      "showdownId": "houndstone",
+      "dex": 972,
+      "name_zh": "墓揚犬",
+      "name_en": "Houndstone",
+      "aliases": [],
+      "types": [
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/houndstone.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/972.png"
+    },
+    {
+      "showdownId": "annihilape",
+      "dex": 979,
+      "name_zh": "棄世猴",
+      "name_en": "Annihilape",
+      "aliases": [],
+      "types": [
+        "Fighting",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/annihilape.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/979.png"
+    },
+    {
+      "showdownId": "farigiraf",
+      "dex": 981,
+      "name_zh": "奇麒麟",
+      "name_en": "Farigiraf",
+      "aliases": [],
+      "types": [
+        "Normal",
+        "Psychic"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/farigiraf.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/981.png"
+    },
+    {
+      "showdownId": "kingambit",
+      "dex": 983,
+      "name_zh": "仆刀將軍",
+      "name_en": "Kingambit",
+      "aliases": [],
+      "types": [
+        "Dark",
+        "Steel"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/kingambit.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/983.png"
+    },
+    {
+      "showdownId": "gholdengo",
+      "dex": 1000,
+      "name_zh": "賽富豪",
+      "name_en": "Gholdengo",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/gholdengo.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1000.png"
+    },
+    {
+      "showdownId": "sinistcha",
+      "dex": 1013,
+      "name_zh": "來悲粗茶",
+      "name_en": "Sinistcha",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sinistcha.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1013.png"
+    },
+    {
+      "showdownId": "sinistchamasterpiece",
+      "dex": 1013,
+      "name_zh": "來悲粗茶（傑作的樣子）",
+      "name_en": "Sinistcha-Masterpiece",
+      "baseSpecies": "Sinistcha",
+      "forme": "Masterpiece",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Ghost"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/sinistcha-masterpiece.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1013.png"
+    },
+    {
+      "showdownId": "archaludon",
+      "dex": 1018,
+      "name_zh": "鋁鋼橋龍",
+      "name_en": "Archaludon",
+      "aliases": [],
+      "types": [
+        "Steel",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/archaludon.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1018.png"
+    },
+    {
+      "showdownId": "hydrapple",
+      "dex": 1019,
+      "name_zh": "蜜集大蛇",
+      "name_en": "Hydrapple",
+      "aliases": [],
+      "types": [
+        "Grass",
+        "Dragon"
+      ],
+      "icon": "https://play.pokemonshowdown.com/sprites/gen5/hydrapple.png",
+      "icon_fallback": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1019.png"
     }
   ],
   "items": [
     {
-      "showdownId": "sitrusberry",
-      "pokeapiId": "sitrus-berry",
-      "name_zh": "文柚果",
-      "name_en": "Sitrus Berry",
-      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sitrus-berry.png"
+      "showdownId": "abomasite",
+      "pokeapiId": "abomasite",
+      "name_zh": "暴雪王進化石",
+      "name_en": "Abomasite",
+      "megaStone": [
+        "Abomasnow-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/abomasite.png",
+      "spritenum": 575
     },
     {
-      "showdownId": "focussash",
-      "pokeapiId": "focus-sash",
-      "name_zh": "氣勢披帶",
-      "name_en": "Focus Sash",
-      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-sash.png"
+      "showdownId": "absolite",
+      "pokeapiId": "absolite",
+      "name_zh": "阿勃梭魯進化石",
+      "name_en": "Absolite",
+      "megaStone": [
+        "Absol-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/absolite.png",
+      "spritenum": 576
+    },
+    {
+      "showdownId": "aerodactylite",
+      "pokeapiId": "aerodactylite",
+      "name_zh": "化石翼龍進化石",
+      "name_en": "Aerodactylite",
+      "megaStone": [
+        "Aerodactyl-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aerodactylite.png",
+      "spritenum": 577
+    },
+    {
+      "showdownId": "aggronite",
+      "pokeapiId": "aggronite",
+      "name_zh": "波士可多拉進化石",
+      "name_en": "Aggronite",
+      "megaStone": [
+        "Aggron-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aggronite.png",
+      "spritenum": 578
+    },
+    {
+      "showdownId": "alakazite",
+      "pokeapiId": "alakazite",
+      "name_zh": "胡地進化石",
+      "name_en": "Alakazite",
+      "megaStone": [
+        "Alakazam-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/alakazite.png",
+      "spritenum": 579
+    },
+    {
+      "showdownId": "altarianite",
+      "pokeapiId": "altarianite",
+      "name_zh": "七夕青鳥進化石",
+      "name_en": "Altarianite",
+      "megaStone": [
+        "Altaria-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/altarianite.png",
+      "spritenum": 615
+    },
+    {
+      "showdownId": "ampharosite",
+      "pokeapiId": "ampharosite",
+      "name_zh": "電龍進化石",
+      "name_en": "Ampharosite",
+      "megaStone": [
+        "Ampharos-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ampharosite.png",
+      "spritenum": 580
+    },
+    {
+      "showdownId": "aspearberry",
+      "pokeapiId": "aspear-berry",
+      "name_zh": "利木果",
+      "name_en": "Aspear Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aspear-berry.png",
+      "spritenum": 13
+    },
+    {
+      "showdownId": "audinite",
+      "pokeapiId": "audinite",
+      "name_zh": "差不多娃娃進化石",
+      "name_en": "Audinite",
+      "megaStone": [
+        "Audino-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/audinite.png",
+      "spritenum": 617
+    },
+    {
+      "showdownId": "babiriberry",
+      "pokeapiId": "babiri-berry",
+      "name_zh": "霹霹果",
+      "name_en": "Babiri Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/babiri-berry.png",
+      "spritenum": 17
+    },
+    {
+      "showdownId": "banettite",
+      "pokeapiId": "banettite",
+      "name_zh": "詛咒娃娃進化石",
+      "name_en": "Banettite",
+      "megaStone": [
+        "Banette-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/banettite.png",
+      "spritenum": 582
+    },
+    {
+      "showdownId": "barbaracite",
+      "pokeapiId": "barbaracite",
+      "name_zh": "龜足巨鎧進化石",
+      "name_en": "Barbaracite",
+      "megaStone": [
+        "Barbaracle-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/barbaracite.png",
+      "spritenum": 564
+    },
+    {
+      "showdownId": "beedrillite",
+      "pokeapiId": "beedrillite",
+      "name_zh": "大針蜂進化石",
+      "name_en": "Beedrillite",
+      "megaStone": [
+        "Beedrill-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/beedrillite.png",
+      "spritenum": 628
+    },
+    {
+      "showdownId": "bigroot",
+      "pokeapiId": "big-root",
+      "name_zh": "大根莖",
+      "name_en": "Big Root",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/big-root.png",
+      "spritenum": 29
+    },
+    {
+      "showdownId": "blackbelt",
+      "pokeapiId": "black-belt",
+      "name_zh": "黑帶",
+      "name_en": "Black Belt",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-belt.png",
+      "spritenum": 32
+    },
+    {
+      "showdownId": "blackglasses",
+      "pokeapiId": "black-glasses",
+      "name_zh": "黑色眼鏡",
+      "name_en": "Black Glasses",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-glasses.png",
+      "spritenum": 35
+    },
+    {
+      "showdownId": "blastoisinite",
+      "pokeapiId": "blastoisinite",
+      "name_zh": "水箭龜進化石",
+      "name_en": "Blastoisinite",
+      "megaStone": [
+        "Blastoise-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/blastoisinite.png",
+      "spritenum": 583
+    },
+    {
+      "showdownId": "blazikenite",
+      "pokeapiId": "blazikenite",
+      "name_zh": "火焰雞進化石",
+      "name_en": "Blazikenite",
+      "megaStone": [
+        "Blaziken-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/blazikenite.png",
+      "spritenum": 584
+    },
+    {
+      "showdownId": "brightpowder",
+      "pokeapiId": "bright-powder",
+      "name_zh": "光粉",
+      "name_en": "Bright Powder",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bright-powder.png",
+      "spritenum": 51
+    },
+    {
+      "showdownId": "cameruptite",
+      "pokeapiId": "cameruptite",
+      "name_zh": "噴火駝進化石",
+      "name_en": "Cameruptite",
+      "megaStone": [
+        "Camerupt-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cameruptite.png",
+      "spritenum": 625
+    },
+    {
+      "showdownId": "chandelurite",
+      "pokeapiId": "chandelurite",
+      "name_zh": "水晶燈火靈進化石",
+      "name_en": "Chandelurite",
+      "megaStone": [
+        "Chandelure-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chandelurite.png",
+      "spritenum": 557
+    },
+    {
+      "showdownId": "charcoal",
+      "pokeapiId": "charcoal",
+      "name_zh": "木炭",
+      "name_en": "Charcoal",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charcoal.png",
+      "spritenum": 61
+    },
+    {
+      "showdownId": "charizarditex",
+      "pokeapiId": "charizardite-x",
+      "name_zh": "噴火龍進化石Ｘ",
+      "name_en": "Charizardite X",
+      "megaStone": [
+        "Charizard-Mega-X"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charizardite-x.png",
+      "spritenum": 585
+    },
+    {
+      "showdownId": "charizarditey",
+      "pokeapiId": "charizardite-y",
+      "name_zh": "噴火龍進化石Ｙ",
+      "name_en": "Charizardite Y",
+      "megaStone": [
+        "Charizard-Mega-Y"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charizardite-y.png",
+      "spritenum": 586
+    },
+    {
+      "showdownId": "chartiberry",
+      "pokeapiId": "charti-berry",
+      "name_zh": "草蠶果",
+      "name_en": "Charti Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charti-berry.png",
+      "spritenum": 62
+    },
+    {
+      "showdownId": "cheriberry",
+      "pokeapiId": "cheri-berry",
+      "name_zh": "櫻子果",
+      "name_en": "Cheri Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cheri-berry.png",
+      "spritenum": 63
+    },
+    {
+      "showdownId": "chesnaughtite",
+      "pokeapiId": "chesnaughtite",
+      "name_zh": "布里卡隆進化石",
+      "name_en": "Chesnaughtite",
+      "megaStone": [
+        "Chesnaught-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chesnaughtite.png",
+      "spritenum": 558
+    },
+    {
+      "showdownId": "chestoberry",
+      "pokeapiId": "chesto-berry",
+      "name_zh": "零餘果",
+      "name_en": "Chesto Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chesto-berry.png",
+      "spritenum": 65
+    },
+    {
+      "showdownId": "chilanberry",
+      "pokeapiId": "chilan-berry",
+      "name_zh": "燈漿果",
+      "name_en": "Chilan Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chilan-berry.png",
+      "spritenum": 66
+    },
+    {
+      "showdownId": "chimechite",
+      "pokeapiId": "chimechite",
+      "name_zh": "風鈴鈴進化石",
+      "name_en": "Chimechite",
+      "megaStone": [
+        "Chimecho-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chimechite.png",
+      "spritenum": 498
     },
     {
       "showdownId": "choicescarf",
       "pokeapiId": "choice-scarf",
       "name_zh": "講究圍巾",
       "name_en": "Choice Scarf",
-      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-scarf.png"
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-scarf.png",
+      "spritenum": 69
+    },
+    {
+      "showdownId": "chopleberry",
+      "pokeapiId": "chople-berry",
+      "name_zh": "蓮蒲果",
+      "name_en": "Chople Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chople-berry.png",
+      "spritenum": 71
+    },
+    {
+      "showdownId": "clefablite",
+      "pokeapiId": "clefablite",
+      "name_zh": "皮可西進化石",
+      "name_en": "Clefablite",
+      "megaStone": [
+        "Clefable-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/clefablite.png",
+      "spritenum": 544
+    },
+    {
+      "showdownId": "cobaberry",
+      "pokeapiId": "coba-berry",
+      "name_zh": "稜瓜果",
+      "name_en": "Coba Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/coba-berry.png",
+      "spritenum": 76
+    },
+    {
+      "showdownId": "colburberry",
+      "pokeapiId": "colbur-berry",
+      "name_zh": "刺耳果",
+      "name_en": "Colbur Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/colbur-berry.png",
+      "spritenum": 78
+    },
+    {
+      "showdownId": "crabominite",
+      "pokeapiId": "crabominite",
+      "name_zh": "好勝毛蟹進化石",
+      "name_en": "Crabominite",
+      "megaStone": [
+        "Crabominable-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/crabominite.png",
+      "spritenum": 507
+    },
+    {
+      "showdownId": "damprock",
+      "pokeapiId": "damp-rock",
+      "name_zh": "潮濕岩石",
+      "name_en": "Damp Rock",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/damp-rock.png",
+      "spritenum": 88
+    },
+    {
+      "showdownId": "delphoxite",
+      "pokeapiId": "delphoxite",
+      "name_zh": "妖火紅狐進化石",
+      "name_en": "Delphoxite",
+      "megaStone": [
+        "Delphox-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/delphoxite.png",
+      "spritenum": 559
+    },
+    {
+      "showdownId": "dragalgite",
+      "pokeapiId": "dragalgite",
+      "name_zh": "毒藻龍進化石",
+      "name_en": "Dragalgite",
+      "megaStone": [
+        "Dragalge-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragalgite.png",
+      "spritenum": 565
+    },
+    {
+      "showdownId": "dragonfang",
+      "pokeapiId": "dragon-fang",
+      "name_zh": "龍之牙",
+      "name_en": "Dragon Fang",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragon-fang.png",
+      "spritenum": 106
+    },
+    {
+      "showdownId": "dragoninite",
+      "pokeapiId": "dragoninite",
+      "name_zh": "快龍進化石",
+      "name_en": "Dragoninite",
+      "megaStone": [
+        "Dragonite-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragoninite.png",
+      "spritenum": 547
+    },
+    {
+      "showdownId": "drampanite",
+      "pokeapiId": "drampanite",
+      "name_zh": "老翁龍進化石",
+      "name_en": "Drampanite",
+      "megaStone": [
+        "Drampa-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/drampanite.png",
+      "spritenum": 569
+    },
+    {
+      "showdownId": "eelektrossite",
+      "pokeapiId": "eelektrossite",
+      "name_zh": "麻麻鰻魚王進化石",
+      "name_en": "Eelektrossite",
+      "megaStone": [
+        "Eelektross-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eelektrossite.png",
+      "spritenum": 556
+    },
+    {
+      "showdownId": "emboarite",
+      "pokeapiId": "emboarite",
+      "name_zh": "炎武王進化石",
+      "name_en": "Emboarite",
+      "megaStone": [
+        "Emboar-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/emboarite.png",
+      "spritenum": 552
+    },
+    {
+      "showdownId": "excadrite",
+      "pokeapiId": "excadrite",
+      "name_zh": "龍頭地鼠進化石",
+      "name_en": "Excadrite",
+      "megaStone": [
+        "Excadrill-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/excadrite.png",
+      "spritenum": 553
+    },
+    {
+      "showdownId": "expertbelt",
+      "pokeapiId": "expert-belt",
+      "name_zh": "達人帶",
+      "name_en": "Expert Belt",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/expert-belt.png",
+      "spritenum": 132
+    },
+    {
+      "showdownId": "fairyfeather",
+      "pokeapiId": "fairy-feather",
+      "name_zh": "妖精之羽",
+      "name_en": "Fairy Feather",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fairy-feather.png",
+      "spritenum": 754
+    },
+    {
+      "showdownId": "falinksite",
+      "pokeapiId": "falinksite",
+      "name_zh": "列陣兵進化石",
+      "name_en": "Falinksite",
+      "megaStone": [
+        "Falinks-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/falinksite.png",
+      "spritenum": 570
+    },
+    {
+      "showdownId": "feraligite",
+      "pokeapiId": "feraligite",
+      "name_zh": "大力鱷進化石",
+      "name_en": "Feraligite",
+      "megaStone": [
+        "Feraligatr-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/feraligite.png",
+      "spritenum": 549
+    },
+    {
+      "showdownId": "floettite",
+      "pokeapiId": "floettite",
+      "name_zh": "花葉蒂進化石",
+      "name_en": "Floettite",
+      "megaStone": [
+        "Floette-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/floettite.png",
+      "spritenum": 562
+    },
+    {
+      "showdownId": "focusband",
+      "pokeapiId": "focus-band",
+      "name_zh": "氣勢頭帶",
+      "name_en": "Focus Band",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-band.png",
+      "spritenum": 150
+    },
+    {
+      "showdownId": "focussash",
+      "pokeapiId": "focus-sash",
+      "name_zh": "氣勢披帶",
+      "name_en": "Focus Sash",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-sash.png",
+      "spritenum": 151
+    },
+    {
+      "showdownId": "froslassite",
+      "pokeapiId": "froslassite",
+      "name_zh": "雪妖女進化石",
+      "name_en": "Froslassite",
+      "megaStone": [
+        "Froslass-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/froslassite.png",
+      "spritenum": 551
+    },
+    {
+      "showdownId": "galladite",
+      "pokeapiId": "galladite",
+      "name_zh": "艾路雷朵進化石",
+      "name_en": "Galladite",
+      "megaStone": [
+        "Gallade-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/galladite.png",
+      "spritenum": 616
+    },
+    {
+      "showdownId": "garchompite",
+      "pokeapiId": "garchompite",
+      "name_zh": "烈咬陸鯊進化石",
+      "name_en": "Garchompite",
+      "megaStone": [
+        "Garchomp-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/garchompite.png",
+      "spritenum": 573
+    },
+    {
+      "showdownId": "gardevoirite",
+      "pokeapiId": "gardevoirite",
+      "name_zh": "沙奈朵進化石",
+      "name_en": "Gardevoirite",
+      "megaStone": [
+        "Gardevoir-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gardevoirite.png",
+      "spritenum": 587
+    },
+    {
+      "showdownId": "gengarite",
+      "pokeapiId": "gengarite",
+      "name_zh": "耿鬼進化石",
+      "name_en": "Gengarite",
+      "megaStone": [
+        "Gengar-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gengarite.png",
+      "spritenum": 588
+    },
+    {
+      "showdownId": "glalitite",
+      "pokeapiId": "glalitite",
+      "name_zh": "冰鬼護進化石",
+      "name_en": "Glalitite",
+      "megaStone": [
+        "Glalie-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/glalitite.png",
+      "spritenum": 623
+    },
+    {
+      "showdownId": "glimmoranite",
+      "pokeapiId": "glimmoranite",
+      "name_zh": "晶光花進化石",
+      "name_en": "Glimmoranite",
+      "megaStone": [
+        "Glimmora-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/glimmoranite.png",
+      "spritenum": 512
+    },
+    {
+      "showdownId": "golurkite",
+      "pokeapiId": "golurkite",
+      "name_zh": "泥偶巨人進化石",
+      "name_en": "Golurkite",
+      "megaStone": [
+        "Golurk-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/golurkite.png",
+      "spritenum": 505
+    },
+    {
+      "showdownId": "greninjite",
+      "pokeapiId": "greninjite",
+      "name_zh": "甲賀忍蛙進化石",
+      "name_en": "Greninjite",
+      "megaStone": [
+        "Greninja-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/greninjite.png",
+      "spritenum": 560
+    },
+    {
+      "showdownId": "gyaradosite",
+      "pokeapiId": "gyaradosite",
+      "name_zh": "暴鯉龍進化石",
+      "name_en": "Gyaradosite",
+      "megaStone": [
+        "Gyarados-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gyaradosite.png",
+      "spritenum": 589
+    },
+    {
+      "showdownId": "habanberry",
+      "pokeapiId": "haban-berry",
+      "name_zh": "莓榴果",
+      "name_en": "Haban Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/haban-berry.png",
+      "spritenum": 185
+    },
+    {
+      "showdownId": "hardstone",
+      "pokeapiId": "hard-stone",
+      "name_zh": "硬石頭",
+      "name_en": "Hard Stone",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hard-stone.png",
+      "spritenum": 187
+    },
+    {
+      "showdownId": "hawluchanite",
+      "pokeapiId": "hawluchanite",
+      "name_zh": "摔角鷹人進化石",
+      "name_en": "Hawluchanite",
+      "megaStone": [
+        "Hawlucha-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hawluchanite.png",
+      "spritenum": 566
+    },
+    {
+      "showdownId": "heatrock",
+      "pokeapiId": "heat-rock",
+      "name_zh": "熾熱岩石",
+      "name_en": "Heat Rock",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heat-rock.png",
+      "spritenum": 193
+    },
+    {
+      "showdownId": "heracronite",
+      "pokeapiId": "heracronite",
+      "name_zh": "赫拉克羅斯進化石",
+      "name_en": "Heracronite",
+      "megaStone": [
+        "Heracross-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heracronite.png",
+      "spritenum": 590
+    },
+    {
+      "showdownId": "houndoominite",
+      "pokeapiId": "houndoominite",
+      "name_zh": "黑魯加進化石",
+      "name_en": "Houndoominite",
+      "megaStone": [
+        "Houndoom-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/houndoominite.png",
+      "spritenum": 591
+    },
+    {
+      "showdownId": "icyrock",
+      "pokeapiId": "icy-rock",
+      "name_zh": "冰冷岩石",
+      "name_en": "Icy Rock",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/icy-rock.png",
+      "spritenum": 221
+    },
+    {
+      "showdownId": "ironball",
+      "pokeapiId": "iron-ball",
+      "name_zh": "黑色鐵球",
+      "name_en": "Iron Ball",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iron-ball.png",
+      "spritenum": 224
+    },
+    {
+      "showdownId": "kangaskhanite",
+      "pokeapiId": "kangaskhanite",
+      "name_zh": "袋獸進化石",
+      "name_en": "Kangaskhanite",
+      "megaStone": [
+        "Kangaskhan-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kangaskhanite.png",
+      "spritenum": 592
+    },
+    {
+      "showdownId": "kasibberry",
+      "pokeapiId": "kasib-berry",
+      "name_zh": "佛柑果",
+      "name_en": "Kasib Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kasib-berry.png",
+      "spritenum": 233
+    },
+    {
+      "showdownId": "kebiaberry",
+      "pokeapiId": "kebia-berry",
+      "name_zh": "通通果",
+      "name_en": "Kebia Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kebia-berry.png",
+      "spritenum": 234
+    },
+    {
+      "showdownId": "kingsrock",
+      "pokeapiId": "kings-rock",
+      "name_zh": "王者之證",
+      "name_en": "King's Rock",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kings-rock.png",
+      "spritenum": 236
     },
     {
       "showdownId": "leftovers",
       "pokeapiId": "leftovers",
       "name_zh": "吃剩的東西",
       "name_en": "Leftovers",
-      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leftovers.png"
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leftovers.png",
+      "spritenum": 242
+    },
+    {
+      "showdownId": "leppaberry",
+      "pokeapiId": "leppa-berry",
+      "name_zh": "蘋野果",
+      "name_en": "Leppa Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leppa-berry.png",
+      "spritenum": 244
+    },
+    {
+      "showdownId": "lifeorb",
+      "pokeapiId": "life-orb",
+      "name_zh": "生命寶珠",
+      "name_en": "Life Orb",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/life-orb.png",
+      "spritenum": 249
+    },
+    {
+      "showdownId": "lightball",
+      "pokeapiId": "light-ball",
+      "name_zh": "電氣球",
+      "name_en": "Light Ball",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/light-ball.png",
+      "spritenum": 251
+    },
+    {
+      "showdownId": "lightclay",
+      "pokeapiId": "light-clay",
+      "name_zh": "光之黏土",
+      "name_en": "Light Clay",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/light-clay.png",
+      "spritenum": 252
+    },
+    {
+      "showdownId": "lopunnite",
+      "pokeapiId": "lopunnite",
+      "name_zh": "長耳兔進化石",
+      "name_en": "Lopunnite",
+      "megaStone": [
+        "Lopunny-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lopunnite.png",
+      "spritenum": 626
+    },
+    {
+      "showdownId": "lucarionite",
+      "pokeapiId": "lucarionite",
+      "name_zh": "路卡利歐進化石",
+      "name_en": "Lucarionite",
+      "megaStone": [
+        "Lucario-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lucarionite.png",
+      "spritenum": 594
+    },
+    {
+      "showdownId": "lumberry",
+      "pokeapiId": "lum-berry",
+      "name_zh": "木子果",
+      "name_en": "Lum Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lum-berry.png",
+      "spritenum": 262
+    },
+    {
+      "showdownId": "magnet",
+      "pokeapiId": "magnet",
+      "name_zh": "磁鐵",
+      "name_en": "Magnet",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/magnet.png",
+      "spritenum": 273
+    },
+    {
+      "showdownId": "malamarite",
+      "pokeapiId": "malamarite",
+      "name_zh": "烏賊王進化石",
+      "name_en": "Malamarite",
+      "megaStone": [
+        "Malamar-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/malamarite.png",
+      "spritenum": 563
+    },
+    {
+      "showdownId": "manectite",
+      "pokeapiId": "manectite",
+      "name_zh": "雷電獸進化石",
+      "name_en": "Manectite",
+      "megaStone": [
+        "Manectric-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/manectite.png",
+      "spritenum": 596
+    },
+    {
+      "showdownId": "mawilite",
+      "pokeapiId": "mawilite",
+      "name_zh": "大嘴娃進化石",
+      "name_en": "Mawilite",
+      "megaStone": [
+        "Mawile-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mawilite.png",
+      "spritenum": 598
+    },
+    {
+      "showdownId": "medichamite",
+      "pokeapiId": "medichamite",
+      "name_zh": "恰雷姆進化石",
+      "name_en": "Medichamite",
+      "megaStone": [
+        "Medicham-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/medichamite.png",
+      "spritenum": 599
+    },
+    {
+      "showdownId": "meganiumite",
+      "pokeapiId": "meganiumite",
+      "name_zh": "大竺葵進化石",
+      "name_en": "Meganiumite",
+      "megaStone": [
+        "Meganium-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/meganiumite.png",
+      "spritenum": 548
+    },
+    {
+      "showdownId": "mentalherb",
+      "pokeapiId": "mental-herb",
+      "name_zh": "心靈香草",
+      "name_en": "Mental Herb",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mental-herb.png",
+      "spritenum": 285
+    },
+    {
+      "showdownId": "meowsticite",
+      "pokeapiId": "meowsticite",
+      "name_zh": "超能妙喵進化石",
+      "name_en": "Meowsticite",
+      "megaStone": [
+        "Meowstic-M-Mega",
+        "Meowstic-F-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/meowsticite.png",
+      "spritenum": 506
+    },
+    {
+      "showdownId": "metagrossite",
+      "pokeapiId": "metagrossite",
+      "name_zh": "巨金怪進化石",
+      "name_en": "Metagrossite",
+      "megaStone": [
+        "Metagross-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metagrossite.png",
+      "spritenum": 618
+    },
+    {
+      "showdownId": "metalcoat",
+      "pokeapiId": "metal-coat",
+      "name_zh": "金屬膜",
+      "name_en": "Metal Coat",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metal-coat.png",
+      "spritenum": 286
+    },
+    {
+      "showdownId": "metronome",
+      "pokeapiId": "metronome",
+      "name_zh": "節拍器",
+      "name_en": "Metronome",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metronome.png",
+      "spritenum": 289
+    },
+    {
+      "showdownId": "miracleseed",
+      "pokeapiId": "miracle-seed",
+      "name_zh": "奇跡種子",
+      "name_en": "Miracle Seed",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/miracle-seed.png",
+      "spritenum": 292
+    },
+    {
+      "showdownId": "muscleband",
+      "pokeapiId": "muscle-band",
+      "name_zh": "力量頭帶",
+      "name_en": "Muscle Band",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/muscle-band.png",
+      "spritenum": 297
+    },
+    {
+      "showdownId": "mysticwater",
+      "pokeapiId": "mystic-water",
+      "name_zh": "神秘水滴",
+      "name_en": "Mystic Water",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mystic-water.png",
+      "spritenum": 300
+    },
+    {
+      "showdownId": "nevermeltice",
+      "pokeapiId": "never-melt-ice",
+      "name_zh": "不融冰",
+      "name_en": "Never-Melt Ice",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/never-melt-ice.png",
+      "spritenum": 305
+    },
+    {
+      "showdownId": "occaberry",
+      "pokeapiId": "occa-berry",
+      "name_zh": "巧可果",
+      "name_en": "Occa Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/occa-berry.png",
+      "spritenum": 311
+    },
+    {
+      "showdownId": "oranberry",
+      "pokeapiId": "oran-berry",
+      "name_zh": "橙橙果",
+      "name_en": "Oran Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/oran-berry.png",
+      "spritenum": 319
+    },
+    {
+      "showdownId": "passhoberry",
+      "pokeapiId": "passho-berry",
+      "name_zh": "千香果",
+      "name_en": "Passho Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/passho-berry.png",
+      "spritenum": 329
+    },
+    {
+      "showdownId": "payapaberry",
+      "pokeapiId": "payapa-berry",
+      "name_zh": "福祿果",
+      "name_en": "Payapa Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/payapa-berry.png",
+      "spritenum": 330
+    },
+    {
+      "showdownId": "pechaberry",
+      "pokeapiId": "pecha-berry",
+      "name_zh": "桃桃果",
+      "name_en": "Pecha Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pecha-berry.png",
+      "spritenum": 333
+    },
+    {
+      "showdownId": "persimberry",
+      "pokeapiId": "persim-berry",
+      "name_zh": "柿仔果",
+      "name_en": "Persim Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/persim-berry.png",
+      "spritenum": 334
+    },
+    {
+      "showdownId": "pidgeotite",
+      "pokeapiId": "pidgeotite",
+      "name_zh": "大比鳥進化石",
+      "name_en": "Pidgeotite",
+      "megaStone": [
+        "Pidgeot-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pidgeotite.png",
+      "spritenum": 622
+    },
+    {
+      "showdownId": "pinsirite",
+      "pokeapiId": "pinsirite",
+      "name_zh": "凱羅斯進化石",
+      "name_en": "Pinsirite",
+      "megaStone": [
+        "Pinsir-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pinsirite.png",
+      "spritenum": 602
+    },
+    {
+      "showdownId": "poisonbarb",
+      "pokeapiId": "poison-barb",
+      "name_zh": "毒針",
+      "name_en": "Poison Barb",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poison-barb.png",
+      "spritenum": 343
+    },
+    {
+      "showdownId": "pyroarite",
+      "pokeapiId": "pyroarite",
+      "name_zh": "火炎獅進化石",
+      "name_en": "Pyroarite",
+      "megaStone": [
+        "Pyroar-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pyroarite.png",
+      "spritenum": 561
+    },
+    {
+      "showdownId": "quickclaw",
+      "pokeapiId": "quick-claw",
+      "name_zh": "先制之爪",
+      "name_en": "Quick Claw",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-claw.png",
+      "spritenum": 373
+    },
+    {
+      "showdownId": "raichunitex",
+      "pokeapiId": "raichunite-x",
+      "name_zh": "雷丘進化石Ｘ",
+      "name_en": "Raichunite X",
+      "megaStone": [
+        "Raichu-Mega-X"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/raichunite-x.png",
+      "spritenum": 496
+    },
+    {
+      "showdownId": "raichunitey",
+      "pokeapiId": "raichunite-y",
+      "name_zh": "雷丘進化石Ｙ",
+      "name_en": "Raichunite Y",
+      "megaStone": [
+        "Raichu-Mega-Y"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/raichunite-y.png",
+      "spritenum": 497
+    },
+    {
+      "showdownId": "rawstberry",
+      "pokeapiId": "rawst-berry",
+      "name_zh": "莓莓果",
+      "name_en": "Rawst Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rawst-berry.png",
+      "spritenum": 381
+    },
+    {
+      "showdownId": "rindoberry",
+      "pokeapiId": "rindo-berry",
+      "name_zh": "羅子果",
+      "name_en": "Rindo Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rindo-berry.png",
+      "spritenum": 409
+    },
+    {
+      "showdownId": "roseliberry",
+      "pokeapiId": "roseli-berry",
+      "name_zh": "洛玫果",
+      "name_en": "Roseli Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/roseli-berry.png",
+      "spritenum": 603
+    },
+    {
+      "showdownId": "sablenite",
+      "pokeapiId": "sablenite",
+      "name_zh": "勾魂眼進化石",
+      "name_en": "Sablenite",
+      "megaStone": [
+        "Sableye-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sablenite.png",
+      "spritenum": 614
+    },
+    {
+      "showdownId": "sceptilite",
+      "pokeapiId": "sceptilite",
+      "name_zh": "蜥蜴王進化石",
+      "name_en": "Sceptilite",
+      "megaStone": [
+        "Sceptile-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sceptilite.png",
+      "spritenum": 613
+    },
+    {
+      "showdownId": "scizorite",
+      "pokeapiId": "scizorite",
+      "name_zh": "巨鉗螳螂進化石",
+      "name_en": "Scizorite",
+      "megaStone": [
+        "Scizor-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scizorite.png",
+      "spritenum": 605
+    },
+    {
+      "showdownId": "scolipite",
+      "pokeapiId": "scolipite",
+      "name_zh": "蜈蚣王進化石",
+      "name_en": "Scolipite",
+      "megaStone": [
+        "Scolipede-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scolipite.png",
+      "spritenum": 554
+    },
+    {
+      "showdownId": "scopelens",
+      "pokeapiId": "scope-lens",
+      "name_zh": "焦點鏡",
+      "name_en": "Scope Lens",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scope-lens.png",
+      "spritenum": 429
+    },
+    {
+      "showdownId": "scovillainite",
+      "pokeapiId": "scovillainite",
+      "name_zh": "狠辣椒進化石",
+      "name_en": "Scovillainite",
+      "megaStone": [
+        "Scovillain-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scovillainite.png",
+      "spritenum": 511
+    },
+    {
+      "showdownId": "scraftinite",
+      "pokeapiId": "scraftinite",
+      "name_zh": "頭巾混混進化石",
+      "name_en": "Scraftinite",
+      "megaStone": [
+        "Scrafty-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scraftinite.png",
+      "spritenum": 555
+    },
+    {
+      "showdownId": "sharpbeak",
+      "pokeapiId": "sharp-beak",
+      "name_zh": "銳利鳥嘴",
+      "name_en": "Sharp Beak",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sharp-beak.png",
+      "spritenum": 436
+    },
+    {
+      "showdownId": "sharpedonite",
+      "pokeapiId": "sharpedonite",
+      "name_zh": "巨牙鯊進化石",
+      "name_en": "Sharpedonite",
+      "megaStone": [
+        "Sharpedo-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sharpedonite.png",
+      "spritenum": 619
+    },
+    {
+      "showdownId": "shedshell",
+      "pokeapiId": "shed-shell",
+      "name_zh": "美麗空殼",
+      "name_en": "Shed Shell",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shed-shell.png",
+      "spritenum": 437
+    },
+    {
+      "showdownId": "shellbell",
+      "pokeapiId": "shell-bell",
+      "name_zh": "貝殼之鈴",
+      "name_en": "Shell Bell",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shell-bell.png",
+      "spritenum": 438
+    },
+    {
+      "showdownId": "shucaberry",
+      "pokeapiId": "shuca-berry",
+      "name_zh": "腰木果",
+      "name_en": "Shuca Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shuca-berry.png",
+      "spritenum": 443
+    },
+    {
+      "showdownId": "silkscarf",
+      "pokeapiId": "silk-scarf",
+      "name_zh": "絲綢圍巾",
+      "name_en": "Silk Scarf",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/silk-scarf.png",
+      "spritenum": 444
+    },
+    {
+      "showdownId": "silverpowder",
+      "pokeapiId": "silver-powder",
+      "name_zh": "銀粉",
+      "name_en": "Silver Powder",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/silver-powder.png",
+      "spritenum": 447
+    },
+    {
+      "showdownId": "sitrusberry",
+      "pokeapiId": "sitrus-berry",
+      "name_zh": "文柚果",
+      "name_en": "Sitrus Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sitrus-berry.png",
+      "spritenum": 448
+    },
+    {
+      "showdownId": "skarmorite",
+      "pokeapiId": "skarmorite",
+      "name_zh": "盔甲鳥進化石",
+      "name_en": "Skarmorite",
+      "megaStone": [
+        "Skarmory-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/skarmorite.png",
+      "spritenum": 550
+    },
+    {
+      "showdownId": "slowbronite",
+      "pokeapiId": "slowbronite",
+      "name_zh": "呆殼獸進化石",
+      "name_en": "Slowbronite",
+      "megaStone": [
+        "Slowbro-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/slowbronite.png",
+      "spritenum": 620
+    },
+    {
+      "showdownId": "smoothrock",
+      "pokeapiId": "smooth-rock",
+      "name_zh": "沙沙岩石",
+      "name_en": "Smooth Rock",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/smooth-rock.png",
+      "spritenum": 453
+    },
+    {
+      "showdownId": "softsand",
+      "pokeapiId": "soft-sand",
+      "name_zh": "柔軟沙子",
+      "name_en": "Soft Sand",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/soft-sand.png",
+      "spritenum": 456
+    },
+    {
+      "showdownId": "spelltag",
+      "pokeapiId": "spell-tag",
+      "name_zh": "詛咒之符",
+      "name_en": "Spell Tag",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/spell-tag.png",
+      "spritenum": 461
+    },
+    {
+      "showdownId": "staraptite",
+      "pokeapiId": "staraptite",
+      "name_zh": "姆克鷹進化石",
+      "name_en": "Staraptite",
+      "megaStone": [
+        "Staraptor-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/staraptite.png",
+      "spritenum": 500
+    },
+    {
+      "showdownId": "starminite",
+      "pokeapiId": "starminite",
+      "name_zh": "寶石海星進化石",
+      "name_en": "Starminite",
+      "megaStone": [
+        "Starmie-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/starminite.png",
+      "spritenum": 546
+    },
+    {
+      "showdownId": "steelixite",
+      "pokeapiId": "steelixite",
+      "name_zh": "大鋼蛇進化石",
+      "name_en": "Steelixite",
+      "megaStone": [
+        "Steelix-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steelixite.png",
+      "spritenum": 621
+    },
+    {
+      "showdownId": "swampertite",
+      "pokeapiId": "swampertite",
+      "name_zh": "巨沼怪進化石",
+      "name_en": "Swampertite",
+      "megaStone": [
+        "Swampert-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/swampertite.png",
+      "spritenum": 612
+    },
+    {
+      "showdownId": "tangaberry",
+      "pokeapiId": "tanga-berry",
+      "name_zh": "扁櫻果",
+      "name_en": "Tanga Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tanga-berry.png",
+      "spritenum": 487
+    },
+    {
+      "showdownId": "twistedspoon",
+      "pokeapiId": "twisted-spoon",
+      "name_zh": "彎曲的湯匙",
+      "name_en": "Twisted Spoon",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/twisted-spoon.png",
+      "spritenum": 520
+    },
+    {
+      "showdownId": "tyranitarite",
+      "pokeapiId": "tyranitarite",
+      "name_zh": "班基拉斯進化石",
+      "name_en": "Tyranitarite",
+      "megaStone": [
+        "Tyranitar-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tyranitarite.png",
+      "spritenum": 607
+    },
+    {
+      "showdownId": "venusaurite",
+      "pokeapiId": "venusaurite",
+      "name_zh": "妙蛙花進化石",
+      "name_en": "Venusaurite",
+      "megaStone": [
+        "Venusaur-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/venusaurite.png",
+      "spritenum": 608
+    },
+    {
+      "showdownId": "victreebelite",
+      "pokeapiId": "victreebelite",
+      "name_zh": "大食花進化石",
+      "name_en": "Victreebelite",
+      "megaStone": [
+        "Victreebel-Mega"
+      ],
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/victreebelite.png",
+      "spritenum": 545
+    },
+    {
+      "showdownId": "wacanberry",
+      "pokeapiId": "wacan-berry",
+      "name_zh": "燭木果",
+      "name_en": "Wacan Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wacan-berry.png",
+      "spritenum": 526
+    },
+    {
+      "showdownId": "whiteherb",
+      "pokeapiId": "white-herb",
+      "name_zh": "白色香草",
+      "name_en": "White Herb",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/white-herb.png",
+      "spritenum": 535
+    },
+    {
+      "showdownId": "widelens",
+      "pokeapiId": "wide-lens",
+      "name_zh": "廣角鏡",
+      "name_en": "Wide Lens",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wide-lens.png",
+      "spritenum": 537
+    },
+    {
+      "showdownId": "wiseglasses",
+      "pokeapiId": "wise-glasses",
+      "name_zh": "博識眼鏡",
+      "name_en": "Wise Glasses",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wise-glasses.png",
+      "spritenum": 539
+    },
+    {
+      "showdownId": "yacheberry",
+      "pokeapiId": "yache-berry",
+      "name_zh": "番荔果",
+      "name_en": "Yache Berry",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/yache-berry.png",
+      "spritenum": 567
+    },
+    {
+      "showdownId": "zoomlens",
+      "pokeapiId": "zoom-lens",
+      "name_zh": "對焦鏡",
+      "name_en": "Zoom Lens",
+      "aliases": [],
+      "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/zoom-lens.png",
+      "spritenum": 574
     }
   ]
 }

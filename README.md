@@ -39,10 +39,13 @@ PKMTool/
 ├── index.html              # 前端（Tailwind CDN + marked.js + DOMPurify）
 ├── worker.js               # Cloudflare Worker 代理後端
 ├── wrangler.jsonc          # Worker 部署設定
-├── package.json            # npm run deploy / npm run dev
+├── package.json            # npm run deploy / dev / build:icons
+├── scripts/
+│   └── build-icons.mjs     # 產生縮圖對照表
 ├── assets/
 │   ├── README.md           # 縮圖對照資料庫說明
-│   └── pokemon_icons.json  # 寶可夢 / 道具縮圖對照表（範例）
+│   ├── pokemon_icons.json  # 《寶可夢冠軍》全寶可夢 / 道具縮圖對照表（自動產生）
+│   └── name_overrides.json # 手動修正的繁中名稱
 └── README.md
 ```
 
