@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="dark">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PKMTool · 寶可夢冠軍 AI 戰略分析</title>
-  <meta name="description" content="《寶可夢冠軍》AI 戰略分析：賽前登錄隊伍配置，實戰只需 1 張 Team Preview 截圖即可分析選角、先發與勝率。" />
+  <title>PKMTool · Pokémon Champions AI Battle Strategist</title>
+  <meta name="description" content="Pokémon Champions AI battle strategist: save your team builds before battle, then analyze team selection, leads and win rate from a single Team Preview screenshot." />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -43,23 +43,23 @@
       <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
         <span class="text-amber-400">PKM</span>Tool
       </h1>
-      <p class="text-slate-400 mt-2 text-sm sm:text-base">《寶可夢冠軍》AI 戰略分析 · 選角 / 先發 / 第一回合博弈</p>
+      <p class="text-slate-400 mt-2 text-sm sm:text-base">Pokémon Champions AI Battle Strategist · Team Selection / Leads / Turn 1 Mind Games</p>
     </header>
 
     <!-- ===================== 密碼 ===================== -->
     <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
-      <label for="passcode" class="block text-sm font-semibold text-slate-300 mb-2">🔑 存取密碼</label>
+      <label for="passcode" class="block text-sm font-semibold text-slate-300 mb-2">🔑 Passcode</label>
       <div class="flex flex-col sm:flex-row gap-2">
-        <input id="passcode" type="password" placeholder="輸入你的密碼" autocomplete="current-password" class="field flex-1" />
-        <button id="testBtn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-4 py-2 text-sm whitespace-nowrap">🔌 測試連線</button>
+        <input id="passcode" type="password" placeholder="Enter your passcode" autocomplete="current-password" class="field flex-1" />
+        <button id="testBtn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-4 py-2 text-sm whitespace-nowrap">🔌 Test Connection</button>
       </div>
-      <p class="text-xs text-slate-500 mt-2">密碼與隊伍配置會儲存在瀏覽器本機。API Key 只存在 Worker 端，不會出現在本網頁。</p>
+      <p class="text-xs text-slate-500 mt-2">Your passcode and team builds are stored locally in this browser. The API key lives only in the Worker and never appears on this page.</p>
     </section>
 
     <!-- ===================== 分頁 ===================== -->
     <nav class="grid grid-cols-2 gap-2 mb-5 p-1 bg-slate-900 border border-slate-800 rounded-2xl">
-      <button data-tab="battle" class="tab-btn rounded-xl py-3 font-bold">⚔️ 實戰分析</button>
-      <button data-tab="preset" class="tab-btn rounded-xl py-3 font-bold">📋 賽前備戰 <span id="presetTabCount" class="text-xs font-mono opacity-75"></span></button>
+      <button data-tab="battle" class="tab-btn rounded-xl py-3 font-bold">⚔️ Battle Analysis</button>
+      <button data-tab="preset" class="tab-btn rounded-xl py-3 font-bold">📋 Team Prep <span id="presetTabCount" class="text-xs font-mono opacity-75"></span></button>
     </nav>
 
     <!-- ================================================================= -->
@@ -71,28 +71,28 @@
 
       <!-- 賽制 + 補充 -->
       <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
-        <span class="block text-sm font-semibold text-slate-300 mb-2">🎮 對戰賽制</span>
+        <span class="block text-sm font-semibold text-slate-300 mb-2">🎮 Battle Format</span>
         <div class="grid grid-cols-2 gap-2 mb-4">
           <button data-format="doubles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
-            <div class="font-bold">⚔️ 雙打（VGC）</div>
-            <div class="text-xs opacity-75">帶 6 選 4 · 先發 2 隻</div>
+            <div class="font-bold">⚔️ Doubles (VGC)</div>
+            <div class="text-xs opacity-75">Bring 6, pick 4 · 2 leads</div>
           </button>
           <button data-format="singles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
-            <div class="font-bold">🗡️ 單打</div>
-            <div class="text-xs opacity-75">帶 6 選 3 · 先發 1 隻</div>
+            <div class="font-bold">🗡️ Singles</div>
+            <div class="text-xs opacity-75">Bring 6, pick 3 · 1 lead</div>
           </button>
         </div>
 
-        <label for="note" class="block text-sm font-semibold text-slate-300 mb-2">📝 補充說明（選填）</label>
-        <textarea id="note" rows="2" maxlength="1000" placeholder="例如：對手上一局先發了熾焰咆哮虎 + 赤面龍；我想保留某隻寶可夢…" class="field"></textarea>
+        <label for="note" class="block text-sm font-semibold text-slate-300 mb-2">📝 Notes (optional)</label>
+        <textarea id="note" rows="2" maxlength="1000" placeholder="e.g. Last game the opponent led with 熾焰咆哮虎 + 赤面龍; I want to keep a certain Pokémon in the back…" class="field"></textarea>
       </section>
 
       <!-- Team Preview 上傳 -->
       <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
         <div class="flex items-center justify-between mb-3">
-          <h2 class="text-sm font-semibold text-slate-300">🖼️ Team Preview 總覽圖（1 張）</h2>
+          <h2 class="text-sm font-semibold text-slate-300">🖼️ Team Preview Screenshot (1 image)</h2>
           <label class="text-xs text-slate-400 flex items-center gap-1.5 cursor-pointer">
-            <input id="autoAnalyze" type="checkbox" class="accent-amber-500" checked /> 貼上後自動分析
+            <input id="autoAnalyze" type="checkbox" class="accent-amber-500" checked /> Auto-analyze on paste
           </label>
         </div>
 
@@ -100,16 +100,16 @@
           class="border-2 border-dashed border-slate-700 rounded-xl p-6 sm:p-8 text-center cursor-pointer transition hover:border-slate-500 focus:outline-none focus:border-amber-400">
           <div id="battleEmpty">
             <div class="text-4xl mb-2">📥</div>
-            <p class="font-semibold">點擊選取、拖曳，或按 <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">V</kbd> 貼上</p>
-            <p class="text-xs text-slate-500 mt-2">對戰選角畫面：對手 6 隻（含太晶屬性）+ 我方 6 隻與道具</p>
+            <p class="font-semibold">Click to choose, drag and drop, or press <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-xs">V</kbd> to paste</p>
+            <p class="text-xs text-slate-500 mt-2">Team selection screen: opponent's 6 (with Tera Types) + your 6 with held items</p>
           </div>
           <img id="battlePreview" alt="Team Preview" class="hidden mx-auto max-h-72 rounded-lg" />
         </div>
 
         <div class="flex flex-wrap gap-2 mt-3">
-          <button id="battlePickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 選擇圖片</button>
-          <button id="battleCameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 拍照上傳</button>
-          <button id="battleClearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-2 text-sm ml-auto">🗑️ 移除</button>
+          <button id="battlePickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 Choose Image</button>
+          <button id="battleCameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 Take Photo</button>
+          <button id="battleClearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-2 text-sm ml-auto">🗑️ Remove</button>
         </div>
         <input id="battleFile" type="file" accept="image/*" class="hidden" />
         <input id="battleCamera" type="file" accept="image/*" capture="environment" class="hidden" />
@@ -117,14 +117,14 @@
 
       <button id="analyzeBtn" disabled
         class="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-950 font-bold text-lg rounded-2xl py-4 transition">
-        🚀 分析最佳選角與出戰順序
+        🚀 Analyze Best Team & Lead Order
       </button>
 
       <!-- 結果區 -->
       <section id="resultSection" class="hidden mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-lg font-bold flex items-center gap-2">📊 AI 戰術報告 <span id="winBadge" class="hidden text-xs font-bold px-2 py-0.5 rounded-full"></span></h2>
-          <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 複製 Markdown</button>
+          <h2 class="text-lg font-bold flex items-center gap-2">📊 AI Strategy Report <span id="winBadge" class="hidden text-xs font-bold px-2 py-0.5 rounded-full"></span></h2>
+          <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 Copy Markdown</button>
         </div>
         <div id="result" class="md text-slate-200"></div>
 
@@ -132,7 +132,7 @@
         <div id="winCard" class="hidden mt-6 rounded-2xl border p-5">
           <div class="flex items-end justify-between gap-4">
             <div>
-              <div class="text-sm opacity-80">📈 預估勝率</div>
+              <div class="text-sm opacity-80">📈 Estimated Win Rate</div>
               <div id="winVerdict" class="text-xl font-bold mt-1"></div>
             </div>
             <div id="winValue" class="text-5xl font-extrabold tabular-nums"></div>
@@ -152,17 +152,17 @@
 
       <!-- 截圖辨識 -->
       <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
-        <h2 class="text-sm font-semibold text-slate-300 mb-3">📷 截圖辨識新增</h2>
+        <h2 class="text-sm font-semibold text-slate-300 mb-3">📷 Add from Screenshots</h2>
         <div id="presetDrop" tabindex="0"
           class="border-2 border-dashed border-slate-700 rounded-xl p-6 text-center cursor-pointer transition hover:border-slate-500 focus:outline-none focus:border-amber-400">
           <div class="text-3xl mb-2">🧾</div>
-          <p class="font-semibold">上傳寶可夢詳細資訊頁截圖（每張 1 隻，一次最多 6 張）</p>
-          <p class="text-xs text-slate-500 mt-2">點擊選取、拖曳，或按 Ctrl + V 貼上 · AI 自動辨識名稱、道具、特性、性格、太晶屬性、招式</p>
+          <p class="font-semibold">Upload Pokémon summary screenshots (1 Pokémon per image, up to 6 at a time)</p>
+          <p class="text-xs text-slate-500 mt-2">Click to choose, drag and drop, or press Ctrl + V · AI reads the name, item, ability, nature, Tera Type and moves</p>
         </div>
         <div class="flex flex-wrap gap-2 mt-3">
-          <button id="presetPickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 選擇圖片</button>
-          <button id="presetCameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 拍照上傳</button>
-          <button id="presetAddBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">➕ 手動新增</button>
+          <button id="presetPickBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📁 Choose Image</button>
+          <button id="presetCameraBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">📷 Take Photo</button>
+          <button id="presetAddBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-2 text-sm">➕ Add Manually</button>
         </div>
         <input id="presetFile" type="file" accept="image/*" multiple class="hidden" />
         <input id="presetCamera" type="file" accept="image/*" capture="environment" class="hidden" />
@@ -171,39 +171,39 @@
       <!-- 配置清單 -->
       <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5">
         <div class="flex flex-wrap items-center gap-2 mb-4">
-          <h2 class="text-sm font-semibold text-slate-300 mr-auto">🗂️ 我的配置 <span id="presetCount" class="font-mono text-xs px-2 py-0.5 rounded bg-slate-800 ml-1"></span></h2>
-          <button id="exportBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">⬇️ 匯出</button>
-          <button id="importBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">⬆️ 匯入</button>
-          <button id="presetClearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-1.5 text-xs">🗑️ 全部刪除</button>
+          <h2 class="text-sm font-semibold text-slate-300 mr-auto">🗂️ My Builds <span id="presetCount" class="font-mono text-xs px-2 py-0.5 rounded bg-slate-800 ml-1"></span></h2>
+          <button id="exportBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">⬇️ Export</button>
+          <button id="importBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">⬆️ Import</button>
+          <button id="presetClearBtn" class="bg-slate-800 hover:bg-red-900/60 rounded-lg px-3 py-1.5 text-xs">🗑️ Delete All</button>
           <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
         </div>
         <div id="presetList" class="grid sm:grid-cols-2 gap-3"></div>
-        <p id="presetEmpty" class="text-center text-sm text-slate-500 py-8">尚未登錄任何配置。上傳截圖或手動新增，最多 20 筆。</p>
+        <p id="presetEmpty" class="text-center text-sm text-slate-500 py-8">No builds yet. Upload screenshots or add them manually (up to 20).</p>
       </section>
 
       <!-- AI 配置健檢 -->
       <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 mt-5">
-        <h2 class="text-sm font-semibold text-slate-300 mb-1">🧪 AI 配置健檢</h2>
-        <p class="text-xs text-slate-500 mb-3">檢查特性、性格、道具、太晶屬性與招式是否已最佳化，給出修改建議與能力點數分配建議。單隻健檢請按卡片上的 🧪。</p>
+        <h2 class="text-sm font-semibold text-slate-300 mb-1">🧪 AI Build Review</h2>
+        <p class="text-xs text-slate-500 mb-3">Checks whether each build's ability, nature, item, Tera Type and moves are optimal, with suggested changes and stat point allocation. To review a single build, press 🧪 on its card.</p>
         <div class="grid grid-cols-2 gap-2 mb-3">
           <button data-format="doubles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
-            <div class="font-bold">⚔️ 雙打（VGC）</div>
-            <div class="text-xs opacity-75">依雙打環境評估</div>
+            <div class="font-bold">⚔️ Doubles (VGC)</div>
+            <div class="text-xs opacity-75">Judge against the doubles meta</div>
           </button>
           <button data-format="singles" class="format-btn rounded-lg border px-3 py-3 text-sm text-left">
-            <div class="font-bold">🗡️ 單打</div>
-            <div class="text-xs opacity-75">依單打環境評估</div>
+            <div class="font-bold">🗡️ Singles</div>
+            <div class="text-xs opacity-75">Judge against the singles meta</div>
           </button>
         </div>
         <button id="reviewAllBtn"
           class="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-950 font-bold rounded-xl py-3 transition">
-          🧪 健檢全部配置
+          🧪 Review All Builds
         </button>
 
         <div id="reviewSection" class="hidden mt-5">
           <div class="flex items-center justify-between mb-2">
-            <h3 id="reviewTitle" class="font-bold">📋 健檢報告</h3>
-            <button id="reviewCopyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 複製 Markdown</button>
+            <h3 id="reviewTitle" class="font-bold">📋 Review Report</h3>
+            <button id="reviewCopyBtn" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-3 py-1.5 text-xs">📋 Copy Markdown</button>
           </div>
           <div id="reviewResult" class="md text-slate-200"></div>
         </div>
@@ -211,7 +211,7 @@
     </div>
 
     <footer class="text-center text-xs text-slate-600 mt-10">
-      PKMTool · 非官方粉絲工具 · Pokémon 為 Nintendo / Creatures / GAME FREAK 之商標
+      PKMTool · Unofficial fan tool · Pokémon is a trademark of Nintendo / Creatures / GAME FREAK
     </footer>
   </div>
 
@@ -220,38 +220,38 @@
 
   <!-- 大圖預覽 -->
   <div id="imgModal" class="hidden fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 cursor-zoom-out">
-    <img id="imgModalSrc" alt="預覽" class="max-w-full max-h-full rounded-lg" />
+    <img id="imgModalSrc" alt="Preview" class="max-w-full max-h-full rounded-lg" />
   </div>
 
   <!-- 配置編輯 -->
   <div id="editModal" class="hidden fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4">
     <form id="editForm" autocomplete="off" class="w-full max-w-lg max-h-full overflow-y-auto bg-slate-900 border border-slate-700 rounded-2xl p-5 space-y-3">
-      <h3 id="editTitle" class="text-lg font-bold">編輯配置</h3>
+      <h3 id="editTitle" class="text-lg font-bold">Edit Build</h3>
       <div class="grid grid-cols-2 gap-3">
-        <label class="col-span-2 text-xs text-slate-400">寶可夢 *
+        <label class="col-span-2 text-xs text-slate-400">Pokémon *
           <input name="pkm-name" autocomplete="off" list="pokemonNames" required maxlength="40" class="field mt-1" />
         </label>
-        <label class="text-xs text-slate-400">道具
+        <label class="text-xs text-slate-400">Item
           <input name="pkm-item" autocomplete="off" list="itemNames" maxlength="40" class="field mt-1" />
         </label>
-        <label class="text-xs text-slate-400">特性
+        <label class="text-xs text-slate-400">Ability
           <input name="pkm-ability" autocomplete="off" maxlength="40" class="field mt-1" />
         </label>
-        <label class="text-xs text-slate-400">性格
+        <label class="text-xs text-slate-400">Nature
           <input name="pkm-nature" autocomplete="off" list="natureNames" maxlength="40" class="field mt-1" />
         </label>
-        <label class="text-xs text-slate-400">太晶屬性
+        <label class="text-xs text-slate-400">Tera Type
           <input name="pkm-teraType" autocomplete="off" list="typeNames" maxlength="40" class="field mt-1" />
         </label>
-        <label class="text-xs text-slate-400">招式 1 <input name="pkm-move0" autocomplete="off" maxlength="40" class="field mt-1" /></label>
-        <label class="text-xs text-slate-400">招式 2 <input name="pkm-move1" autocomplete="off" maxlength="40" class="field mt-1" /></label>
-        <label class="text-xs text-slate-400">招式 3 <input name="pkm-move2" autocomplete="off" maxlength="40" class="field mt-1" /></label>
-        <label class="text-xs text-slate-400">招式 4 <input name="pkm-move3" autocomplete="off" maxlength="40" class="field mt-1" /></label>
+        <label class="text-xs text-slate-400">Move 1 <input name="pkm-move0" autocomplete="off" maxlength="40" class="field mt-1" /></label>
+        <label class="text-xs text-slate-400">Move 2 <input name="pkm-move1" autocomplete="off" maxlength="40" class="field mt-1" /></label>
+        <label class="text-xs text-slate-400">Move 3 <input name="pkm-move2" autocomplete="off" maxlength="40" class="field mt-1" /></label>
+        <label class="text-xs text-slate-400">Move 4 <input name="pkm-move3" autocomplete="off" maxlength="40" class="field mt-1" /></label>
       </div>
       <p id="editError" class="hidden text-sm text-red-300"></p>
       <div class="flex justify-end gap-2 pt-2">
-        <button type="button" id="editCancel" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-4 py-2 text-sm">取消</button>
-        <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg px-4 py-2 text-sm">儲存</button>
+        <button type="button" id="editCancel" class="bg-slate-800 hover:bg-slate-700 rounded-lg px-4 py-2 text-sm">Cancel</button>
+        <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg px-4 py-2 text-sm">Save</button>
       </div>
     </form>
   </div>
@@ -355,7 +355,7 @@
         fillDatalist("itemNames", db.items.map((i) => i.name_zh));
         renderPresets();
       } catch (err) {
-        console.warn("縮圖資料庫載入失敗", err);
+        console.warn("Failed to load icon database", err);
       }
     }
 
@@ -435,7 +435,7 @@
         const tag = sameNameTotal[k] > 1 ? `<span class="text-xs text-amber-300 ml-1">#${seen[k]}</span>` : "";
         const mon = iconIndex.pokemon.get(norm(p.name));
         const item = iconIndex.items.get(norm(p.item));
-        const meta = [p.ability && `特性：${esc(p.ability)}`, p.nature && `性格：${esc(p.nature)}`, p.teraType && `太晶：${esc(p.teraType)}`].filter(Boolean).join(" · ");
+        const meta = [p.ability && `Ability: ${esc(p.ability)}`, p.nature && `Nature: ${esc(p.nature)}`, p.teraType && `Tera: ${esc(p.teraType)}`].filter(Boolean).join(" · ");
         return `
           <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex gap-3">
             <div class="w-16 h-16 shrink-0 rounded-lg bg-slate-900 flex items-center justify-center overflow-hidden">
@@ -444,17 +444,17 @@
             <div class="min-w-0 flex-1">
               <div class="flex items-start gap-2">
                 <div class="font-bold truncate flex-1">${esc(p.name)}${tag}</div>
-                <button data-review="${p.id}" title="AI 健檢這筆配置" class="text-xs bg-slate-800 hover:bg-slate-700 rounded px-2 py-1">🧪</button>
+                <button data-review="${p.id}" title="AI review this build" class="text-xs bg-slate-800 hover:bg-slate-700 rounded px-2 py-1">🧪</button>
                 <button data-edit="${p.id}" class="text-xs bg-slate-800 hover:bg-slate-700 rounded px-2 py-1">✏️</button>
                 <button data-del="${p.id}" class="text-xs bg-slate-800 hover:bg-red-900/60 rounded px-2 py-1">✕</button>
               </div>
               <div class="text-xs text-slate-300 mt-0.5 flex items-center gap-1">
                 ${item?.icon ? `<img src="${esc(item.icon)}" alt="" class="w-5 h-5 sprite" loading="lazy" />` : "🎒"}
-                ${p.item ? esc(p.item) : '<span class="text-slate-500">無道具</span>'}
+                ${p.item ? esc(p.item) : '<span class="text-slate-500">No item</span>'}
               </div>
               ${meta ? `<div class="text-xs text-slate-400 mt-0.5">${meta}</div>` : ""}
               <div class="grid grid-cols-2 gap-1 mt-2">
-                ${p.moves.map((m) => `<span class="text-xs bg-slate-800 rounded px-2 py-0.5 truncate">${esc(m)}</span>`).join("") || '<span class="text-xs text-slate-500">尚無招式</span>'}
+                ${p.moves.map((m) => `<span class="text-xs bg-slate-800 rounded px-2 py-0.5 truncate">${esc(m)}</span>`).join("") || '<span class="text-xs text-slate-500">No moves yet</span>'}
               </div>
             </div>
           </div>`;
@@ -472,7 +472,7 @@
       if (editId) openEditor(editId);
       if (delId) {
         const p = presets.find((x) => x.id === delId);
-        if (p && confirm(`刪除「${p.name}」這筆配置？`)) {
+        if (p && confirm(`Delete the build "${p.name}"?`)) {
           presets = presets.filter((x) => x.id !== delId);
           savePresets();
         }
@@ -483,10 +483,10 @@
       const el = $("presetNotice");
       if (presets.length === 0) {
         el.className = "mb-5 rounded-xl px-4 py-3 text-sm bg-amber-950 border border-amber-800 text-amber-200";
-        el.innerHTML = '⚠️ 尚未登錄隊伍配置，AI 只能用環境常見配置推測我方招式。建議先到 <button data-goto="preset" class="underline font-bold">📋 賽前備戰</button> 登錄。';
+        el.innerHTML = '⚠️ No team builds saved yet, so the AI can only guess your moves from common meta sets. Add them first in <button data-goto="preset" class="underline font-bold">📋 Team Prep</button>.';
       } else {
         el.className = "mb-5 rounded-xl px-4 py-3 text-sm bg-slate-900 border border-slate-800 text-slate-300";
-        el.innerHTML = `✅ 已登錄 ${presets.length} 筆配置，分析時會自動與截圖中的我方 6 隻配對。 <button data-goto="preset" class="underline text-amber-300">管理</button>`;
+        el.innerHTML = `✅ ${presets.length} build(s) saved. They'll be matched automatically to your 6 Pokémon in the screenshot. <button data-goto="preset" class="underline text-amber-300">Manage</button>`;
       }
     }
     $("presetNotice").addEventListener("click", (e) => {
@@ -498,10 +498,10 @@
     const field = (name) => editForm.elements.namedItem(`pkm-${name}`);
 
     function openEditor(id = null) {
-      if (!id && presets.length >= MAX_PRESETS) return showStatus(`最多只能儲存 ${MAX_PRESETS} 筆配置`, "warn");
+      if (!id && presets.length >= MAX_PRESETS) return showStatus(`You can save up to ${MAX_PRESETS} builds`, "warn");
       editingId = id;
       const p = id ? presets.find((x) => x.id === id) : normalizePreset({});
-      $("editTitle").textContent = id ? "編輯配置" : "新增配置";
+      $("editTitle").textContent = id ? "Edit Build" : "New Build";
       ["name", "item", "ability", "nature", "teraType"].forEach((k) => (field(k).value = p[k]));
       for (let i = 0; i < 4; i++) field(`move${i}`).value = p.moves[i] || "";
       $("editError").classList.add("hidden");
@@ -526,7 +526,7 @@
         moves: [0, 1, 2, 3].map((i) => field(`move${i}`).value),
       });
       if (findDuplicate(p, editingId)) {
-        $("editError").textContent = "已有完全相同的配置（名稱、道具、特性、性格、太晶、招式皆相同）。";
+        $("editError").textContent = "An identical build already exists (same name, item, ability, nature, Tera Type and moves).";
         $("editError").classList.remove("hidden");
         return;
       }
@@ -534,7 +534,7 @@
       else presets.push(p);
       savePresets();
       closeEditor();
-      showStatus(`已儲存「${p.name}」`, "ok");
+      showStatus(`Saved "${p.name}"`, "ok");
     });
     $("editCancel").addEventListener("click", closeEditor);
     $("editModal").addEventListener("click", (e) => { if (e.target.id === "editModal") closeEditor(); });
@@ -545,24 +545,24 @@
       const files = Array.from(fileList).filter((f) => f.type.startsWith("image/"));
       if (!files.length || busy) return;
       const room = MAX_PRESETS - presets.length;
-      if (room <= 0) return showStatus(`已達 ${MAX_PRESETS} 筆上限，請先刪除部分配置`, "warn");
+      if (room <= 0) return showStatus(`You've reached the ${MAX_PRESETS}-build limit. Delete some builds first.`, "warn");
       const batch = files.slice(0, Math.min(room, MAX_PARSE_BATCH));
       const passcode = getPasscode();
       if (!passcode) return;
 
       busy = true;
       try {
-        showStatus(`🤖 正在辨識 ${batch.length} 張截圖…`, "info", true);
+        showStatus(`🤖 Reading ${batch.length} screenshot(s)…`, "info", true);
         const images = await Promise.all(batch.map(fileToBase64Payload));
         const data = await callWorker({ mode: "parse", images }, passcode);
         const r = addPresets(data.pokemon || []);
-        const parts = [`新增 ${r.added} 筆`];
-        if (r.duplicates) parts.push(`${r.duplicates} 筆重複略過`);
-        if (r.overflow) parts.push(`${r.overflow} 筆超過上限`);
-        if (files.length > batch.length) parts.push(`另有 ${files.length - batch.length} 張未處理（每次最多 ${MAX_PARSE_BATCH} 張）`);
-        showStatus(`✅ 辨識完成：${parts.join("，")}。請檢查內容，有誤可按 ✏️ 修改。`, r.added ? "ok" : "warn");
+        const parts = [`${r.added} added`];
+        if (r.duplicates) parts.push(`${r.duplicates} duplicate(s) skipped`);
+        if (r.overflow) parts.push(`${r.overflow} over the limit`);
+        if (files.length > batch.length) parts.push(`${files.length - batch.length} image(s) not processed (max ${MAX_PARSE_BATCH} per upload)`);
+        showStatus(`✅ Done: ${parts.join(", ")}. Please check the results and press ✏️ to fix any mistakes.`, r.added ? "ok" : "warn");
       } catch (err) {
-        showStatus(`❌ 辨識失敗：${err.message}`, "error");
+        showStatus(`❌ Recognition failed: ${err.message}`, "error");
       } finally {
         busy = false;
       }
@@ -579,23 +579,23 @@
       busy = true;
       const btn = $("reviewAllBtn");
       btn.disabled = true;
-      btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span>健檢中，請稍候…';
+      btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span>Reviewing, please wait…';
       const started = Date.now();
       try {
-        const label = list.length === 1 ? `「${list[0].name}」` : `${list.length} 筆配置`;
-        showStatus(`🧪 AI 正在健檢${label}…`, "info", true);
+        const label = list.length === 1 ? `"${list[0].name}"` : `${list.length} builds`;
+        showStatus(`🧪 AI is reviewing ${label}…`, "info", true);
         const data = await callWorker({ mode: "review", presets: list.map(({ id, ...rest }) => rest), format }, passcode);
         lastReviewMarkdown = data.markdown;
-        $("reviewTitle").textContent = `📋 健檢報告 · ${label} · ${format === "singles" ? "單打" : "雙打"}`;
+        $("reviewTitle").textContent = `📋 Review Report · ${label} · ${format === "singles" ? "Singles" : "Doubles"}`;
         $("reviewResult").innerHTML = DOMPurify.sanitize(marked.parse(data.markdown));
         $("reviewSection").classList.remove("hidden");
         $("reviewSection").scrollIntoView({ behavior: "smooth", block: "start" });
-        showStatus(`✅ 健檢完成（${((Date.now() - started) / 1000).toFixed(1)} 秒）。要套用建議請按卡片上的 ✏️ 修改。`, "ok");
+        showStatus(`✅ Review done (${((Date.now() - started) / 1000).toFixed(1)}s). To apply suggestions, press ✏️ on a card.`, "ok");
       } catch (err) {
-        showStatus(`❌ 健檢失敗：${err.message}`, "error");
+        showStatus(`❌ Review failed: ${err.message}`, "error");
       } finally {
         busy = false;
-        btn.innerHTML = "🧪 健檢全部配置";
+        btn.innerHTML = "🧪 Review All Builds";
         renderReviewButton();
       }
     }
@@ -608,7 +608,7 @@
     $("reviewCopyBtn").addEventListener("click", async () => {
       if (!lastReviewMarkdown) return;
       await navigator.clipboard.writeText(lastReviewMarkdown);
-      showStatus("📋 已複製健檢報告", "ok");
+      showStatus("📋 Review report copied", "ok");
     });
 
     /* ---------- 匯出 / 匯入 / 清除 ---------- */
@@ -628,15 +628,15 @@
       try {
         const data = JSON.parse(await file.text());
         const list = Array.isArray(data) ? data : data.presets;
-        if (!Array.isArray(list)) throw new Error("檔案中找不到 presets");
+        if (!Array.isArray(list)) throw new Error("No presets found in this file");
         const r = addPresets(list);
-        showStatus(`✅ 匯入 ${r.added} 筆${r.duplicates ? `，${r.duplicates} 筆重複略過` : ""}${r.overflow ? `，${r.overflow} 筆超過上限` : ""}`, "ok");
+        showStatus(`✅ Imported ${r.added}${r.duplicates ? `, ${r.duplicates} duplicate(s) skipped` : ""}${r.overflow ? `, ${r.overflow} over the limit` : ""}`, "ok");
       } catch (err) {
-        showStatus(`❌ 匯入失敗：${err.message}`, "error");
+        showStatus(`❌ Import failed: ${err.message}`, "error");
       }
     });
     $("presetClearBtn").addEventListener("click", () => {
-      if (presets.length && confirm(`刪除全部 ${presets.length} 筆配置？建議先匯出備份。`)) {
+      if (presets.length && confirm(`Delete all ${presets.length} builds? Consider exporting a backup first.`)) {
         presets = [];
         savePresets();
       }
@@ -684,7 +684,7 @@
       const started = Date.now();
 
       try {
-        showStatus("🤖 AI 正在解析 Team Preview 並規劃戰術…", "info", true);
+        showStatus("🤖 AI is reading the Team Preview and planning your strategy…", "info", true);
         const image = await fileToBase64Payload(battleImage.file);
         const data = await callWorker({
           mode: "battle",
@@ -699,9 +699,9 @@
         renderWinRate(data.winRate);
         $("resultSection").classList.remove("hidden");
         $("resultSection").scrollIntoView({ behavior: "smooth", block: "start" });
-        showStatus(`✅ 分析完成（${((Date.now() - started) / 1000).toFixed(1)} 秒）`, "ok");
+        showStatus(`✅ Analysis done (${((Date.now() - started) / 1000).toFixed(1)}s)`, "ok");
       } catch (err) {
-        showStatus(`❌ 分析失敗：${err.message}`, "error");
+        showStatus(`❌ Analysis failed: ${err.message}`, "error");
       } finally {
         busy = false;
         setAnalyzing(false);
@@ -711,13 +711,13 @@
     function setAnalyzing(loading) {
       const btn = $("analyzeBtn");
       btn.disabled = loading || !battleImage;
-      btn.innerHTML = loading ? '<span class="inline-block animate-spin mr-2">⏳</span>分析中，請稍候…' : "🚀 分析最佳選角與出戰順序";
+      btn.innerHTML = loading ? '<span class="inline-block animate-spin mr-2">⏳</span>Analyzing, please wait…' : "🚀 Analyze Best Team & Lead Order";
     }
 
     $("copyBtn").addEventListener("click", async () => {
       if (!lastMarkdown) return;
       await navigator.clipboard.writeText(lastMarkdown);
-      showStatus("📋 已複製 Markdown 報告", "ok");
+      showStatus("📋 Report copied as Markdown", "ok");
     });
 
     /* =========================================================
@@ -758,7 +758,7 @@
       } else {
         setBattleImage(files[0]);
         if (autoEl.checked) analyzeBattle();
-        else showStatus("已貼上 Team Preview 截圖", "ok");
+        else showStatus("Team Preview screenshot pasted", "ok");
       }
     });
 
@@ -768,7 +768,7 @@
     function getPasscode() {
       const passcode = passcodeEl.value.trim();
       if (!passcode) {
-        showStatus("請先輸入存取密碼", "error");
+        showStatus("Please enter your passcode first", "error");
         passcodeEl.focus();
         return null;
       }
@@ -781,7 +781,7 @@
         headers: { "Content-Type": "application/json", "X-Access-Passcode": passcode },
         body: JSON.stringify(payload),
       });
-      if (res.status === 401) throw new Error("密碼錯誤，拒絕存取");
+      if (res.status === 401) throw new Error("Wrong passcode, access denied");
       const data = await res.json().catch(() => ({ ok: false, error: `HTTP ${res.status}` }));
       if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
       return data;
@@ -790,15 +790,15 @@
     $("testBtn").addEventListener("click", async () => {
       const passcode = getPasscode();
       if (!passcode) return;
-      showStatus("連線測試中…", "info", true);
+      showStatus("Testing connection…", "info", true);
       try {
         const res = await fetch(WORKER_URL, { method: "GET", headers: { "X-Access-Passcode": passcode } });
-        if (res.status === 401) return showStatus("❌ 密碼錯誤，拒絕存取", "error");
+        if (res.status === 401) return showStatus("❌ Wrong passcode, access denied", "error");
         const data = await res.json();
-        if (data.ok) showStatus(`✅ 連線成功，密碼正確（模型：${data.model}）`, "ok");
-        else showStatus(`⚠️ Worker 回應異常：${data.error || res.status}`, "warn");
+        if (data.ok) showStatus(`✅ Connected, passcode OK (model: ${data.model})`, "ok");
+        else showStatus(`⚠️ Unexpected Worker response: ${data.error || res.status}`, "warn");
       } catch (err) {
-        showStatus(`❌ 無法連線：${err.message}`, "error");
+        showStatus(`❌ Can't connect: ${err.message}`, "error");
       }
     });
 
@@ -819,11 +819,11 @@
      * 預估勝率（門檻與 Worker System Prompt 一致）
      * ========================================================= */
     const WIN_LEVELS = [
-      { min: 55, verdict: "✅ 積極應戰", hint: "陣容與戰術有優勢，照計畫執行即可。",
+      { min: 55, verdict: "✅ Play to Win", hint: "Your team and plan have the edge. Execute the plan.",
         card: "bg-emerald-950 border-emerald-700 text-emerald-100", bar: "bg-emerald-400", badge: "bg-emerald-500 text-slate-950" },
-      { min: 30, verdict: "⚠️ 謹慎應戰", hint: "仍有勝利路線，注意報告中的關鍵回合與分支決策。",
+      { min: 30, verdict: "⚠️ Play Carefully", hint: "There is still a path to victory. Watch the key turns and decision branches in the report.",
         card: "bg-amber-950 border-amber-700 text-amber-100", bar: "bg-amber-400", badge: "bg-amber-400 text-slate-950" },
-      { min: 0, verdict: "🏳️ 建議投降", hint: "陣容被嚴重克制，直接投降開下一場可以節省時間。",
+      { min: 0, verdict: "🏳️ Consider Forfeiting", hint: "Your team is hard-countered. Forfeiting and queuing again will save time.",
         card: "bg-red-950 border-red-700 text-red-100", bar: "bg-red-500", badge: "bg-red-500 text-white" },
     ];
 
@@ -845,7 +845,7 @@
       bar.style.width = "0%";
       requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = `${winRate}%`; }));
       badge.className = `text-xs font-bold px-2 py-0.5 rounded-full ${level.badge}`;
-      badge.textContent = `勝率 ${winRate}%`;
+      badge.textContent = `Win ${winRate}%`;
     }
 
     /* =========================================================

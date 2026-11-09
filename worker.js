@@ -202,16 +202,16 @@ export default {
     }
 
     if (request.method !== "POST" && request.method !== "GET") {
-      return json({ ok: false, error: "Method Not Allowed，僅接受 POST" }, 405, cors);
+      return json({ ok: false, error: "Method Not Allowed: only POST is accepted" }, 405, cors);
     }
 
     // 密碼驗證：未設定 CUSTOM_PASSCODE 時一律拒絕，避免 Worker 被公開濫用
     if (!env.CUSTOM_PASSCODE) {
-      return json({ ok: false, error: "伺服器尚未設定 CUSTOM_PASSCODE 環境變數" }, 500, cors);
+      return json({ ok: false, error: "Server is missing the CUSTOM_PASSCODE environment variable" }, 500, cors);
     }
     const clientPasscode = request.headers.get("X-Access-Passcode") || "";
     if (!(await passcodeMatches(clientPasscode, env.CUSTOM_PASSCODE))) {
-      return json({ ok: false, error: "Unauthorized：密碼錯誤" }, 401, cors);
+      return json({ ok: false, error: "Unauthorized: wrong passcode" }, 401, cors);
     }
 
     // 健康檢查（GET /）— 確認 Worker 已部署且密碼正確
@@ -220,7 +220,7 @@ export default {
     }
 
     if (!env.GEMINI_API_KEY) {
-      return json({ ok: false, error: "伺服器尚未設定 GEMINI_API_KEY 環境變數" }, 500, cors);
+      return json({ ok: false, error: "Server is missing the GEMINI_API_KEY environment variable" }, 500, cors);
     }
 
     try {
@@ -228,7 +228,7 @@ export default {
       try {
         body = await request.json();
       } catch {
-        return json({ ok: false, error: "請求內容不是合法的 JSON" }, 400, cors);
+        return json({ ok: false, error: "Request body is not valid JSON" }, 400, cors);
       }
 
       const model = env.GEMINI_MODEL || DEFAULT_MODEL;
@@ -239,7 +239,7 @@ export default {
       return json(result.body, result.status, cors);
     } catch (err) {
       console.error(JSON.stringify({ level: "error", event: "unhandled", message: String(err?.message || err) }));
-      return json({ ok: false, error: "Worker 內部錯誤，請稍後再試" }, 500, cors);
+      return json({ ok: false, error: "Internal Worker error, please try again later" }, 500, cors);
     }
   },
 };
@@ -274,7 +274,7 @@ async function handleParse(body, env, model) {
   try {
     parsed = JSON.parse(gemini.text);
   } catch {
-    return { status: 502, body: { ok: false, error: "AI 回傳的辨識結果格式錯誤，請再試一次" } };
+    return { status: 502, body: { ok: false, error: "The AI returned malformed recognition results, please try again" } };
   }
 
   const pokemon = (Array.isArray(parsed?.pokemon) ? parsed.pokemon : [])
@@ -286,9 +286,9 @@ async function handleParse(body, env, model) {
 }
 
 async function handleReview(body, env, model) {
-  if (!Array.isArray(body?.presets)) return { status: 400, body: { ok: false, error: "presets 必須是陣列" } };
+  if (!Array.isArray(body?.presets)) return { status: 400, body: { ok: false, error: "presets must be an array" } };
   const presets = body.presets.slice(0, MAX_PRESETS).map(sanitizePreset).filter((p) => p.name);
-  if (!presets.length) return { status: 400, body: { ok: false, error: "請至少提供 1 筆配置" } };
+  if (!presets.length) return { status: 400, body: { ok: false, error: "Please provide at least 1 build" } };
   const format = FORMATS[body.format] ? body.format : "doubles";
 
   const gemini = await callGemini(env, model, {
@@ -310,7 +310,7 @@ async function handleBattle(body, env, model) {
   if (images.error) return { status: 400, body: { ok: false, error: images.error } };
 
   if (body.presets !== undefined && !Array.isArray(body.presets)) {
-    return { status: 400, body: { ok: false, error: "presets 必須是陣列" } };
+    return { status: 400, body: { ok: false, error: "presets must be an array" } };
   }
   const presets = (body.presets || []).slice(0, MAX_PRESETS).map(sanitizePreset).filter((p) => p.name);
   const format = FORMATS[body.format] ? body.format : "doubles";
@@ -337,7 +337,7 @@ async function handleBattle(body, env, model) {
   if (gemini.error) return { status: 502, body: { ok: false, error: gemini.error } };
 
   const { markdown, winRate } = extractWinRate(gemini.text);
-  if (!markdown) return { status: 502, body: { ok: false, error: "AI 未回傳任何內容" } };
+  if (!markdown) return { status: 502, body: { ok: false, error: "The AI returned no content" } };
 
   log("battle_done", { model, format, presetCount: presets.length, winRate, usage: gemini.usage });
   return { status: 200, body: { ok: true, markdown, winRate, model, usage: gemini.usage } };
@@ -360,7 +360,7 @@ async function callGemini(env, model, requestBody) {
   const data = await res.json().catch(() => null);
 
   if (!res.ok) {
-    const message = data?.error?.message || `Gemini API 回應錯誤（HTTP ${res.status}）`;
+    const message = data?.error?.message || `Gemini API error (HTTP ${res.status})`;
     console.error(JSON.stringify({ level: "error", event: "gemini_error", status: res.status, message }));
     return { error: message };
   }
@@ -373,21 +373,21 @@ async function callGemini(env, model, requestBody) {
     .trim();
 
   if (!text) {
-    const reason = candidate?.finishReason || data?.promptFeedback?.blockReason || "未知原因";
-    return { error: `AI 未回傳任何內容（${reason}）` };
+    const reason = candidate?.finishReason || data?.promptFeedback?.blockReason || "unknown reason";
+    return { error: `The AI returned no content (${reason})` };
   }
   return { text, usage: data.usageMetadata || null };
 }
 
 /** 驗證圖片陣列，回傳 { list } 或 { error } */
 function validateImages(raw, max) {
-  if (!Array.isArray(raw) || raw.length === 0) return { error: "請至少上傳 1 張截圖" };
-  if (raw.length > max) return { error: `最多只能上傳 ${max} 張截圖` };
+  if (!Array.isArray(raw) || raw.length === 0) return { error: "Please upload at least 1 screenshot" };
+  if (raw.length > max) return { error: `You can upload at most ${max} screenshot(s)` };
 
   const list = [];
   for (let i = 0; i < raw.length; i++) {
     let { mimeType, data } = raw[i] || {};
-    if (typeof data !== "string" || data.length === 0) return { error: `第 ${i + 1} 張圖片缺少 data` };
+    if (typeof data !== "string" || data.length === 0) return { error: `Image ${i + 1} is missing data` };
 
     // 容錯：若前端傳來完整 data URL，自動拆出 mimeType 與 Base64
     const match = data.match(/^data:([^;]+);base64,(.*)$/s);
@@ -397,9 +397,9 @@ function validateImages(raw, max) {
     }
 
     mimeType = (mimeType || "").toLowerCase();
-    if (!ALLOWED_MIME.has(mimeType)) return { error: `第 ${i + 1} 張圖片格式不支援（${mimeType || "未知"}）` };
+    if (!ALLOWED_MIME.has(mimeType)) return { error: `Image ${i + 1} has an unsupported format (${mimeType || "unknown"})` };
     if (data.length * 0.75 > MAX_IMAGE_BYTES) {
-      return { error: `第 ${i + 1} 張圖片過大（上限 ${MAX_IMAGE_BYTES / 1024 / 1024} MB）` };
+      return { error: `Image ${i + 1} is too large (limit ${MAX_IMAGE_BYTES / 1024 / 1024} MB)` };
     }
     list.push({ mimeType, data });
   }

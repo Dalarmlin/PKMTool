@@ -1,210 +1,213 @@
-# PKMTool · 寶可夢冠軍 AI 戰略分析
+# PKMTool · AI Battle Strategist for Pokémon Champions
 
-PKMTool 是給《寶可夢冠軍》（Pokémon Champions）玩家用的 AI 戰術分析網頁。賽前先登錄自己的寶可夢配置，對戰選角時只要貼上 1 張 Team Preview 截圖，AI 就會判讀雙方陣容，給出最佳選角、先發順序、第一回合行動建議與預估勝率。
+PKMTool is an AI battle-strategy web app for *Pokémon Champions* (《寶可夢冠軍》). Register your Pokémon builds before battling; during team selection, just paste one Team Preview screenshot and the AI reads both teams and recommends the best picks, lead order, turn-1 actions, and an estimated win rate.
 
-支援兩種賽制：
+> Pokémon, move, item, ability, nature, and type names are kept in Traditional Chinese, matching the in-game language.
 
-| 賽制 | 選角 | 先發 |
+Two battle formats are supported:
+
+| Format | Selection | Leads |
 | --- | --- | --- |
-| ⚔️ 雙打（VGC） | 帶 6 選 4 | 2 隻 |
-| 🗡️ 單打 | 帶 6 選 3 | 1 隻 |
+| ⚔️ Doubles (VGC) | Bring 6, pick 4 | 2 |
+| 🗡️ Singles | Bring 6, pick 3 | 1 |
 
-## 功能
+## Features
 
-- **📋 賽前備戰**：登錄最多 20 筆寶可夢配置（名稱、道具、特性、性格、太晶屬性、招式）
-  - 上傳寶可夢詳細資訊頁截圖，AI 自動辨識填入（一次最多 6 張），或手動新增 / 編輯
-  - 同名寶可夢只要招式、特性、性格、道具或太晶任一不同，就視為不同配置；完全相同會被擋下
-  - 🧪 AI 配置健檢：依雙打或單打環境，檢查特性、性格、道具、太晶與招式是否最佳化，給出評分、修改建議、推薦配置，以及能力點數該優先加在哪幾隻的哪些能力（可健檢全部或單隻）
-  - 資料存在瀏覽器 LocalStorage，可匯出 / 匯入 JSON 備份
-  - 從 `assets/pokemon_icons.json` 顯示寶可夢與道具縮圖，輸入名稱時有自動完成
-- **⚔️ 實戰分析**：只需 1 張 6v6 Team Preview 總覽圖（對手 6 隻與太晶屬性、我方 6 隻與道具）
-  - AI 依截圖中的我方寶可夢與道具，自動配對預存配置
-  - 支援點擊選取、手機拍照、拖曳、`Ctrl + V` 貼上；可設定「貼上後自動分析」
-- AI 輸出：辨識結果、對手體系與速度線、最佳選角、先發順序、T1 行動與分支決策、勝利條件、預估勝率（太低時建議直接投降）
-- Gemini API Key 只存放在 Cloudflare Worker，前端與 GitHub 上都不會出現
-- 密碼保護：Worker 只接受帶有正確 `X-Access-Passcode` 的請求，只有知道密碼的人能使用
+- **📋 Team Prep**: store up to 20 builds (name, item, ability, nature, Tera Type, moves)
+  - Upload Pokémon summary-page screenshots and the AI fills them in automatically (up to 6 per upload), or add / edit manually
+  - Same-name Pokémon count as different builds if any move, ability, nature, item, or Tera Type differs; exact duplicates are rejected
+  - 🧪 AI Build Review: checks whether ability, nature, item, Tera Type, and moves are optimal for the Doubles or Singles meta, with scores, suggested changes, recommended sets, and which stats on which Pokémon to prioritize with stat points (review all builds or a single one)
+  - Data is stored in browser LocalStorage, with JSON export / import for backups
+  - Pokémon and item icons from `assets/pokemon_icons.json`, with autocomplete when typing names
+- **⚔️ Battle Analysis**: needs only one 6v6 Team Preview screenshot (opponent's 6 with Tera Types, your 6 with items)
+  - The AI matches your Pokémon and items in the screenshot to your saved builds
+  - Click to upload, take a photo on mobile, drag & drop, or `Ctrl + V` to paste; optional "Auto-analyze on paste"
+- AI report: recognition results, opponent archetype and speed tiers, best picks, lead order, T1 actions and decision branches, win conditions, and estimated win rate (suggests forfeiting when it is too low)
+- The Gemini API key lives only in the Cloudflare Worker; it never appears in the frontend or on GitHub
+- Passcode protection: the Worker only accepts requests with the correct `X-Access-Passcode`, so only people who know the passcode can use it
 
-## 架構
+## Architecture
 
 ```
-瀏覽器 (GitHub Pages: index.html)
-   │  賽前：POST { mode: "parse",  images: [詳細資訊頁...] }
-   │  實戰：POST { mode: "battle", images: [Team Preview], presets, format, note }
+Browser (GitHub Pages: index.html)
+   │  Team Prep: POST { mode: "parse",  images: [summary pages...] }
+   │  Review:    POST { mode: "review", presets, format }
+   │  Battle:    POST { mode: "battle", images: [Team Preview], presets, format, note }
    │  + Header X-Access-Passcode
    ▼
-Cloudflare Worker (worker.js)   ← 比對 env.CUSTOM_PASSCODE，讀取 env.GEMINI_API_KEY
+Cloudflare Worker (worker.js)   ← checks env.CUSTOM_PASSCODE, reads env.GEMINI_API_KEY
    │  generateContent (inline_data)
    ▼
 Google Gemini API (gemini-3.5-flash-lite)
 ```
 
-## 目錄結構
+## Directory Structure
 
 ```
 PKMTool/
-├── index.html              # 前端（Tailwind CDN + marked.js + DOMPurify）
-├── worker.js               # Cloudflare Worker 代理後端
-├── wrangler.jsonc          # Worker 部署設定
+├── index.html              # Frontend (Tailwind CDN + marked.js + DOMPurify)
+├── worker.js               # Cloudflare Worker proxy backend
+├── wrangler.jsonc          # Worker deployment config
 ├── package.json            # npm run deploy / dev / build:icons
 ├── scripts/
-│   └── build-icons.mjs     # 產生縮圖對照表
+│   └── build-icons.mjs     # Generates the icon lookup table
 ├── assets/
-│   ├── README.md           # 縮圖對照資料庫說明
-│   ├── pokemon_icons.json  # 《寶可夢冠軍》全寶可夢 / 道具縮圖對照表（自動產生）
-│   └── name_overrides.json # 手動修正的繁中名稱
+│   ├── README.md           # Icon database notes
+│   ├── pokemon_icons.json  # All Pokémon Champions Pokémon / item icons (auto-generated)
+│   └── name_overrides.json # Manually corrected Traditional Chinese names
 └── README.md
 ```
 
 ---
 
-## 一、取得 Gemini API Key
+## 1. Get a Gemini API Key
 
-1. 前往 [Google AI Studio](https://aistudio.google.com/apikey)。
-2. 建立 API Key 並複製。**不要**把它貼到任何前端檔案或提交到 GitHub。
+1. Go to [Google AI Studio](https://aistudio.google.com/apikey).
+2. Create an API key and copy it. **Never** paste it into any frontend file or commit it to GitHub.
 
 ---
 
-## 二、部署 Cloudflare Worker
+## 2. Deploy the Cloudflare Worker
 
-### 方法 A：Wrangler CLI（推薦）
+### Option A: Wrangler CLI (recommended)
 
-需要 Node.js 18 以上。
+Requires Node.js 18+.
 
 ```bash
-# 1. 登入 Cloudflare
+# 1. Log in to Cloudflare
 npx wrangler login
 
-# 2. 設定 API Key 與存取密碼（會以加密 Secret 存放，不會寫進任何檔案）
+# 2. Set the API key and access passcode (stored as encrypted secrets, never written to files)
 npx wrangler secret put GEMINI_API_KEY
 npx wrangler secret put CUSTOM_PASSCODE
 
-# 3. 部署
+# 3. Deploy
 npm install
 npm run deploy
 ```
 
-部署完成後會顯示 Worker 網址，請把它填進 `index.html` 的 `WORKER_URL` 常數：
+After deploying, Wrangler prints the Worker URL. Put it in the `WORKER_URL` constant in `index.html`:
 
 ```js
 const WORKER_URL = "https://your-worker.example.workers.dev";
 ```
 
-直接用瀏覽器打開會看到 401（因為沒帶密碼），這是正常的；請改用網頁上的「🔌 測試連線」確認。
+Opening the URL directly in a browser returns 401 (no passcode), which is expected; use "🔌 Test Connection" on the web page instead.
 
-本機測試：
+Local development:
 
 ```bash
-# 建立 .dev.vars（已列入 .gitignore），內容兩行：
-#   GEMINI_API_KEY=你的金鑰
-#   CUSTOM_PASSCODE=你的密碼
+# Create .dev.vars (already in .gitignore) with two lines:
+#   GEMINI_API_KEY=your-key
+#   CUSTOM_PASSCODE=your-passcode
 npm run dev
 ```
 
-### 方法 B：Cloudflare Dashboard（不用安裝任何東西）
+### Option B: Cloudflare Dashboard (no installation)
 
-1. 登入 [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Create Worker**。
-2. 取名（例如 `pkmtool-worker`）→ **Deploy**。
-3. 點 **Edit code**，把 `worker.js` 全部內容貼上，按 **Deploy**。
-4. 回到 Worker 頁面 → **Settings** → **Variables and Secrets** → **Add**：
-   - Type：**Secret**
-   - Name：`GEMINI_API_KEY`
-   - Value：你的金鑰
-5. 同樣方式再新增一個 **Secret**：Name `CUSTOM_PASSCODE`，Value 填只有你知道的密碼。
-6. （選填）新增一般變數：
-   - `GEMINI_MODEL`：要換模型時使用，預設 `gemini-3.5-flash-lite`
-   - `ALLOWED_ORIGIN`：限制可呼叫的網站，例如 `https://yourname.github.io`；多個網址用逗號分隔。預設 `*`
+1. Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Create Worker**.
+2. Name it (e.g. `pkmtool-worker`) → **Deploy**.
+3. Click **Edit code**, paste the entire contents of `worker.js`, then click **Deploy**.
+4. Back on the Worker page → **Settings** → **Variables and Secrets** → **Add**:
+   - Type: **Secret**
+   - Name: `GEMINI_API_KEY`
+   - Value: your key
+5. Add another **Secret** the same way: Name `CUSTOM_PASSCODE`, Value a passcode only you know.
+6. (Optional) Add plain variables:
+   - `GEMINI_MODEL`: to switch models; defaults to `gemini-3.5-flash-lite`
+   - `ALLOWED_ORIGIN`: restricts which sites can call the Worker, e.g. `https://yourname.github.io`; separate multiple origins with commas. Defaults to `*`
 
-### 環境變數一覽
+### Environment Variables
 
-| 名稱 | 必填 | 說明 |
+| Name | Required | Description |
 | --- | --- | --- |
-| `GEMINI_API_KEY` | ✅ | Gemini API 金鑰，請用 Secret 存放 |
-| `CUSTOM_PASSCODE` | ✅ | 存取密碼，請用 Secret 存放；未設定時 Worker 拒絕所有請求 |
-| `GEMINI_MODEL` | | 模型名稱，預設 `gemini-3.5-flash-lite` |
-| `ALLOWED_ORIGIN` | | CORS 允許來源，預設 `*` |
+| `GEMINI_API_KEY` | ✅ | Gemini API key; store as a Secret |
+| `CUSTOM_PASSCODE` | ✅ | Access passcode; store as a Secret. If unset, the Worker rejects all requests |
+| `GEMINI_MODEL` | | Model name; defaults to `gemini-3.5-flash-lite` |
+| `ALLOWED_ORIGIN` | | Allowed CORS origins; defaults to `*` |
 
-> 安全建議：Worker 網址是公開的，但沒有密碼的請求會被擋下（401），不會消耗 Gemini 額度。請設定夠長、不易猜的密碼，並在 Google AI Studio 設定用量上限。
+> Security tip: the Worker URL is public, but requests without the passcode are blocked (401) and consume no Gemini quota. Use a long, hard-to-guess passcode and set a usage cap in Google AI Studio.
 
 ---
 
-## 三、用 GitHub Pages 託管前端
+## 3. Host the Frontend on GitHub Pages
 
-1. 在 GitHub 建立新 repository（例如 `PKMTool`），把本專案推上去：
+1. Create a new GitHub repository (e.g. `PKMTool`) and push this project:
 
    ```bash
    git init
    git add .
    git commit -m "Initial commit"
    git branch -M main
-   git remote add origin https://github.com/你的帳號/PKMTool.git
+   git remote add origin https://github.com/<your-username>/PKMTool.git
    git push -u origin main
    ```
 
-2. 進入 repository → **Settings** → **Pages**。
-3. **Source** 選 **Deploy from a branch**，Branch 選 `main`、資料夾選 `/ (root)`，按 **Save**。
-4. 約 1 分鐘後，網站會出現在 `https://你的帳號.github.io/PKMTool/`。
+2. Open the repository → **Settings** → **Pages**.
+3. Under **Source**, choose **Deploy from a branch**, select branch `main` and folder `/ (root)`, then click **Save**.
+4. After about a minute, the site is live at `https://<your-username>.github.io/PKMTool/`.
 
-> `worker.js` 和 `wrangler.jsonc` 一起放在 repo 裡沒有問題，裡面沒有任何金鑰。
-
----
-
-## 四、使用方式
-
-1. 打開網站，輸入存取密碼，按「🔌 測試連線」確認（密碼會記在瀏覽器裡，下次免輸入）。
-
-### 賽前（一次設定好）
-
-2. 切到「📋 賽前備戰」，上傳你的寶可夢詳細資訊頁截圖（每張 1 隻），AI 會自動新增配置。
-3. 檢查辨識結果，有誤按 ✏️ 修改；也可以按「➕ 手動新增」。
-   - 想確認配置是否最佳，按「🧪 健檢全部配置」或卡片上的 🧪，依建議用 ✏️ 修改。
-4. 建議按「⬇️ 匯出」備份；清除瀏覽器資料或換裝置時用「⬆️ 匯入」還原。
-
-### 實戰（每場對戰）
-
-5. 切到「⚔️ 實戰分析」，選擇賽制：雙打（6 選 4）或單打（6 選 3）。
-6. 在選角畫面截圖，直接 `Ctrl + V` 貼上（勾選「貼上後自動分析」會立刻開始），或點擊上傳。
-7. 等待報告；最後的勝率卡會建議積極應戰、謹慎應戰或直接投降。
-
-### 截圖建議
-
-- 截圖越清晰，辨識越準。前端會自動把長邊縮到 2048px 並轉成 JPEG 以加快上傳。
-- 截圖中的我方寶可夢若沒有預存配置，AI 會以環境常見配置推測並標註。
+> Keeping `worker.js` and `wrangler.jsonc` in the repo is fine; they contain no secrets.
 
 ---
 
-## API 規格
+## 4. Usage
 
-所有請求都必須帶 Header `X-Access-Passcode: <你的密碼>`，否則回傳 401。
+1. Open the site, enter the passcode, and click "🔌 Test Connection" (the passcode is remembered in your browser).
 
-圖片格式皆為 `{ "mimeType": "image/jpeg", "data": "<Base64，不含 data: 前綴>" }`，支援 `image/png`、`image/jpeg`、`image/webp`、`image/heic`、`image/heif`，單張上限 8 MB。
+### Before battles (one-time setup)
 
-### 截圖辨識：`POST {Worker 網址}`
+2. Switch to "📋 Team Prep" and upload your Pokémon summary-page screenshots (one Pokémon per image); the AI adds the builds automatically.
+3. Check the results and fix mistakes with ✏️, or use "➕ Add Manually".
+   - To check whether your builds are optimal, click "🧪 Review All Builds" or 🧪 on a card, then apply suggestions with ✏️.
+4. Back up with "⬇️ Export"; restore with "⬆️ Import" after clearing browser data or switching devices.
+
+### Each battle
+
+5. Switch to "⚔️ Battle Analysis" and choose the format: Doubles (pick 4 of 6) or Singles (pick 3 of 6).
+6. Screenshot the team-selection screen and paste it with `Ctrl + V` (with "Auto-analyze on paste" enabled, analysis starts immediately), or click to upload.
+7. Wait for the report; the final win-rate card recommends playing to win, playing carefully, or forfeiting.
+
+### Screenshot tips
+
+- Clearer screenshots give more accurate recognition. The frontend automatically resizes the long edge to 2048 px and converts to JPEG for faster uploads.
+- If one of your Pokémon in the screenshot has no saved build, the AI assumes a common meta set and notes it.
+
+---
+
+## API Reference
+
+Every request must include the header `X-Access-Passcode: <your-passcode>`, otherwise it returns 401.
+
+Images use `{ "mimeType": "image/jpeg", "data": "<Base64 without the data: prefix>" }`. Supported types: `image/png`, `image/jpeg`, `image/webp`, `image/heic`, `image/heif`; max 8 MB per image.
+
+### Screenshot recognition: `POST {Worker URL}`
 
 ```json
 { "mode": "parse", "images": [ { "mimeType": "image/jpeg", "data": "..." } ] }
 ```
 
-- `images`：1~6 張寶可夢詳細資訊頁，每張 1 隻
+- `images`: 1–6 Pokémon summary pages, one Pokémon each
 
-回應：
+Response:
 
 ```json
 { "ok": true, "pokemon": [ { "name": "熾焰咆哮虎", "item": "文柚果", "ability": "威嚇", "nature": "慎重", "teraType": "", "moves": ["擊掌奇襲", "閃焰衝鋒", "拋下狠話", "拍落"] } ] }
 ```
 
-看不到的欄位為空字串。
+Fields that are not visible are empty strings.
 
-### 配置健檢：`POST {Worker 網址}`
+### Build review: `POST {Worker URL}`
 
 ```json
 { "mode": "review", "presets": [ { "name": "仆刀將軍", "item": "", "ability": "", "nature": "", "teraType": "", "moves": ["突襲"] } ], "format": "doubles" }
 ```
 
-- `presets`：1~20 筆；`format` 同實戰分析
+- `presets`: 1–20 builds; `format` is the same as in battle analysis
 
-回應：`{ "ok": true, "markdown": "## 🧪 配置健檢總覽 ..." }`
+Response: `{ "ok": true, "markdown": "## 🧪 配置健檢總覽 ..." }`
 
-### 實戰分析：`POST {Worker 網址}`
+### Battle analysis: `POST {Worker URL}`
 
 ```json
 {
@@ -212,40 +215,42 @@ npm run dev
   "images": [ { "mimeType": "image/jpeg", "data": "..." } ],
   "presets": [ { "name": "熾焰咆哮虎", "item": "文柚果", "ability": "威嚇", "nature": "慎重", "teraType": "", "moves": ["擊掌奇襲"] } ],
   "format": "doubles",
-  "note": "選填補充說明"
+  "note": "Optional notes"
 }
 ```
 
-- `images`：剛好 1 張 Team Preview 總覽圖
-- `presets`：預存配置，最多 20 筆；可省略（AI 改以環境常見配置推測）
-- `format`：`doubles`（6 選 4，預設）或 `singles`（6 選 3）
-- `note`：最多 1000 字
+- `images`: exactly 1 Team Preview screenshot
+- `presets`: saved builds, up to 20; optional (the AI falls back to common meta sets)
+- `format`: `doubles` (pick 4 of 6, default) or `singles` (pick 3 of 6)
+- `note`: up to 1000 characters
 
-回應：
+Response:
 
 ```json
 { "ok": true, "markdown": "## 📋 0. 辨識結果 ...", "winRate": 42, "model": "gemini-3.5-flash-lite", "usage": { } }
 ```
 
-`winRate` 為 AI 預估勝率（0~100 的整數），AI 未給出時為 `null`。前端依此顯示：≥ 55% 積極應戰、30%~54% 謹慎應戰、< 30% 建議投降。
+`winRate` is the AI's estimated win rate (integer 0–100), or `null` if the AI didn't provide one. It assumes you follow the recommended picks and lead order. The frontend shows: ≥ 55% play to win, 30–54% play carefully, < 30% consider forfeiting.
 
-錯誤時回傳 `{ "ok": false, "error": "錯誤訊息" }`，HTTP 狀態碼為 400 / 401 / 405 / 500 / 502。
+On error, the Worker returns `{ "ok": false, "error": "<message>" }` with HTTP status 400 / 401 / 405 / 500 / 502.
 
-`GET {Worker 網址}` 為健康檢查，回傳 `{ "ok": true, "service": "PKMTool Worker", "model": "..." }`。
+`GET {Worker URL}` is a health check (also requires the passcode) and returns `{ "ok": true, "service": "PKMTool Worker", "model": "..." }`.
+
+> The AI reports (Markdown) are written in Traditional Chinese.
 
 ---
 
-## 常見問題
+## FAQ
 
-| 狀況 | 原因與處理 |
+| Problem | Cause and fix |
 | --- | --- |
-| 測試連線失敗、`Failed to fetch` | `index.html` 的 `WORKER_URL` 錯誤、Worker 尚未部署，或 `ALLOWED_ORIGIN` 沒有包含目前網站 |
-| `密碼錯誤，拒絕存取` | 輸入的密碼和 Worker 的 `CUSTOM_PASSCODE` 不一致 |
-| `伺服器尚未設定 GEMINI_API_KEY` / `CUSTOM_PASSCODE` | Worker 沒設定 Secret，見部署步驟 |
-| `Gemini API 回應錯誤` | 金鑰無效、額度用完或模型名稱錯誤；可在 Worker 的 Logs 查看詳情 |
-| AI 辨識錯名字 | 換更清晰的截圖；賽前配置可按 ✏️ 修改，實戰可在補充說明直接寫出正確名稱 |
-| 預存配置不見了 | LocalStorage 只存在目前瀏覽器，清除網站資料或換裝置就會消失，請定期「⬇️ 匯出」備份 |
+| Test Connection fails / `Failed to fetch` | `WORKER_URL` in `index.html` is wrong, the Worker isn't deployed, or `ALLOWED_ORIGIN` doesn't include the current site |
+| `Unauthorized: wrong passcode` | The entered passcode doesn't match the Worker's `CUSTOM_PASSCODE` |
+| `Server is missing the GEMINI_API_KEY / CUSTOM_PASSCODE environment variable` | The Worker secret isn't set; see the deployment steps |
+| `Gemini API error` | Invalid key, quota exhausted, or wrong model name; check the Worker Logs for details |
+| AI misreads a name | Use a clearer screenshot; fix Team Prep builds with ✏️, or write the correct name in the battle notes |
+| Saved builds disappeared | LocalStorage lives only in the current browser; clearing site data or switching devices loses it. Back up regularly with "⬇️ Export" |
 
-## 授權與聲明
+## License & Disclaimer
 
-本專案為非官方粉絲工具。Pokémon 及相關名稱、圖像之權利屬於 Nintendo / Creatures Inc. / GAME FREAK inc.。
+This is an unofficial fan tool. Pokémon and all related names and images are trademarks of Nintendo / Creatures Inc. / GAME FREAK inc.
